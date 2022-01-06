@@ -93,7 +93,7 @@ def login_registar():
     lbl_password=Label(window3, text="Password:", font=("Helvetica", 9))
     lbl_password.place(x=95, y=140)
 
-    txt_password=Entry(window3, width=30)
+    txt_password=Entry(window3, width=30, show="*")
     txt_password.place(x=180, y=140)
 
     btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised")
