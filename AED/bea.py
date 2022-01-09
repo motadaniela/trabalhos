@@ -4,15 +4,21 @@
 
 from tkinter import *
 from tkinter import ttk
-from tkinter import filedialog
 from PIL import ImageTk,Image 
 from tkinter.ttk import Combobox
 import tkinter as tk
+from login import *
+
 
 ficheiro="catalogo.txt"
 
 #cria janela
 window=tk.Tk()
+global screen_height
+global screen_width
+global app_height, app_width
+global x, y
+
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
@@ -24,6 +30,7 @@ y = (screen_height/2) - (app_height/2)
 
 window.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
 window.title("Projeto de Algoritmia")
+
 
 def login_entrar():
     window2=tk.Toplevel()
@@ -103,36 +110,16 @@ def barraMenu():
 
 
     #opçoes de filmes
-    barra.add_command(label="Catalogo", command=filmes)
-
-    #generos de filmes
-    categorias=Menu(barra)
-    categorias.add_command(label="Ação", command="noaction")
-    categorias.add_command(label="Aventura", command="noaction")
-    categorias.add_command(label="Comédia", command="noaction")
-    categorias.add_command(label="Comédia Romântica", command="noaction")
-    categorias.add_command(label="Dança", command="noaction")
-    categorias.add_command(label="Documentario", command="noaction")
-    categorias.add_command(label="Drama", command="noaction")
-    categorias.add_command(label="Espionagem", command="noaction")
-    categorias.add_command(label="Faroeste", command="noaction")
-    categorias.add_command(label="Fantasia", command="noaction")
-    categorias.add_command(label="Ficção Científica", command="noaction")
-    categorias.add_command(label="Guerra", command="noaction")
-    categorias.add_command(label="Mistério", command="noaction")
-    categorias.add_command(label="Musical", command="noaction")
-    categorias.add_command(label="Policial", command="noaction")
-    categorias.add_command(label="Romance", command="noaction")
-    categorias.add_command(label="Terror", command="noaction")
-    categorias.add_command(label="Thriller", command="noaction")
-    barra.add_cascade(label="Géneros", menu=categorias)
+    barra.add_command(label="Catalogo", command=catalogo)
 
     barra.add_command(label="Favoritos")
+
+    barra.add_command(label="Adicionar", command=adicionar)
     
     #login
     opcoes_login=Menu(barra)
-    opcoes_login.add_command(label="Entrar", command=login_entrar)
-    opcoes_login.add_command(label="Registar", command=login_registar)
+    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar())
+    opcoes_login.add_command(label="Registar", command=lambda:login_registar())
     barra.add_cascade(label="Login", menu=opcoes_login)
 
     barra.add_command(label="Sair", command=window.quit)
@@ -140,47 +127,32 @@ def barraMenu():
     window.configure(menu=barra)
 
 
-
-
-def filmes():
-    window4=tk.Toplevel()
-    screen_width = window4.winfo_screenwidth()
-    screen_height = window4.winfo_screenheight()
-
-    app_width = 700
-    app_height = 500
-
-    x = (screen_width/2) - (app_width/2)
-    y = (screen_height/2) - (app_height/2)
-    
+def catalogo():
+    window4=Toplevel()   
+    window4.title("Entradas e Saídas") 
     window4.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
+    window4.focus_force()     
+    window4.grab_set()
 
-    window4.title("Filmes")
-    window4.focus_force()
-    window4.grab_set 
-
-    catalogo(window4)
-
-
-    
-
-def catalogo(window4):
     #painel
     panel1=PanedWindow(window4, width=450, height=270, bd="3", relief="sunken")
     panel1.place(x=220, y=20)
 
     #lista de filmes e series
-    global tree  
-    tree=ttk.Treeview(panel1, selectmode="browse",columns=("Nome","Ano","Pontuação","Visualizações"), show="headings")
-    tree.column("Nome", width=140, anchor="c")
-    tree.column("Ano", width=100, anchor="c")
-    tree.column("Pontuação", width=100, anchor="c")
-    tree.column("Visualizações", width=100, anchor="c")
+    tree=ttk.Treeview(panel1, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+    tree.column("Nome", width=90, anchor="c")
+    tree.column("Ano", width=70, anchor="c")
+    tree.column("Tipologia", width=70, anchor="c")
+    tree.column("Categoria", width=70, anchor="c")
+    tree.column("Pontuação", width=70, anchor="c")
+    tree.column("Visualizações", width=70, anchor="c")
     tree.heading("Nome", text="Nome")
     tree.heading("Ano", text="Ano")
+    tree.heading("Tipologia", text="Tipologia")
+    tree.heading("Categoria", text="Categoria")
     tree.heading("Pontuação", text="Pontuação")
     tree.heading("Visualizações", text="Visualizações")
-    tree.place(x=5, y=5)
+    tree.place(x=1, y=1)
 
     #painel
     panel2 = PanedWindow(window4, width = 200, height = 270, bd = "3", relief = "sunken")
@@ -216,28 +188,115 @@ def catalogo(window4):
 
 def dados_treeview():  # Remove TODAS as linhas da Treeview
     tree.delete(*tree.get_children()) 
-    mov = ""
+    tipo = ""
     if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
-        mov = "T"
+        tipo = "T"
     else:
         if vals.get() == True:                      # se está apenas checado vals (serie)
-            mov = "Séries\n"
+            tipo = "Série\n"
         if valf.get() == True:                      # se está apenas checado valf (filme)
-            mov = "Filmes\n"
+            tipo = "Filme\n"
     f = open(ficheiro, "r", encoding="utf-8")
     lista = f.readlines()
     f.close()
     for linha in lista:
         campos = linha.split(";")
-        if mov == "T" or  campos[3] == mov:
+        if tipo == "T" or  campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
-                    tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
+                    tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
+#remove linha
+def remover():
+    selecao=tree.selection()[0]
+    tree.delete(selecao)
 
+#mostra os dados anteriores
+def mostrar():
+    tree.delete(*tree.get_children())
+    f = open(ficheiro, "r", encoding="utf-8")
+    lista=f.readlines()
+    f.close()
+    for linha in lista:
+        campos = linha.split(";")
+        tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3])) 
 
+#adicionar filme/serie  
+def adicionar_linha():
+    f = open(ficheiro, "a", encoding="utf-8")
+    nome2 = nome.get()
+    ano2 = str(ano.get())
+    tipologia2 = tipologia.get()
+    categoria2 = categoria.get()
+    linha = nome2 + ";" +ano2+ ";" +tipologia2+ ";" +categoria2+";0;0"+ "\n" 
+    campos = linha.split(";")
+    f.write(linha)
+    f.close()
+    tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
+
+#adicionar pagina
+def adicionar():
+    window5 = Toplevel()   
+    window5.title("Adicionar ao catalogo") 
+    window5.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
+    window5.focus_force()    
+    window5.grab_set()       
+             
+    
+    #Button
+    btnadicionar = Button(window5, width = 10, height= 2, text = "Adicionar", fg="blue", command =adicionar_linha)
+    btnadicionar.place(x=250, y=400)
+
+    btnremover = Button(window5, width = 10, height= 2, text = "Remover", fg="red",command=remover)
+    btnremover.place(x=350, y=400)
+
+    lbladicionar = Label(window5, text="Adicionar novo filme/série")
+    lbladicionar.place(x=30, y=220)
+
+    global nome
+    nome=StringVar()
+    lblnome = Label(window5, text="Nome")
+    lblnome.place(x=100, y=250)
+    txtnome = Entry(window5, width = 20, textvariable=nome)
+    txtnome.place(x=60, y=300)
+
+    global ano
+    ano=IntVar()
+    lblano = Label(window5, text="Ano")
+    lblano.place(x=250, y=250)
+    txtano = Entry(window5, width = 20, textvariable=ano)
+    txtano.place(x=210, y=300)
+
+    global tipologia
+    tipologia=StringVar()
+    lbltipologia = Label(window5, text="Tipologia")
+    lbltipologia.place(x=370, y=250)
+    txttipologia = Entry(window5, width = 20, textvariable=tipologia)
+    txttipologia.place(x=350, y=300)
+
+    global categoria
+    categoria=StringVar()
+    lblcategoria = Label(window5, text="Categoria")
+    lblcategoria.place(x=520, y=250)
+    txtcategoria = Entry(window5, width = 20, textvariable=categoria)
+    txtcategoria.place(x=500, y=300)
+
+    # Panel
+    panel1 = PanedWindow(window5, width = 650, height = 200, bd = "3", relief = "sunken")
+    panel1.place(x=10, y=10)
+    #ListBox
+    global tree  
+    tree=ttk.Treeview(panel1,height=8,selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria"), show="headings")
+    tree.column("Nome", width=180, anchor="c")
+    tree.column("Ano", width=150, anchor="c")
+    tree.column("Tipologia", width=150, anchor="c")
+    tree.column("Categoria", width=150, anchor="c")
+    tree.heading("Nome", text="Nome")
+    tree.heading("Ano", text="Ano")
+    tree.heading("Tipologia", text="Tipologia")
+    tree.heading("Categoria", text="Categoria")
+    tree.place(x=1, y=1)
+    mostrar()
 barraMenu()
-
-
 
 
 #foto
