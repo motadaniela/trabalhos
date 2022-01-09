@@ -7,7 +7,6 @@ from tkinter import ttk
 from PIL import ImageTk,Image 
 from tkinter.ttk import Combobox
 import tkinter as tk
-from login import *
 
 
 ficheiro="catalogo.txt"
