@@ -1,12 +1,13 @@
 #Beatriz Rodrigues, nº aluno:40210313
 #Daniela Moreira, nº aluno:40210349
 #Daniela Monteiro, nº aluno:40210288
-  
-from tkinter import Button, Canvas, Checkbutton, Entry, IntVar, Label, LabelFrame, Menu, Message, PanedWindow, StringVar, Toplevel, ttk
+#♥
+from tkinter import *
+from tkinter import ttk
 from PIL import ImageTk,Image 
 from tkinter.ttk import Combobox
-from tkinter import messagebox
 import tkinter as tk
+
 
 ficheiro="catalogo.txt"
 
@@ -29,6 +30,7 @@ y = (screen_height/2) - (app_height/2)
 window.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
 window.title("Projeto de Algoritmia")
 
+<<<<<<< HEAD
 def check_data(Email, Password, window2):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
@@ -53,6 +55,9 @@ def check_data(Email, Password, window2):
 
 
 #login
+=======
+#login mas ainda nao funciona
+>>>>>>> 8f5c806333a3f893c00605d98a766fa756a1a2c9
 def login_entrar():
     window2=tk.Toplevel()
     screen_width = window2.winfo_screenwidth()
@@ -83,9 +88,14 @@ def login_entrar():
 
     txt_password=Entry(window2, width=20, show="*")
     txt_password.place(x=150,y=90)
+<<<<<<< HEAD
     Password=txt_password.get()
 
     btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(Email,Password,window2))
+=======
+
+    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised")
+>>>>>>> 8f5c806333a3f893c00605d98a766fa756a1a2c9
     btn_entrar.place(x=140, y=150)
 
 #registar mas ainda nao funciona
@@ -128,12 +138,6 @@ def login_registar():
     btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised")
     btn_registar.place(x=180, y=200)
 
-#funcao que mostra uma messagebox para confirmar que deseja sair
-def sair():
-    res = messagebox.askquestion("Sair","Deseja sair?")
-    if res=="yes":
-        window.destroy()
-
 #barra em cima mas é so suposto aparecer adicionar para o admin
 #tomos depois de mudar isso quando o login funcionar
 def barraMenu():
@@ -154,7 +158,7 @@ def barraMenu():
     opcoes_login.add_command(label="Registar", command=lambda:login_registar())
     barra.add_cascade(label="Login", menu=opcoes_login)
 
-    barra.add_command(label="Sair", command=sair)
+    barra.add_command(label="Sair", command=window.quit)
 
     window.configure(menu=barra)
 
@@ -169,13 +173,12 @@ def catalogo():
     window4.grab_set()
 
     #painel
-    panel1=PanedWindow(window4, width=450, height=270, bd="3", relief="sunken")
+    panel1=PanedWindow(window4, width=450, height=450, bd="3", relief="sunken")
     panel1.place(x=220, y=20)
 
-    global tree2
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
-    tree2=ttk.Treeview(panel1, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+    tree2=ttk.Treeview(panel1, height=50, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
     tree2.column("Nome", width=90, anchor="c")
     tree2.column("Ano", width=70, anchor="c")
     tree2.column("Tipologia", width=70, anchor="c")
@@ -191,7 +194,7 @@ def catalogo():
     tree2.place(x=1, y=1)
 
     #painel
-    panel2 = PanedWindow(window4, width = 200, height = 270, bd = "3", relief = "sunken")
+    panel2 = PanedWindow(window4, width = 200, height = 480, bd = "3", relief = "sunken")
     panel2.place(x=15, y=20) 
 
     #frame
@@ -211,7 +214,7 @@ def catalogo():
 
     #frame
     lframe2 = LabelFrame(panel2, width = 160, height=100, bd=3, text= "Pesquisar", fg = "blue", relief = "sunken")
-    lframe2.place(x=5, y=120)
+    lframe2.place(x=5, y=110)
     lblUtilizador = Label(lframe2, text="Nome: ")
     lblUtilizador.place(x=15, y=5)
 
@@ -219,13 +222,32 @@ def catalogo():
     txtpesquisar = Entry(lframe2, width = 20, textvariable = val3)
     txtpesquisar.place(x=15, y=25)
 
+    #frame generos
+    lframe3 = LabelFrame(panel2, width=160, height=90, bd=3, text="Género", fg="blue", relief="sunken")
+    lframe3.place(x=5, y=215)
+
+    lista = ["Ação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
+    cb_gen=Combobox(lframe3, values=lista)
+    cb_gen.place(x=5, y=20)
+
     btnpesquisar = Button(panel2, width = 21, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
-    btnpesquisar.place(x=8, y=222)
+    btnpesquisar.place(x=8, y=430)
+
+    lframe4 = LabelFrame(panel2, width=160, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
+    lframe4.place(x=5, y=310)
+
+    selected=StringVar()
+    rd1=Radiobutton(lframe4, text="Ordem alfabética", variable=selected, value="Ordem alfabética")
+    rd1.place(x=5, y=5)
+    rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
+    rd2.place(x=5, y=35)
+    rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
+    rd3.place(x=5, y=65)
 
     #isto é para filtar os dados da tree mas ainda nao funciona
     #copiei do ex11
 def dados_treeview():  # Remove TODAS as linhas da Treeview
-    tree2.delete(*tree2.get_children()) 
+    tree.delete(*tree.get_children()) 
     tipo = ""
     if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
         tipo = "T"
@@ -241,7 +263,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         campos = linha.split(";")
         if tipo == "T" or  campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
-                    tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+                    tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
@@ -357,7 +379,7 @@ barraMenu()
 #foto
 ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
 ctnCanvas.place(x=70, y=100)
-imginicio = ImageTk.PhotoImage(Image.open('./Netflix.jpg'))
+imginicio = ImageTk.PhotoImage(Image.open("Netflix.jpg"))
 ctnCanvas.create_image(175,100, image = imginicio)
 
 lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
