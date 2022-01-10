@@ -139,12 +139,12 @@ def catalogo():
     window4.grab_set()
 
     #painel
-    panel1=PanedWindow(window4, width=450, height=270, bd="3", relief="sunken")
+    panel1=PanedWindow(window4, width=450, height=450, bd="3", relief="sunken")
     panel1.place(x=220, y=20)
 
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
-    tree2=ttk.Treeview(panel1, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+    tree2=ttk.Treeview(panel1, height=50, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
     tree2.column("Nome", width=90, anchor="c")
     tree2.column("Ano", width=70, anchor="c")
     tree2.column("Tipologia", width=70, anchor="c")
@@ -160,7 +160,7 @@ def catalogo():
     tree2.place(x=1, y=1)
 
     #painel
-    panel2 = PanedWindow(window4, width = 200, height = 270, bd = "3", relief = "sunken")
+    panel2 = PanedWindow(window4, width = 200, height = 480, bd = "3", relief = "sunken")
     panel2.place(x=15, y=20) 
 
     #frame
@@ -180,7 +180,7 @@ def catalogo():
 
     #frame
     lframe2 = LabelFrame(panel2, width = 160, height=100, bd=3, text= "Pesquisar", fg = "blue", relief = "sunken")
-    lframe2.place(x=5, y=120)
+    lframe2.place(x=5, y=110)
     lblUtilizador = Label(lframe2, text="Nome: ")
     lblUtilizador.place(x=15, y=5)
 
@@ -188,8 +188,27 @@ def catalogo():
     txtpesquisar = Entry(lframe2, width = 20, textvariable = val3)
     txtpesquisar.place(x=15, y=25)
 
+    #frame generos
+    lframe3 = LabelFrame(panel2, width=160, height=90, bd=3, text="Género", fg="blue", relief="sunken")
+    lframe3.place(x=5, y=215)
+
+    lista = ["Ação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
+    cb_gen=Combobox(lframe3, values=lista)
+    cb_gen.place(x=5, y=20)
+
     btnpesquisar = Button(panel2, width = 21, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
-    btnpesquisar.place(x=8, y=222)
+    btnpesquisar.place(x=8, y=430)
+
+    lframe4 = LabelFrame(panel2, width=160, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
+    lframe4.place(x=5, y=310)
+
+    selected=StringVar()
+    rd1=Radiobutton(lframe4, text="Ordem alfabética", variable=selected, value="Ordem alfabética")
+    rd1.place(x=5, y=5)
+    rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
+    rd2.place(x=5, y=35)
+    rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
+    rd3.place(x=5, y=65)
 
     #isto é para filtar os dados da tree mas ainda nao funciona
     #copiei do ex11
@@ -326,8 +345,8 @@ barraMenu()
 #foto
 ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
 ctnCanvas.place(x=70, y=100)
-imginicio = ImageTk.PhotoImage(Image.open("netflix.jpg"))
-ctnCanvas.create_image(175,100, image = imginicio)
+#imginicio = ImageTk.PhotoImage(Image.open("Netflix.jpg"))
+#ctnCanvas.create_image(175,100, image = imginicio)
 
 lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
 lbl.place(x=450, y=200)
