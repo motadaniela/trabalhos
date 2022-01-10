@@ -301,7 +301,7 @@ barraMenu()
 #foto
 ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
 ctnCanvas.place(x=70, y=100)
-imginicio = ImageTk.PhotoImage(Image.open("netflix.jpg"))
+imginicio = ImageTk.PhotoImage(Image.open("Netflix.jpg"))
 ctnCanvas.create_image(175,100, image = imginicio)
 
 lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
