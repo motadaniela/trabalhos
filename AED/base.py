@@ -1,10 +1,11 @@
 #Beatriz Rodrigues, nº aluno:40210313
 #Daniela Moreira, nº aluno:40210349
 #Daniela Monteiro, nº aluno:40210288
-#♥
+
 from tkinter import *
 from tkinter import ttk
-from PIL import ImageTk,Image 
+from PIL import ImageTk,Image
+from tkinter import messagebox
 from tkinter.ttk import Combobox
 import tkinter as tk
 
@@ -30,7 +31,6 @@ y = (screen_height/2) - (app_height/2)
 window.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
 window.title("Projeto de Algoritmia")
 
-<<<<<<< HEAD
 def check_data(Email, Password, window2):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
@@ -53,11 +53,7 @@ def check_data(Email, Password, window2):
     userdata.close()
     return username
 
-
-#login
-=======
-#login mas ainda nao funciona
->>>>>>> 8f5c806333a3f893c00605d98a766fa756a1a2c9
+#entrar na conta
 def login_entrar():
     window2=tk.Toplevel()
     screen_width = window2.winfo_screenwidth()
@@ -84,18 +80,16 @@ def login_entrar():
 
     txt_email=Entry(window2, width=20)
     txt_email.place(x=150, y=50)
-    Email=txt_email.get()
 
     txt_password=Entry(window2, width=20, show="*")
     txt_password.place(x=150,y=90)
-<<<<<<< HEAD
+
+    Email=txt_email.get()
     Password=txt_password.get()
 
     btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(Email,Password,window2))
-=======
 
     btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised")
->>>>>>> 8f5c806333a3f893c00605d98a766fa756a1a2c9
     btn_entrar.place(x=140, y=150)
 
 #registar mas ainda nao funciona
