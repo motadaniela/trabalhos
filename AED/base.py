@@ -38,6 +38,7 @@ def check_data(Email, Password, window2):
         passe = line[pos+1:int(line.index(";", pos+1))]    #procura o 2o elemento da linha(password)
         if search == Email and passe == Password:
             username = line[line.index(";", pos+1)+1:line.index("\n")]
+            messagebox("Bem Vindo!", "Bem vindo{0}!".format(username))
             break
         elif (search!=Email and passe==Password) or (search==Email and passe!=Password):
             msg=Message(window2, text="O email ou password estão errados!", fg="red")
@@ -78,12 +79,11 @@ def login_entrar():
 
     txt_email=Entry(window2, width=20)
     txt_email.place(x=150, y=50)
+    Email=txt_email.get()
 
     txt_password=Entry(window2, width=20, show="*")
     txt_password.place(x=150,y=90)
-
-    Email=str(txt_email.get())
-    Password=str(txt_password.get())
+    Password=txt_password.get()
 
     btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(Email,Password,window2))
     btn_entrar.place(x=140, y=150)
