@@ -1,13 +1,12 @@
 #Beatriz Rodrigues, nº aluno:40210313
 #Daniela Moreira, nº aluno:40210349
 #Daniela Monteiro, nº aluno:40210288
-
-from tkinter import *
-from tkinter import ttk
+  
+from tkinter import Button, Canvas, Checkbutton, Entry, IntVar, Label, LabelFrame, Menu, Message, PanedWindow, StringVar, Toplevel, ttk
 from PIL import ImageTk,Image 
 from tkinter.ttk import Combobox
+from tkinter import messagebox
 import tkinter as tk
-
 
 ficheiro="catalogo.txt"
 
@@ -40,12 +39,14 @@ def check_data(Email, Password, window2):
         if search == Email and passe == Password:
             username = line[line.index(";", pos+1)+1:line.index("\n")]
             break
-        elif search!=Email and passe==Password or search==Email and passe!=Password:
+        elif (search!=Email and passe==Password) or (search==Email and passe!=Password):
             msg=Message(window2, text="O email ou password estão errados!", fg="red")
             msg.place(x=100, y=200)
+            break
         else:
             msg=Message(window2, text="Por favor registe-se", fg="red")
             msg.place(x=100, y=200)
+            break
     userdata.close()
     return username
 
@@ -81,10 +82,10 @@ def login_entrar():
     txt_password=Entry(window2, width=20, show="*")
     txt_password.place(x=150,y=90)
 
-    Email=txt_email.get()
-    Password=txt_password.get()
+    Email=str(txt_email.get())
+    Password=str(txt_password.get())
 
-    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=check_data(Email,Password,window2))
+    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(Email,Password,window2))
     btn_entrar.place(x=140, y=150)
 
 #registar mas ainda nao funciona
@@ -127,6 +128,12 @@ def login_registar():
     btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised")
     btn_registar.place(x=180, y=200)
 
+#funcao que mostra uma messagebox para confirmar que deseja sair
+def sair():
+    res = messagebox.askquestion("Sair","Deseja sair?")
+    if res=="yes":
+        window.destroy()
+
 #barra em cima mas é so suposto aparecer adicionar para o admin
 #tomos depois de mudar isso quando o login funcionar
 def barraMenu():
@@ -147,7 +154,7 @@ def barraMenu():
     opcoes_login.add_command(label="Registar", command=lambda:login_registar())
     barra.add_cascade(label="Login", menu=opcoes_login)
 
-    barra.add_command(label="Sair", command=window.quit)
+    barra.add_command(label="Sair", command=sair)
 
     window.configure(menu=barra)
 
@@ -349,7 +356,7 @@ barraMenu()
 #foto
 ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
 ctnCanvas.place(x=70, y=100)
-imginicio = ImageTk.PhotoImage(Image.open("netflix.jpg"))
+imginicio = ImageTk.PhotoImage(Image.open('./Netflix.jpg'))
 ctnCanvas.create_image(175,100, image = imginicio)
 
 lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
