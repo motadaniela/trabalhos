@@ -142,6 +142,7 @@ def catalogo():
     panel1=PanedWindow(window4, width=450, height=270, bd="3", relief="sunken")
     panel1.place(x=220, y=20)
 
+    global tree2
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
     tree2=ttk.Treeview(panel1, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
@@ -194,7 +195,7 @@ def catalogo():
     #isto é para filtar os dados da tree mas ainda nao funciona
     #copiei do ex11
 def dados_treeview():  # Remove TODAS as linhas da Treeview
-    tree.delete(*tree.get_children()) 
+    tree2.delete(*tree2.get_children()) 
     tipo = ""
     if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
         tipo = "T"
@@ -210,7 +211,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         campos = linha.split(";")
         if tipo == "T" or  campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
-                    tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+                    tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover

@@ -1,1 +1,2 @@
-Nome;Ano;Tipologia;Categoria;Pontuação;Visualizações
+Nome;Ano;Filme;Categoria;Pontuação;Visualizações
+Spider-Man: No Way Home;2021;Filme;Ação;0;0
