@@ -1,0 +1,1 @@
+Nome;Ano;Tipologia;Categoria;Pontuação;Visualizações
