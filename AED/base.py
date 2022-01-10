@@ -132,6 +132,12 @@ def login_registar():
     btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised")
     btn_registar.place(x=180, y=200)
 
+
+def sair():
+    res = messagebox.askquestion("Sair","Deseja sair?")
+    if res=="yes":
+        window.destroy()
+        
 #barra em cima mas é so suposto aparecer adicionar para o admin
 #tomos depois de mudar isso quando o login funcionar
 def barraMenu():
@@ -152,7 +158,7 @@ def barraMenu():
     opcoes_login.add_command(label="Registar", command=lambda:login_registar())
     barra.add_cascade(label="Login", menu=opcoes_login)
 
-    barra.add_command(label="Sair", command=window.quit)
+    barra.add_command(label="Sair", command=sair)
 
     window.configure(menu=barra)
 
