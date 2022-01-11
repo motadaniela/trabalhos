@@ -52,7 +52,7 @@ def check_data(Email, Password, window2,acc):
             msg.place(x=100, y=200)
             break
     userdata.close()
-    return username
+    return(username,acc)
 
 #entrar na conta
 def login_entrar():
