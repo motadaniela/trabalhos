@@ -93,6 +93,20 @@ def login_entrar():
     btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised")
     btn_entrar.place(x=140, y=150)
 
+#funcao que verifica os dados de um novo utilizador para se registar
+def newuser(window3,Email,Username,Password,Password2):
+    data=open("userdata.txt", "r")
+    if Password!=Password2:
+        msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
+        msg.place(x=300, y=250)
+    line=data.readline()
+    pos=line.index(";")
+    for line in data:
+        if line[0:line.index(";",pos+2)] == Username:
+            msg=Message(window3, text="Username já existe, escolha outro!", fg="red")
+            msg.place(x=300, y=250)
+            break
+
 #registar mas ainda nao funciona
 def login_registar():
     window3=tk.Toplevel()
@@ -113,25 +127,36 @@ def login_registar():
 
     #inserir dados
     lbl_email=Label(window3, text="Email:", font=("Helvetica", 9))
-    lbl_email.place(x=95, y=60)
+    lbl_email.place(x=70, y=60)
 
     txt_email=Entry(window3, width=30)
-    txt_email.place(x=180, y=60)
+    txt_email.place(x=190, y=60)
 
     lbl_username=Label(window3, text="Username:", font=("Helvetica", 9))
-    lbl_username.place(x=95, y=100)
+    lbl_username.place(x=70, y=100)
 
     txt_username=Entry(window3, width=30)
-    txt_username.place(x=180, y=100)
+    txt_username.place(x=190, y=100)
 
-    lbl_password=Label(window3, text="Password:", font=("Helvetica", 9))
-    lbl_password.place(x=95, y=140)
+    lbl_password=Label(window3, text="Password:")
+    lbl_password.place(x=70, y=140)
 
-    txt_password=Entry(window3, width=30)
-    txt_password.place(x=180, y=140)
+    txt_password=Entry(window3, width=30, show="*")
+    txt_password.place(x=190, y=140)
 
-    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised")
-    btn_registar.place(x=180, y=200)
+    lbl_password2=Label(window3, text="Confirme password:")
+    lbl_password2.place(x=70, y=180)
+
+    txt_password2=Entry(window3, width=30, show="*")
+    txt_password2.place(x=190, y=180)
+
+    Email=str(txt_email.get())
+    Username=str(txt_username.get())
+    Password=str(txt_password.get())
+    Password2=str(txt_password2.get())
+
+    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,Email,Username,Password,Password2))
+    btn_registar.place(x=180, y=220)
 
 #funcao que pede para confirmar que a intensao do utilizador é sair
 def sair():
