@@ -31,19 +31,19 @@ y = (screen_height/2) - (app_height/2)
 window.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
 window.title("Projeto de Algoritmia")
 
-def check_data(Email, Password, window2,acc):
+def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
     for line in userdata:
         pos = line.index(";")
         search = line[0:int(line.index(";"))]     #procura o 1o elemento da linha(email)
         passe = line[pos+1:int(line.index(";", pos+1))]    #procura o 2o elemento da linha(password)
-        if search == Email and passe == Password:
+        if search == Email.get() and passe == Password.get():
             username = line[line.index(";", pos+1)+1:line.index("\n")]
             messagebox("Bem Vindo!", "Bem vindo{0}!".format(username))
             acc=1
             break
-        elif (search!=Email and passe==Password) or (search==Email and passe!=Password):
+        elif (search!=Email.get() and passe==Password.get()) or (search==Email.get() and passe!=Password.get()):
             msg=Message(window2, text="O email ou password estão errados!", fg="red")
             msg.place(x=100, y=200)
             break
@@ -85,12 +85,7 @@ def login_entrar():
     txt_password=Entry(window2, width=20, show="*")
     txt_password.place(x=150,y=90)
 
-    Email=txt_email.get()
-    Password=txt_password.get()
-
-    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(Email,Password,window2,acc))
-
-    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised")
+    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(txt_email,txt_password,window2,acc))
     btn_entrar.place(x=140, y=150)
 
 #funcao que verifica os dados de um novo utilizador para se registar
