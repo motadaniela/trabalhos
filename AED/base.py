@@ -202,8 +202,8 @@ def catalogo():
     window4.grab_set()
 
     #painel
-    panel1=PanedWindow(window4, width=660, height=560, bd="3", relief="sunken")
-    panel1.place(x=310, y=20)
+    panel1=PanedWindow(window4, width=660, height=570, bd="3", relief="sunken")
+    panel1.place(x=310, y=10)
 
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
@@ -224,8 +224,8 @@ def catalogo():
     tree2.place(x=1, y=1)
 
     #painel
-    panel2 = PanedWindow(window4, width = 220, height = 560, bd = "3", relief = "sunken")
-    panel2.place(x=60, y=20) 
+    panel2 = PanedWindow(window4, width = 220, height = 570, bd = "3", relief = "sunken")
+    panel2.place(x=60, y=10) 
 
     #frame
     lframe = LabelFrame(panel2, width = 180, height=100, bd=3, text= "Filtrar por", fg = "blue", relief = "sunken")
@@ -274,10 +274,13 @@ def catalogo():
 
     #botões
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
-    btnpesquisar.place(x=18, y=440)
+    btnpesquisar.place(x=18, y=430)
+
+    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised")
+    btn_abrir.place(x=18, y=475)
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
-    btn_fav.place(x=18, y=500)
+    btn_fav.place(x=18, y=520)
 
 #isto é para filtar os dados da tree mas ainda nao funciona
 #copiei do ex11
