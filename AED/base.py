@@ -2,8 +2,10 @@
 #Daniela Moreira, nº aluno:40210349
 #Daniela Monteiro, nº aluno:40210288
 
+from cgitb import text
 from tkinter import *
 from tkinter import ttk
+from turtle import width
 from PIL import ImageTk,Image
 from tkinter import messagebox
 from tkinter.ttk import Combobox
@@ -167,7 +169,7 @@ def barraMenu():
 
 
     #opçoes de filmes
-    barra.add_command(label="Catalogo", command=catalogo)
+    barra.add_command(label="Catálogo", command=catalogo)
 
     barra.add_command(label="Favoritos", command=lambda:favoritos(acc))
 
@@ -193,11 +195,12 @@ def catalogo():
     window4.grab_set()
 
     #painel
-    panel1=PanedWindow(window4, width=610, height=480, bd="3", relief="sunken")
-    panel1.place(x=220, y=20)
+    panel1=PanedWindow(window4, width=610, height=560, bd="3", relief="sunken")
+    panel1.place(x=320, y=20)
 
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
+    global tree2 
     tree2=ttk.Treeview(panel1, height=50, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
     tree2.column("Nome", width=100, anchor="c")
     tree2.column("Ano", width=100, anchor="c")
@@ -214,12 +217,12 @@ def catalogo():
     tree2.place(x=1, y=1)
 
     #painel
-    panel2 = PanedWindow(window4, width = 200, height = 480, bd = "3", relief = "sunken")
-    panel2.place(x=15, y=20) 
+    panel2 = PanedWindow(window4, width = 220, height = 560, bd = "3", relief = "sunken")
+    panel2.place(x=60, y=20) 
 
     #frame
-    lframe = LabelFrame(panel2, width = 160, height=100, bd=3, text= "Filtrar por", fg = "blue", relief = "sunken")
-    lframe.place(x=5, y=5)
+    lframe = LabelFrame(panel2, width = 180, height=100, bd=3, text= "Filtrar por", fg = "blue", relief = "sunken")
+    lframe.place(x=18, y=5)
 
     #filtar
     global vals
@@ -233,8 +236,8 @@ def catalogo():
     ck2.place(x=15, y=40)
 
     #frame
-    lframe2 = LabelFrame(panel2, width = 160, height=100, bd=3, text= "Pesquisar", fg = "blue", relief = "sunken")
-    lframe2.place(x=5, y=110)
+    lframe2 = LabelFrame(panel2, width = 180, height=100, bd=3, text= "Pesquisar", fg = "blue", relief = "sunken")
+    lframe2.place(x=18, y=110)
     lblUtilizador = Label(lframe2, text="Nome: ")
     lblUtilizador.place(x=15, y=5)
 
@@ -243,18 +246,17 @@ def catalogo():
     txtpesquisar.place(x=15, y=25)
 
     #frame generos
-    lframe3 = LabelFrame(panel2, width=160, height=90, bd=3, text="Género", fg="blue", relief="sunken")
-    lframe3.place(x=5, y=215)
+    lframe3 = LabelFrame(panel2, width=180, height=90, bd=3, text="Género", fg="blue", relief="sunken")
+    lframe3.place(x=18, y=215)
 
     lista = ["Ação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
     cb_gen=Combobox(lframe3, values=lista)
     cb_gen.place(x=5, y=20)
 
-    btnpesquisar = Button(panel2, width = 21, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
-    btnpesquisar.place(x=8, y=430)
+    
 
-    lframe4 = LabelFrame(panel2, width=160, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
-    lframe4.place(x=5, y=310)
+    lframe4 = LabelFrame(panel2, width=180, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
+    lframe4.place(x=18, y=310)
 
     selected=StringVar()
     rd1=Radiobutton(lframe4, text="Ordem alfabética", variable=selected, value="Ordem alfabética")
@@ -263,6 +265,33 @@ def catalogo():
     rd2.place(x=5, y=35)
     rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
     rd3.place(x=5, y=65)
+
+    btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
+    btnpesquisar.place(x=18, y=440)
+
+    btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
+    btn_fav.place(x=18, y=500)
+
+#isto é para filtar os dados da tree mas ainda nao funciona
+#copiei do ex11
+def dados_treeview():  # Remove TODAS as linhas da Treeview
+    tree2.delete(*tree2.get_children()) 
+    tipo = ""
+    if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
+        tipo = "T"
+    else:
+        if vals.get() == True:                      # se está apenas checado vals (serie)
+            tipo = "Série\n"
+        if valf.get() == True:                      # se está apenas checado valf (filme)
+            tipo = "Filme\n"
+    f = open(ficheiro, "r", encoding="utf-8")
+    lista = f.readlines()
+    f.close()
+    for linha in lista:
+        campos = linha.split(";")
+        if tipo == "T" or  campos[2] == tipo:
+            if val3.get() == "" or val3.get() == campos[0]:
+                    tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
@@ -281,14 +310,14 @@ def favoritos(acc):
         panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
         panelF.place(X=100, y=50)
 
-        tree2=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-        tree2.column("Nome", width=300, anchor="c")
-        tree2.column("Tipo", width=300, anchor="c")
-        tree2.column("Estado", width=300, anchor="c")
-        tree2.heading("Nome", text="Nome")
-        tree2.heading("Tipo", text="Tipo")
-        tree2.heading("Estado", text="Estado")
-        tree2.place(x=1, y=1)
+        tree=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+        tree.column("Nome", width=300, anchor="c")
+        tree.column("Tipo", width=300, anchor="c")
+        tree.column("Estado", width=300, anchor="c")
+        tree.heading("Nome", text="Nome")
+        tree.heading("Tipo", text="Tipo")
+        tree.heading("Estado", text="Estado")
+        tree.place(x=1, y=1)
 
         #botoes
         bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
@@ -298,26 +327,6 @@ def favoritos(acc):
         bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
         bttn_nvisto.place(x=290, y=510)
 
-#isto é para filtar os dados da tree mas ainda nao funciona
-#copiei do ex11
-def dados_treeview():  # Remove TODAS as linhas da Treeview
-    tree.delete(*tree.get_children()) 
-    tipo = ""
-    if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
-        tipo = "T"
-    else:
-        if vals.get() == True:                      # se está apenas checado vals (serie)
-            tipo = "Série\n"
-        if valf.get() == True:                      # se está apenas checado valf (filme)
-            tipo = "Filme\n"
-    f = open(ficheiro, "r", encoding="utf-8")
-    lista = f.readlines()
-    f.close()
-    for linha in lista:
-        campos = linha.split(";")
-        if tipo == "T" or  campos[2] == tipo:
-            if val3.get() == "" or val3.get() == campos[0]:
-                    tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
