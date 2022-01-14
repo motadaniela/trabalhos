@@ -281,17 +281,18 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         tipo = "T"
     else:
         if vals.get() == True:                      # se está apenas checado vals (serie)
-            tipo = "Série\n"
+            tipo = "Série"
         if valf.get() == True:                      # se está apenas checado valf (filme)
-            tipo = "Filme\n"
+            tipo = "Filme"
     f = open(ficheiro, "r", encoding="utf-8")
     lista = f.readlines()
     f.close()
     for linha in lista:
         campos = linha.split(";")
-        if tipo == "T" or  campos[2] == tipo:
+        if campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+        
 
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
