@@ -1,2 +1,3 @@
-Nome;Ano;Filme;Categoria;Pontuação;Visualizações
+Nome;Ano;Filme;Categoria;Pontuação;Visualizações;Favoritos
 Spider-Man: No Way Home;2021;Filme;Ação;0;0
+Euphoria;2019;Série;Drama;0;0

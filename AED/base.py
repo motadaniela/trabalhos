@@ -2,8 +2,10 @@
 #Daniela Moreira, nº aluno:40210349
 #Daniela Monteiro, nº aluno:40210288
 
+from cgitb import text
 from tkinter import *
 from tkinter import ttk
+from turtle import width
 from PIL import ImageTk,Image
 from tkinter import messagebox
 from tkinter.ttk import Combobox
@@ -174,7 +176,7 @@ def barraMenu():
 
 
     #opçoes de filmes
-    barra.add_command(label="Catalogo", command=catalogo)
+    barra.add_command(label="Catálogo", command=catalogo)
 
     barra.add_command(label="Favoritos", command=lambda:favoritos(acc))
 
@@ -200,13 +202,14 @@ def catalogo():
     window4.grab_set()
 
     #painel
-    panel1=PanedWindow(window4, width=610, height=480, bd="3", relief="sunken")
-    panel1.place(x=220, y=20)
+    panel1=PanedWindow(window4, width=660, height=560, bd="3", relief="sunken")
+    panel1.place(x=310, y=20)
 
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
+    global tree2 
     tree2=ttk.Treeview(panel1, height=50, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-    tree2.column("Nome", width=100, anchor="c")
+    tree2.column("Nome", width=160, anchor="c")
     tree2.column("Ano", width=100, anchor="c")
     tree2.column("Tipologia", width=100, anchor="c")
     tree2.column("Categoria", width=100, anchor="c")  #supostamente c é para centrar
@@ -221,12 +224,12 @@ def catalogo():
     tree2.place(x=1, y=1)
 
     #painel
-    panel2 = PanedWindow(window4, width = 200, height = 480, bd = "3", relief = "sunken")
-    panel2.place(x=15, y=20) 
+    panel2 = PanedWindow(window4, width = 220, height = 560, bd = "3", relief = "sunken")
+    panel2.place(x=60, y=20) 
 
     #frame
-    lframe = LabelFrame(panel2, width = 160, height=100, bd=3, text= "Filtrar por", fg = "blue", relief = "sunken")
-    lframe.place(x=5, y=5)
+    lframe = LabelFrame(panel2, width = 180, height=100, bd=3, text= "Filtrar por", fg = "blue", relief = "sunken")
+    lframe.place(x=18, y=5)
 
     #filtar
     global vals
@@ -240,36 +243,71 @@ def catalogo():
     ck2.place(x=15, y=40)
 
     #frame
-    lframe2 = LabelFrame(panel2, width = 160, height=100, bd=3, text= "Pesquisar", fg = "blue", relief = "sunken")
-    lframe2.place(x=5, y=110)
+    lframe2 = LabelFrame(panel2, width = 180, height=100, bd=3, text= "Pesquisar", fg = "blue", relief = "sunken")
+    lframe2.place(x=18, y=110)
     lblUtilizador = Label(lframe2, text="Nome: ")
-    lblUtilizador.place(x=15, y=5)
+    lblUtilizador.place(x=15, y=10)
 
     val3 = StringVar()
     txtpesquisar = Entry(lframe2, width = 20, textvariable = val3)
-    txtpesquisar.place(x=15, y=25)
+    txtpesquisar.place(x=15, y=30)
 
     #frame generos
-    lframe3 = LabelFrame(panel2, width=160, height=90, bd=3, text="Género", fg="blue", relief="sunken")
-    lframe3.place(x=5, y=215)
+    lframe3 = LabelFrame(panel2, width=180, height=90, bd=3, text="Género", fg="blue", relief="sunken")
+    lframe3.place(x=18, y=215)
 
     lista = ["Ação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
     cb_gen=Combobox(lframe3, values=lista)
-    cb_gen.place(x=5, y=20)
+    cb_gen.place(x=15, y=20)
 
-    btnpesquisar = Button(panel2, width = 21, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
-    btnpesquisar.place(x=8, y=430)
-
-    lframe4 = LabelFrame(panel2, width=160, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
-    lframe4.place(x=5, y=310)
+    #frame ordenar
+    lframe4 = LabelFrame(panel2, width=180, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
+    lframe4.place(x=18, y=310)
 
     selected=StringVar()
     rd1=Radiobutton(lframe4, text="Ordem alfabética", variable=selected, value="Ordem alfabética")
-    rd1.place(x=5, y=5)
+    rd1.place(x=15, y=5)
     rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
-    rd2.place(x=5, y=35)
+    rd2.place(x=15, y=35)
     rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
-    rd3.place(x=5, y=65)
+    rd3.place(x=15, y=65)
+
+    #botões
+    btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
+    btnpesquisar.place(x=18, y=440)
+
+    btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
+    btn_fav.place(x=18, y=500)
+
+#isto é para filtar os dados da tree mas ainda nao funciona
+#copiei do ex11
+def dados_treeview():  # Remove TODAS as linhas da Treeview
+    tree2.delete(*tree2.get_children()) 
+    
+    tipo = ""
+    if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
+        tipo = "T"
+    elif vals.get() == False and valf.get() == False:
+        f=open(ficheiro, "r", encoding="utf-8")
+        lista = f.readlines()
+        f.close()
+        for linha in lista:
+            campos = linha.split(";")
+            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))        
+    else:
+        if vals.get() == True:                      # se está apenas checado vals (serie)
+            tipo = "Série"
+        if valf.get() == True:                      # se está apenas checado valf (filme)
+            tipo = "Filme"
+    f = open(ficheiro, "r", encoding="utf-8")
+    lista = f.readlines()
+    f.close()
+    for linha in lista:
+        campos = linha.split(";")
+        if tipo == "T" or campos[2] == tipo:
+            if val3.get() == "" or val3.get() == campos[0]:
+                    tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+        
 
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
@@ -288,14 +326,14 @@ def favoritos(acc):
         panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
         panelF.place(X=100, y=50)
 
-        tree2=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-        tree2.column("Nome", width=300, anchor="c")
-        tree2.column("Tipo", width=300, anchor="c")
-        tree2.column("Estado", width=300, anchor="c")
-        tree2.heading("Nome", text="Nome")
-        tree2.heading("Tipo", text="Tipo")
-        tree2.heading("Estado", text="Estado")
-        tree2.place(x=1, y=1)
+        tree=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+        tree.column("Nome", width=300, anchor="c")
+        tree.column("Tipo", width=300, anchor="c")
+        tree.column("Estado", width=300, anchor="c")
+        tree.heading("Nome", text="Nome")
+        tree.heading("Tipo", text="Tipo")
+        tree.heading("Estado", text="Estado")
+        tree.place(x=1, y=1)
 
         #botoes
         bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
@@ -305,26 +343,6 @@ def favoritos(acc):
         bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
         bttn_nvisto.place(x=290, y=510)
 
-#isto é para filtar os dados da tree mas ainda nao funciona
-#copiei do ex11
-def dados_treeview():  # Remove TODAS as linhas da Treeview
-    tree.delete(*tree.get_children()) 
-    tipo = ""
-    if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
-        tipo = "T"
-    else:
-        if vals.get() == True:                      # se está apenas checado vals (serie)
-            tipo = "Série\n"
-        if valf.get() == True:                      # se está apenas checado valf (filme)
-            tipo = "Filme\n"
-    f = open(ficheiro, "r", encoding="utf-8")
-    lista = f.readlines()
-    f.close()
-    for linha in lista:
-        campos = linha.split(";")
-        if tipo == "T" or  campos[2] == tipo:
-            if val3.get() == "" or val3.get() == campos[0]:
-                    tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
@@ -382,69 +400,80 @@ def adicionar():
     
     #Button
     btnadicionar = Button(window5, width = 10, height= 2, text = "Adicionar", fg="blue", command =adicionar_linha)
-    btnadicionar.place(x=250, y=400)
+    btnadicionar.place(x=400, y=550)
 
     btnremover = Button(window5, width = 10, height= 2, text = "Remover", fg="red",command=lambda:remover(window5))
-    btnremover.place(x=350, y=400)
+    btnremover.place(x=500, y=550)
 
     lbladicionar = Label(window5, text="Adicionar novo filme/série")
-    lbladicionar.place(x=30, y=220)
+    lbladicionar.place(x=30, y=420)
 
     global nome
     nome=StringVar()
     lblnome = Label(window5, text="Nome")
-    lblnome.place(x=100, y=250)
+    lblnome.place(x=200, y=450)
     txtnome = Entry(window5, width = 20, textvariable=nome)
-    txtnome.place(x=60, y=300)
+    txtnome.place(x=160, y=500)
 
     global ano
     ano=IntVar()
     lblano = Label(window5, text="Ano")
-    lblano.place(x=250, y=250)
+    lblano.place(x=350, y=450)
     txtano = Entry(window5, width = 20, textvariable=ano)
-    txtano.place(x=210, y=300)
+    txtano.place(x=310, y=500)
 
     global tipologia
     tipologia=StringVar()
     lbltipologia = Label(window5, text="Tipologia")
-    lbltipologia.place(x=370, y=250)
+    lbltipologia.place(x=470, y=450)
     txttipologia = Entry(window5, width = 20, textvariable=tipologia)
-    txttipologia.place(x=350, y=300)
+    txttipologia.place(x=450, y=500)
 
     global categoria
     categoria=StringVar()
     lblcategoria = Label(window5, text="Categoria")
-    lblcategoria.place(x=520, y=250)
+    lblcategoria.place(x=620, y=450)
     txtcategoria = Entry(window5, width = 20, textvariable=categoria)
-    txtcategoria.place(x=500, y=300)
+    txtcategoria.place(x=600, y=500)
 
     # Panel
-    panel1 = PanedWindow(window5, width = 650, height = 200, bd = "3", relief = "sunken")
+    panel1 = PanedWindow(window5, width = 950, height = 400, bd = "3", relief = "sunken")
     panel1.place(x=10, y=10)
     #ListBox
     global tree  
-    tree=ttk.Treeview(panel1,height=8,selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria"), show="headings")
-    tree.column("Nome", width=180, anchor="c")
-    tree.column("Ano", width=150, anchor="c")
-    tree.column("Tipologia", width=150, anchor="c")
-    tree.column("Categoria", width=150, anchor="c")
+    tree=ttk.Treeview(panel1,height=17,selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria"), show="headings")
+    tree.column("Nome", width=240, anchor="c")
+    tree.column("Ano", width=230, anchor="c")
+    tree.column("Tipologia", width=230, anchor="c")
+    tree.column("Categoria", width=230, anchor="c")
     tree.heading("Nome", text="Nome")
     tree.heading("Ano", text="Ano")
     tree.heading("Tipologia", text="Tipologia")
     tree.heading("Categoria", text="Categoria")
     tree.place(x=1, y=1)
     mostrar()
+
+
+def favoritos_mostrar():
+    tree.delete(*tree.get_children())
+    f = open(ficheiro, "r", encoding="utf-8")
+    lista=f.readlines()
+    f.close()
+    for linha in lista:
+        campos = linha.split(";")
+        if campos[6]=="sim":
+            tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
+
+
+
 barraMenu()
-
-
 #foto
-ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
-ctnCanvas.place(x=200, y=150)
-imginicio = ImageTk.PhotoImage(Image.open("Netflix.jpg"))
-ctnCanvas.create_image(180,100, image = imginicio)
+background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
+background_label = tk.Label(image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
-lbl.place(x=600, y=250)
+lbl = Label(window, text = "Gestor de Filmes", bg="#ffc04f", font = ("Cambria", 50))
+lbl.place(x=120, y=320)
 
 
 window.mainloop()
