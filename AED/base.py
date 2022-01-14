@@ -116,7 +116,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
             messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
             return(Username.get())
 
-#registar mas ainda nao funciona
+#registar
 def login_registar():
     window3=tk.Toplevel()
     screen_width = window3.winfo_screenwidth()
