@@ -20,6 +20,7 @@ global screen_height
 global screen_width
 global app_height, app_width
 global x, y
+global username
 
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -37,15 +38,13 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
     for line in userdata:
-        pos = line.index(";")
-        search = line[0:int(line.index(";"))]     #procura o 1o elemento da linha(email)
-        passe = line[pos+1:int(line.index(";", pos+1))]    #procura o 2o elemento da linha(password)
-        if search == Email.get() and passe == Password.get():
-            username = line[line.index(";", pos+1)+1:line.index("\n")]
-            messagebox("Bem Vindo!", "Bem vindo{0}!".format(username))
+        user_info = line.split(";")
+        if user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
             acc=1
+            username = user_info[2]
+            messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
             break
-        elif (search!=Email.get() and passe==Password.get()) or (search==Email.get() and passe!=Password.get()):
+        elif (user_info[0]!=Email.get() and user_info[1]==Password.get()) or (user_info[0]==Email.get() and user_info[1]!=Password.get()):
             msg=Message(window2, text="O email ou password estão errados!", fg="red")
             msg.place(x=100, y=200)
             break
@@ -54,7 +53,8 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
             msg.place(x=100, y=200)
             break
     userdata.close()
-    return(username,acc)
+    return(user_info[2],acc)
+#depois ponho para fzr return do username^
 
 #entrar na conta
 def login_entrar():
@@ -91,20 +91,32 @@ def login_entrar():
     btn_entrar.place(x=140, y=150)
 
 #funcao que verifica os dados de um novo utilizador para se registar
-def newuser(window3,Email,Username,Password,Password2):
-    data=open("userdata.txt", "r")
-    if Password!=Password2:
+def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2):
+    if str(Password.get())!=str(Password2.get()):
         msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
         msg.place(x=300, y=250)
-    line=data.readline()
-    pos=line.index(";")
-    for line in data:
-        if line[0:line.index(";",pos+2)] == Username:
-            msg=Message(window3, text="Username já existe, escolha outro!", fg="red")
-            msg.place(x=300, y=250)
-            break
+    else:
+        userdata=open("userdata.txt", "r")
+        line=userdata.readlines()
+        userdata.close()
+        for i in range(len(line)):
+            user_info=line[i].split(";")
+            if str(user_info[0]) == str(Email.get()):
+                msg=Message(window3, text="Esse email já está em uso, escolha outro!", fg="red")
+                msg.place(x=300, y=250)
+                break   
+            elif str(user_info[2]) == str(Username.get()):
+                msg=Message(window3, text="Username já existe, escolha outro!", fg="red")
+                msg.place(x=300, y=250)
+                break
+        else:
+            data=open("userdata.txt", "a")
+            data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get())
+            data.close()
+            messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
+            return(Username.get())
 
-#registar mas ainda nao funciona
+#registar
 def login_registar():
     window3=tk.Toplevel()
     screen_width = window3.winfo_screenwidth()
@@ -147,12 +159,7 @@ def login_registar():
     txt_password2=Entry(window3, width=30, show="*")
     txt_password2.place(x=190, y=180)
 
-    Email=str(txt_email.get())
-    Username=str(txt_username.get())
-    Password=str(txt_password.get())
-    Password2=str(txt_password2.get())
-
-    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,Email,Username,Password,Password2))
+    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,txt_email,txt_username,txt_password,txt_password2))
     btn_registar.place(x=180, y=220)
 
 #funcao que pede para confirmar que a intensao do utilizador é sair
@@ -464,13 +471,12 @@ def favoritos_mostrar():
 
 barraMenu()
 #foto
-ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
-ctnCanvas.place(x=200, y=150)
-imginicio = ImageTk.PhotoImage(Image.open("Netflix.jpg"))
-ctnCanvas.create_image(180,100, image = imginicio)
+background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
+background_label = tk.Label(image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
-lbl.place(x=600, y=250)
+lbl = Label(window, text = "Gestor de Filmes", bg="#ffc04f", font = ("Cambria", 50))
+lbl.place(x=120, y=320)
 
 
 window.mainloop()
