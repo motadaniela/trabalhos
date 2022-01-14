@@ -1,2 +1,4 @@
-Nome;Ano;Filme;Categoria;Pontuação;Visualizações
-Spider-Man: No Way Home;2021;Filme;Ação;0;0
+Nome;Ano;Filme;Categoria;Pontuação;Visualizações;Favoritos
+1;1;qq;qq;0;0;não
+1;1;qq;qq;0;0;não
+1;1;qq;qq;0;0;não
