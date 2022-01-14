@@ -281,9 +281,9 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         tipo = "T"
     else:
         if vals.get() == True:                      # se está apenas checado vals (serie)
-            tipo = "Série\n"
+            tipo = "Série"
         if valf.get() == True:                      # se está apenas checado valf (filme)
-            tipo = "Filme\n"
+            tipo = "Filme"
     f = open(ficheiro, "r", encoding="utf-8")
     lista = f.readlines()
     f.close()
