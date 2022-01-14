@@ -5,6 +5,7 @@
 from cgitb import text
 from tkinter import *
 from tkinter import ttk
+from tokenize import String
 from turtle import width
 from PIL import ImageTk,Image
 from tkinter import messagebox
@@ -256,7 +257,9 @@ def catalogo():
     lframe3 = LabelFrame(panel2, width=180, height=90, bd=3, text="Género", fg="blue", relief="sunken")
     lframe3.place(x=18, y=215)
 
-    lista = ["Ação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
+    global cb_gen 
+    cb_gen = StringVar()
+    lista = ["Ação", "Animação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
     cb_gen=Combobox(lframe3, values=lista)
     cb_gen.place(x=15, y=20)
 
@@ -264,13 +267,21 @@ def catalogo():
     lframe4 = LabelFrame(panel2, width=180, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
     lframe4.place(x=18, y=310)
 
-    selected=StringVar()
-    rd1=Radiobutton(lframe4, text="Ordem alfabética", variable=selected, value="Ordem alfabética")
-    rd1.place(x=15, y=5)
-    rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
-    rd2.place(x=15, y=35)
-    rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
-    rd3.place(x=15, y=65)
+    lbl_alf=Label(lframe4, text="Ordem alfabética")
+    lbl_alf.place(x=35, y=6)
+    btn_alf=Button(lframe4, width=2, height=1, relief="raised", bg="blue")
+    btn_alf.place(x=8, y=5)
+
+    lbl_vis=Label(lframe4, text="Visualizações")
+    lbl_vis.place(x=35, y=38)
+    btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red")
+    btn_vis.place(x=8, y=35)
+
+    #rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
+    #rd2.place(x=15, y=35)
+
+    #rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
+    #rd3.place(x=15, y=65)
 
     #botões
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
@@ -285,8 +296,7 @@ def catalogo():
 #isto é para filtar os dados da tree mas ainda nao funciona
 #copiei do ex11
 def dados_treeview():  # Remove TODAS as linhas da Treeview
-    tree2.delete(*tree2.get_children()) 
-    
+    tree2.delete(*tree2.get_children())
     tipo = ""
     if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
         tipo = "T"
@@ -294,17 +304,14 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         tipo = "Série"
     elif valf.get() == True: # filme checado
         tipo = "Filme"
-    
     elif vals.get() == False and valf.get() == False:  #nada selecionado -> catálogo todo 
         f=open(ficheiro, "r", encoding="utf-8")
         lista = f.readlines()
         f.close()
         for linha in lista:
             campos = linha.split(";")
-            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))  
+            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))                 
     
-                  
-   
     f = open(ficheiro, "r", encoding="utf-8")
     lista = f.readlines()
     f.close()
@@ -312,6 +319,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         campos = linha.split(";")
         if tipo == "T" or campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
+                if cb_gen.get() == "" or cb_gen.get() == campos[3]:
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
         
 
