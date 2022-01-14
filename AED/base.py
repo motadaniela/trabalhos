@@ -375,61 +375,61 @@ def adicionar():
     
     #Button
     btnadicionar = Button(window5, width = 10, height= 2, text = "Adicionar", fg="blue", command =adicionar_linha)
-    btnadicionar.place(x=250, y=400)
+    btnadicionar.place(x=400, y=550)
 
     btnremover = Button(window5, width = 10, height= 2, text = "Remover", fg="red",command=lambda:remover(window5))
-    btnremover.place(x=350, y=400)
+    btnremover.place(x=500, y=550)
 
     lbladicionar = Label(window5, text="Adicionar novo filme/série")
-    lbladicionar.place(x=30, y=220)
+    lbladicionar.place(x=30, y=420)
 
     global nome
     nome=StringVar()
     lblnome = Label(window5, text="Nome")
-    lblnome.place(x=100, y=250)
+    lblnome.place(x=200, y=450)
     txtnome = Entry(window5, width = 20, textvariable=nome)
-    txtnome.place(x=60, y=300)
+    txtnome.place(x=160, y=500)
 
     global ano
     ano=IntVar()
     lblano = Label(window5, text="Ano")
-    lblano.place(x=250, y=250)
+    lblano.place(x=350, y=450)
     txtano = Entry(window5, width = 20, textvariable=ano)
-    txtano.place(x=210, y=300)
+    txtano.place(x=310, y=500)
 
     global tipologia
     tipologia=StringVar()
     lbltipologia = Label(window5, text="Tipologia")
-    lbltipologia.place(x=370, y=250)
+    lbltipologia.place(x=470, y=450)
     txttipologia = Entry(window5, width = 20, textvariable=tipologia)
-    txttipologia.place(x=350, y=300)
+    txttipologia.place(x=450, y=500)
 
     global categoria
     categoria=StringVar()
     lblcategoria = Label(window5, text="Categoria")
-    lblcategoria.place(x=520, y=250)
+    lblcategoria.place(x=620, y=450)
     txtcategoria = Entry(window5, width = 20, textvariable=categoria)
-    txtcategoria.place(x=500, y=300)
+    txtcategoria.place(x=600, y=500)
 
     # Panel
-    panel1 = PanedWindow(window5, width = 650, height = 200, bd = "3", relief = "sunken")
+    panel1 = PanedWindow(window5, width = 950, height = 400, bd = "3", relief = "sunken")
     panel1.place(x=10, y=10)
     #ListBox
     global tree  
-    tree=ttk.Treeview(panel1,height=8,selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria"), show="headings")
-    tree.column("Nome", width=180, anchor="c")
-    tree.column("Ano", width=150, anchor="c")
-    tree.column("Tipologia", width=150, anchor="c")
-    tree.column("Categoria", width=150, anchor="c")
+    tree=ttk.Treeview(panel1,height=17,selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria"), show="headings")
+    tree.column("Nome", width=240, anchor="c")
+    tree.column("Ano", width=230, anchor="c")
+    tree.column("Tipologia", width=230, anchor="c")
+    tree.column("Categoria", width=230, anchor="c")
     tree.heading("Nome", text="Nome")
     tree.heading("Ano", text="Ano")
     tree.heading("Tipologia", text="Tipologia")
     tree.heading("Categoria", text="Categoria")
     tree.place(x=1, y=1)
     mostrar()
-barraMenu()
 
-def favoritos():
+
+def favoritos_mostrar():
     tree.delete(*tree.get_children())
     f = open(ficheiro, "r", encoding="utf-8")
     lista=f.readlines()
@@ -440,6 +440,8 @@ def favoritos():
             tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
 
 
+
+barraMenu()
 #foto
 ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
 ctnCanvas.place(x=200, y=150)
