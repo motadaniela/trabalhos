@@ -277,11 +277,6 @@ def catalogo():
     btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red")
     btn_vis.place(x=8, y=35)
 
-    #rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
-    #rd2.place(x=15, y=35)
-
-    #rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
-    #rd3.place(x=15, y=65)
 
     #botões
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
