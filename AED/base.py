@@ -453,13 +453,14 @@ def favoritos_mostrar():
 
 barraMenu()
 #foto
-ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
-ctnCanvas.place(x=200, y=150)
-imginicio = ImageTk.PhotoImage(Image.open("Netflix.jpg"))
-ctnCanvas.create_image(180,100, image = imginicio)
+background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
+background_label = tk.Label(image=background_image)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
-lbl.place(x=600, y=250)
+#1000x600
+
+lbl = Label(window, text = "Gestor de Filmes", bg="#ffc04f", font = ("Cambria", 50))
+lbl.place(x=120, y=320)
 
 
 window.mainloop()
