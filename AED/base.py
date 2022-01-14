@@ -465,8 +465,6 @@ background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
 background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-#1000x600
-
 lbl = Label(window, text = "Gestor de Filmes", bg="#ffc04f", font = ("Cambria", 50))
 lbl.place(x=120, y=320)
 
