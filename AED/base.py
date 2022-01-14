@@ -9,8 +9,8 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 import tkinter as tk
 
-
 ficheiro="catalogo.txt"
+acc=0   #conta nao iniciada
 
 #cria janela centrada 
 window=tk.Tk()
@@ -22,8 +22,8 @@ global x, y
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
-app_width = 700
-app_height = 500
+app_width = 1000
+app_height = 600
 
 x = (screen_width/2) - (app_width/2)
 y = (screen_height/2) - (app_height/2)
@@ -31,18 +31,19 @@ y = (screen_height/2) - (app_height/2)
 window.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
 window.title("Projeto de Algoritmia")
 
-def check_data(Email, Password, window2):
+def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
     for line in userdata:
         pos = line.index(";")
         search = line[0:int(line.index(";"))]     #procura o 1o elemento da linha(email)
         passe = line[pos+1:int(line.index(";", pos+1))]    #procura o 2o elemento da linha(password)
-        if search == Email and passe == Password:
+        if search == Email.get() and passe == Password.get():
             username = line[line.index(";", pos+1)+1:line.index("\n")]
             messagebox("Bem Vindo!", "Bem vindo{0}!".format(username))
+            acc=1
             break
-        elif (search!=Email and passe==Password) or (search==Email and passe!=Password):
+        elif (search!=Email.get() and passe==Password.get()) or (search==Email.get() and passe!=Password.get()):
             msg=Message(window2, text="O email ou password estão errados!", fg="red")
             msg.place(x=100, y=200)
             break
@@ -51,7 +52,7 @@ def check_data(Email, Password, window2):
             msg.place(x=100, y=200)
             break
     userdata.close()
-    return username
+    return(username,acc)
 
 #entrar na conta
 def login_entrar():
@@ -84,13 +85,22 @@ def login_entrar():
     txt_password=Entry(window2, width=20, show="*")
     txt_password.place(x=150,y=90)
 
-    Email=txt_email.get()
-    Password=txt_password.get()
-
-    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(Email,Password,window2))
-
-    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised")
+    btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(txt_email,txt_password,window2,acc))
     btn_entrar.place(x=140, y=150)
+
+#funcao que verifica os dados de um novo utilizador para se registar
+def newuser(window3,Email,Username,Password,Password2):
+    data=open("userdata.txt", "r")
+    if Password!=Password2:
+        msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
+        msg.place(x=300, y=250)
+    line=data.readline()
+    pos=line.index(";")
+    for line in data:
+        if line[0:line.index(";",pos+2)] == Username:
+            msg=Message(window3, text="Username já existe, escolha outro!", fg="red")
+            msg.place(x=300, y=250)
+            break
 
 #registar mas ainda nao funciona
 def login_registar():
@@ -112,32 +122,43 @@ def login_registar():
 
     #inserir dados
     lbl_email=Label(window3, text="Email:", font=("Helvetica", 9))
-    lbl_email.place(x=95, y=60)
+    lbl_email.place(x=70, y=60)
 
     txt_email=Entry(window3, width=30)
-    txt_email.place(x=180, y=60)
+    txt_email.place(x=190, y=60)
 
     lbl_username=Label(window3, text="Username:", font=("Helvetica", 9))
-    lbl_username.place(x=95, y=100)
+    lbl_username.place(x=70, y=100)
 
     txt_username=Entry(window3, width=30)
-    txt_username.place(x=180, y=100)
+    txt_username.place(x=190, y=100)
 
-    lbl_password=Label(window3, text="Password:", font=("Helvetica", 9))
-    lbl_password.place(x=95, y=140)
+    lbl_password=Label(window3, text="Password:")
+    lbl_password.place(x=70, y=140)
 
-    txt_password=Entry(window3, width=30)
-    txt_password.place(x=180, y=140)
+    txt_password=Entry(window3, width=30, show="*")
+    txt_password.place(x=190, y=140)
 
-    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised")
-    btn_registar.place(x=180, y=200)
+    lbl_password2=Label(window3, text="Confirme password:")
+    lbl_password2.place(x=70, y=180)
 
+    txt_password2=Entry(window3, width=30, show="*")
+    txt_password2.place(x=190, y=180)
 
+    Email=str(txt_email.get())
+    Username=str(txt_username.get())
+    Password=str(txt_password.get())
+    Password2=str(txt_password2.get())
+
+    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,Email,Username,Password,Password2))
+    btn_registar.place(x=180, y=220)
+
+#funcao que pede para confirmar que a intensao do utilizador é sair
 def sair():
     res = messagebox.askquestion("Sair","Deseja sair?")
     if res=="yes":
         window.destroy()
-        
+
 #barra em cima mas é so suposto aparecer adicionar para o admin
 #tomos depois de mudar isso quando o login funcionar
 def barraMenu():
@@ -148,7 +169,7 @@ def barraMenu():
     #opçoes de filmes
     barra.add_command(label="Catalogo", command=catalogo)
 
-    barra.add_command(label="Favoritos")
+    barra.add_command(label="Favoritos", command=lambda:favoritos(acc))
 
     barra.add_command(label="Adicionar", command=adicionar)
     
@@ -162,29 +183,28 @@ def barraMenu():
 
     window.configure(menu=barra)
 
-
 #catalogo de filmes e series 
 #temos de adicionar masi filtros e mudar a aparencia para ficar mais bonito
 def catalogo():
     window4=Toplevel()   
-    window4.title("Entradas e Saídas") 
+    window4.title("Catálogo") 
     window4.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
     window4.focus_force()     
     window4.grab_set()
 
     #painel
-    panel1=PanedWindow(window4, width=450, height=450, bd="3", relief="sunken")
+    panel1=PanedWindow(window4, width=610, height=480, bd="3", relief="sunken")
     panel1.place(x=220, y=20)
 
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
     tree2=ttk.Treeview(panel1, height=50, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-    tree2.column("Nome", width=90, anchor="c")
-    tree2.column("Ano", width=70, anchor="c")
-    tree2.column("Tipologia", width=70, anchor="c")
-    tree2.column("Categoria", width=70, anchor="c")  #supostamente c é para centrar
-    tree2.column("Pontuação", width=70, anchor="c")
-    tree2.column("Visualizações", width=70, anchor="c")
+    tree2.column("Nome", width=100, anchor="c")
+    tree2.column("Ano", width=100, anchor="c")
+    tree2.column("Tipologia", width=100, anchor="c")
+    tree2.column("Categoria", width=100, anchor="c")  #supostamente c é para centrar
+    tree2.column("Pontuação", width=100, anchor="c")
+    tree2.column("Visualizações", width=100, anchor="c")
     tree2.heading("Nome", text="Nome")
     tree2.heading("Ano", text="Ano")
     tree2.heading("Tipologia", text="Tipologia")
@@ -244,8 +264,42 @@ def catalogo():
     rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
     rd3.place(x=5, y=65)
 
-    #isto é para filtar os dados da tree mas ainda nao funciona
-    #copiei do ex11
+#n esta a mostrar n sei pq
+#página de favoritos + visto ou nao visto
+def favoritos(acc):
+    #acc=1(só pus para ver a página)
+    #caso sessao nao foi iniciada
+    if acc==0:
+        messagebox.showerror("Conta não iniciada","Por favor faça login!")
+    elif acc==1:
+        wFavoritos=Toplevel()
+        wFavoritos.title("Favoritos") 
+        wFavoritos.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
+        wFavoritos.focus_force()     
+        wFavoritos.grab_set()
+
+        panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
+        panelF.place(X=100, y=50)
+
+        tree2=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+        tree2.column("Nome", width=300, anchor="c")
+        tree2.column("Tipo", width=300, anchor="c")
+        tree2.column("Estado", width=300, anchor="c")
+        tree2.heading("Nome", text="Nome")
+        tree2.heading("Tipo", text="Tipo")
+        tree2.heading("Estado", text="Estado")
+        tree2.place(x=1, y=1)
+
+        #botoes
+        bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
+        bttn_remover.place(x=110, y=510)
+        bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
+        bttn_visto.place(x=200, y=510)
+        bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
+        bttn_nvisto.place(x=290, y=510)
+
+#isto é para filtar os dados da tree mas ainda nao funciona
+#copiei do ex11
 def dados_treeview():  # Remove TODAS as linhas da Treeview
     tree.delete(*tree.get_children()) 
     tipo = ""
@@ -375,15 +429,25 @@ def adicionar():
     mostrar()
 barraMenu()
 
+def favoritos():
+    tree.delete(*tree.get_children())
+    f = open(ficheiro, "r", encoding="utf-8")
+    lista=f.readlines()
+    f.close()
+    for linha in lista:
+        campos = linha.split(";")
+        if campos[6]=="sim":
+            tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
+
 
 #foto
 ctnCanvas = Canvas(window, width = 350, height = 200, bd = 4, relief = "sunken")
-ctnCanvas.place(x=70, y=100)
+ctnCanvas.place(x=200, y=150)
 imginicio = ImageTk.PhotoImage(Image.open("Netflix.jpg"))
-ctnCanvas.create_image(175,100, image = imginicio)
+ctnCanvas.create_image(180,100, image = imginicio)
 
 lbl = Label(window, text = "Gestor de Filmes", font = ("Helvetica", 12))
-lbl.place(x=450, y=200)
+lbl.place(x=600, y=250)
 
 
 window.mainloop()
