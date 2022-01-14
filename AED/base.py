@@ -280,18 +280,21 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
     tipo = ""
     if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
         tipo = "T"
-    elif vals.get() == False and valf.get() == False:
+    elif vals.get() == True: # serie checado
+        tipo = "Série"
+    elif valf.get() == True: # filme checado
+        tipo = "Filme"
+    
+    elif vals.get() == False and valf.get() == False:  #nada selecionado -> catálogo todo 
         f=open(ficheiro, "r", encoding="utf-8")
         lista = f.readlines()
         f.close()
         for linha in lista:
             campos = linha.split(";")
-            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))        
-    else:
-        if vals.get() == True:                      # se está apenas checado vals (serie)
-            tipo = "Série"
-        if valf.get() == True:                      # se está apenas checado valf (filme)
-            tipo = "Filme"
+            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))  
+    
+                  
+   
     f = open(ficheiro, "r", encoding="utf-8")
     lista = f.readlines()
     f.close()
