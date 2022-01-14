@@ -195,14 +195,14 @@ def catalogo():
     window4.grab_set()
 
     #painel
-    panel1=PanedWindow(window4, width=610, height=560, bd="3", relief="sunken")
-    panel1.place(x=320, y=20)
+    panel1=PanedWindow(window4, width=660, height=560, bd="3", relief="sunken")
+    panel1.place(x=310, y=20)
 
     #acho que tenho de mudar o nome da tree
     #lista de filmes e series
     global tree2 
     tree2=ttk.Treeview(panel1, height=50, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-    tree2.column("Nome", width=100, anchor="c")
+    tree2.column("Nome", width=160, anchor="c")
     tree2.column("Ano", width=100, anchor="c")
     tree2.column("Tipologia", width=100, anchor="c")
     tree2.column("Categoria", width=100, anchor="c")  #supostamente c é para centrar
@@ -239,11 +239,11 @@ def catalogo():
     lframe2 = LabelFrame(panel2, width = 180, height=100, bd=3, text= "Pesquisar", fg = "blue", relief = "sunken")
     lframe2.place(x=18, y=110)
     lblUtilizador = Label(lframe2, text="Nome: ")
-    lblUtilizador.place(x=15, y=5)
+    lblUtilizador.place(x=15, y=10)
 
     val3 = StringVar()
     txtpesquisar = Entry(lframe2, width = 20, textvariable = val3)
-    txtpesquisar.place(x=15, y=25)
+    txtpesquisar.place(x=15, y=30)
 
     #frame generos
     lframe3 = LabelFrame(panel2, width=180, height=90, bd=3, text="Género", fg="blue", relief="sunken")
@@ -251,21 +251,21 @@ def catalogo():
 
     lista = ["Ação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
     cb_gen=Combobox(lframe3, values=lista)
-    cb_gen.place(x=5, y=20)
+    cb_gen.place(x=15, y=20)
 
-    
-
+    #frame ordenar
     lframe4 = LabelFrame(panel2, width=180, height=120, bd=3, text="Ordenar por", fg="blue", relief="sunken")
     lframe4.place(x=18, y=310)
 
     selected=StringVar()
     rd1=Radiobutton(lframe4, text="Ordem alfabética", variable=selected, value="Ordem alfabética")
-    rd1.place(x=5, y=5)
+    rd1.place(x=15, y=5)
     rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
-    rd2.place(x=5, y=35)
+    rd2.place(x=15, y=35)
     rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
-    rd3.place(x=5, y=65)
+    rd3.place(x=15, y=65)
 
+    #botões
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
     btnpesquisar.place(x=18, y=440)
 
@@ -276,9 +276,17 @@ def catalogo():
 #copiei do ex11
 def dados_treeview():  # Remove TODAS as linhas da Treeview
     tree2.delete(*tree2.get_children()) 
+    
     tipo = ""
     if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
         tipo = "T"
+    elif vals.get() == False and valf.get() == False:
+        f=open(ficheiro, "r", encoding="utf-8")
+        lista = f.readlines()
+        f.close()
+        for linha in lista:
+            campos = linha.split(";")
+            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))        
     else:
         if vals.get() == True:                      # se está apenas checado vals (serie)
             tipo = "Série"
@@ -289,7 +297,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
     f.close()
     for linha in lista:
         campos = linha.split(";")
-        if campos[2] == tipo:
+        if tipo == "T" or campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
         
