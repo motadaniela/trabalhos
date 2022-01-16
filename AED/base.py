@@ -57,7 +57,7 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
 #depois ponho para fzr return do username^
 
 #entrar na conta
-def login_entrar():
+def login_entrar(barra_menu: Menu):
     window2=tk.Toplevel()
     screen_width = window2.winfo_screenwidth()
     screen_height = window2.winfo_screenheight()
@@ -90,6 +90,9 @@ def login_entrar():
     btn_entrar=Button(window2, text="Entrar", width=10, height=2, relief="raised", command=lambda:check_data(txt_email,txt_password,window2,acc))
     btn_entrar.place(x=140, y=150)
 
+    barra_menu.add_command(label="Bernardo")
+    barra_menu.delete(1)
+
 #funcao que verifica os dados de um novo utilizador para se registar
 def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2):
     if str(Password.get())!=str(Password2.get()):
@@ -114,6 +117,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
             data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get())
             data.close()
             messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
+            barra_user()
             return(Username.get())
 
 #registar
@@ -162,35 +166,43 @@ def login_registar():
     btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,txt_email,txt_username,txt_password,txt_password2))
     btn_registar.place(x=180, y=220)
 
+def logout():
+    acc=0
+
 #funcao que pede para confirmar que a intensao do utilizador é sair
 def sair():
     res = messagebox.askquestion("Sair","Deseja sair?")
     if res=="yes":
         window.destroy()
 
-#barra em cima mas é so suposto aparecer adicionar para o admin
-#tomos depois de mudar isso quando o login funcionar
+#barra para o admin
+def barra_admin(barra: Menu):
+    barra.add_command(label="Adicionar", command=adicionar)
+    barra.add_command(label="Log out", command= logout)
+
+def barra_user(barra: Menu):
+    barra.add_command(label="Favoritos", command=lambda:favoritos)
+    barra.add_command(label="Log out", command= logout)
+    return
+
+#barra menu principal
 def barraMenu():
     #cria barra menu
     barra=Menu()
 
-
     #opçoes de filmes
     barra.add_command(label="Catálogo", command=catalogo)
-
-    barra.add_command(label="Favoritos", command=lambda:favoritos(acc))
-
-    barra.add_command(label="Adicionar", command=adicionar)
     
     #login
     opcoes_login=Menu(barra)
-    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar())
+    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(barra))
     opcoes_login.add_command(label="Registar", command=lambda:login_registar())
     barra.add_cascade(label="Login", menu=opcoes_login)
 
     barra.add_command(label="Sair", command=sair)
 
     window.configure(menu=barra)
+    return barra
 
 #catalogo de filmes e series 
 #temos de adicionar masi filtros e mudar a aparencia para ficar mais bonito
@@ -312,36 +324,31 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
 def favoritos(acc):
-    #acc=1(só pus para ver a página)
-    #caso sessao nao foi iniciada
-    if acc==0:
-        messagebox.showerror("Conta não iniciada","Por favor faça login!")
-    elif acc==1:
-        wFavoritos=Toplevel()
-        wFavoritos.title("Favoritos") 
-        wFavoritos.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
-        wFavoritos.focus_force()     
-        wFavoritos.grab_set()
+    wFavoritos=Toplevel()
+    wFavoritos.title("Favoritos") 
+    wFavoritos.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
+    wFavoritos.focus_force()     
+    wFavoritos.grab_set()
 
-        panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
-        panelF.place(X=100, y=50)
+    panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
+    panelF.place(X=100, y=50)
 
-        tree=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-        tree.column("Nome", width=300, anchor="c")
-        tree.column("Tipo", width=300, anchor="c")
-        tree.column("Estado", width=300, anchor="c")
-        tree.heading("Nome", text="Nome")
-        tree.heading("Tipo", text="Tipo")
-        tree.heading("Estado", text="Estado")
-        tree.place(x=1, y=1)
+    tree=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+    tree.column("Nome", width=300, anchor="c")
+    tree.column("Tipo", width=300, anchor="c")
+    tree.column("Estado", width=300, anchor="c")
+    tree.heading("Nome", text="Nome")
+    tree.heading("Tipo", text="Tipo")
+    tree.heading("Estado", text="Estado")
+    tree.place(x=1, y=1)
 
-        #botoes
-        bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
-        bttn_remover.place(x=110, y=510)
-        bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
-        bttn_visto.place(x=200, y=510)
-        bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
-        bttn_nvisto.place(x=290, y=510)
+    #botoes
+    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
+    bttn_remover.place(x=110, y=510)
+    bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
+    bttn_visto.place(x=200, y=510)
+    bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
+    bttn_nvisto.place(x=290, y=510)
 
 
 #remove linha
@@ -466,7 +473,7 @@ def favoritos_mostrar():
 
 
 
-barraMenu()
+barra_menu = barraMenu()
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
@@ -474,6 +481,5 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 lbl = Label(window, text = "Gestor de Filmes", bg="#ffc04f", font = ("Cambria", 50))
 lbl.place(x=120, y=320)
-
 
 window.mainloop()
