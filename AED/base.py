@@ -3,6 +3,8 @@
 #Daniela Monteiro, nº aluno:40210288
 
 from cgitb import text
+from distutils import command
+from optparse import Values
 from tkinter import *
 from tkinter import ttk
 from tokenize import String
@@ -301,24 +303,31 @@ def catalogo():
 
     lbl_alf=Label(lframe4, text="Ordem alfabética")
     lbl_alf.place(x=35, y=6)
-    btn_alf=Button(lframe4, width=2, height=1, relief="raised", bg="blue")
+    btn_alf=Button(lframe4, width=2, height=1, relief="raised", bg="blue", command=sort_alf)
     btn_alf.place(x=8, y=5)
 
     lbl_vis=Label(lframe4, text="Visualizações")
     lbl_vis.place(x=35, y=38)
-    btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red")
+    btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red", command=sort_vis)
     btn_vis.place(x=8, y=35)
+
+    lbl_pont=Label(lframe4, text="Pontuação")
+    lbl_pont.place(x=35, y=68)
+    btn_pont=Button(lframe4, width=2, height=1, relief="raised", bg="green")
+    btn_pont.place(x=8, y=65)
 
 
     #botões
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
     btnpesquisar.place(x=18, y=430)
 
-    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=mais_informacoes)
+    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecao(window4))
     btn_abrir.place(x=18, y=475)
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
     btn_fav.place(x=18, y=520)
+
+
 
 #isto é para filtar os dados da tree mas ainda nao funciona
 #copiei do ex11
@@ -349,7 +358,15 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
                 if cb_gen.get() == "" or cb_gen.get() == campos[3]:
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
         
+def sort_alf():
+    linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
+    linhas.sort()
+    for index, (values, item) in enumerate(linhas):
+        tree2.move(item,'',index)
 
+def sort_vis():
+    idk
+        
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
 def favoritos():
@@ -498,25 +515,46 @@ def adicionar():
   #      if campos[6]=="sim":
    #         tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
 
+
+def selecao(window4):
+    selecao=tree.focus()
+    selecao=int(selecao[1:],16)
+    if selecao==0:
+        msg=Message(window4, text="Por favor selecione algo", fg="red")
+        msg.place(x=100, y=200)
+
+    else:
+        with open(ficheiro, "r", encoding="UTF-8") as f:
+            
+            new_text=""
+            for line in f[selecao-1]:
+                filme=line.split(";")
+        mais_informacoes()
+        
+
 def mais_informacoes():
     window6=Toplevel()   
-    window6.title("Catálogo") 
+    window6.title("Informações") 
     window6.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
     window6.focus_force()     
     window6.grab_set()
 
-    selecao=tree.focus()
-    selecao=int(selecao[1:],16)
-    with open(ficheiro, "r", encoding="UTF-8") as f:
-        new_text=""
-        for line in f[selecao-1]:
-            filme=line.split(";")
+    
 
     lbl23=Label(window6, text="olaaaaa", font=("Helvetica", 9))
     lbl23.place(x=100, y=100)
 
+    txt_email=Entry(window6, width=20)
+    txt_email.place(x=150, y=50)
 
+<<<<<<< HEAD
 barra_menu = barraMenu()
+=======
+    
+
+
+barra_menu = barraMenu(acc)
+>>>>>>> 913185086f1b09fbdac2b7a4f69416b1144672c5
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
