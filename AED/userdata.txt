@@ -1,2 +1,3 @@
 email;password;username
-1;2;3
+1;2;3;user
+daniela;123;nini;admin
