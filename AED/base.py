@@ -3,6 +3,8 @@
 #Daniela Monteiro, nº aluno:40210288
 
 from cgitb import text
+from distutils import command
+from optparse import Values
 from tkinter import *
 from tkinter import ttk
 from tokenize import String
@@ -281,13 +283,18 @@ def catalogo():
 
     lbl_alf=Label(lframe4, text="Ordem alfabética")
     lbl_alf.place(x=35, y=6)
-    btn_alf=Button(lframe4, width=2, height=1, relief="raised", bg="blue")
+    btn_alf=Button(lframe4, width=2, height=1, relief="raised", bg="blue", command=sort_alf)
     btn_alf.place(x=8, y=5)
 
     lbl_vis=Label(lframe4, text="Visualizações")
     lbl_vis.place(x=35, y=38)
-    btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red")
+    btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red", command=sort_vis)
     btn_vis.place(x=8, y=35)
+
+    lbl_pont=Label(lframe4, text="Pontuação")
+    lbl_pont.place(x=35, y=68)
+    btn_pont=Button(lframe4, width=2, height=1, relief="raised", bg="green")
+    btn_pont.place(x=8, y=65)
 
 
     #botões
@@ -299,6 +306,8 @@ def catalogo():
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
     btn_fav.place(x=18, y=520)
+
+
 
 #isto é para filtar os dados da tree mas ainda nao funciona
 #copiei do ex11
@@ -329,7 +338,15 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
                 if cb_gen.get() == "" or cb_gen.get() == campos[3]:
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
         
+def sort_alf():
+    linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
+    linhas.sort()
+    for index, (values, item) in enumerate(linhas):
+        tree2.move(item,'',index)
 
+def sort_vis():
+    idk
+        
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
 def favoritos(acc):
