@@ -287,7 +287,7 @@ def catalogo():
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
     btnpesquisar.place(x=18, y=430)
 
-    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=mais_informacoes)
+    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecao(window4))
     btn_abrir.place(x=18, y=475)
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
@@ -478,26 +478,39 @@ def adicionar():
   #      if campos[6]=="sim":
    #         tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
 
+
+def selecao(window4):
+    selecao=tree.focus()
+    selecao=int(selecao[1:],16)
+    if selecao==0:
+        msg=Message(window4, text="Por favor selecione algo", fg="red")
+        msg.place(x=100, y=200)
+
+    else:
+        with open(ficheiro, "r", encoding="UTF-8") as f:
+            
+            new_text=""
+            for line in f[selecao-1]:
+                filme=line.split(";")
+        mais_informacoes()
+        
+
 def mais_informacoes():
     window6=Toplevel()   
-    window6.title("Catálogo") 
+    window6.title("Informações") 
     window6.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
     window6.focus_force()     
     window6.grab_set()
 
-    selecao=tree.focus()
-    selecao=int(selecao[1:],16)
-    with open(ficheiro, "r", encoding="UTF-8") as f:
-        new_text=""
-        for line in f[selecao-1]:
-            filme=line.split(";")
+    
 
     lbl23=Label(window6, text="olaaaaa", font=("Helvetica", 9))
     lbl23.place(x=100, y=100)
 
+    txt_email=Entry(window6, width=20)
+    txt_email.place(x=150, y=50)
 
-
-
+    
 
 
 barraMenu()
