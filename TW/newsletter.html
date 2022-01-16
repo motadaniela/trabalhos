@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Projeto-TW</title>
+
+    <style>
+        body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            margin: 0px;
+        }
+
+        header, footer {
+            background-color: #c71a20;
+            color: #ffffff;
+            height: 15vh;
+            width: 100%;
+            text-align: center;
+        }
+
+        header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        #footer-links-footer {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        article{
+            background-color: #ffffff;
+            width: 100%;
+            height: 70vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <img scr="https://cutewallpaper.org/24/uno-png/download-us-uno-play-card-game-new-png-image-with-no-background--pngkeycom.png" width="70px" height="70px">
+        <a href="index.html"><h1>UNO Club</h1></a>
+        <div id="header-links"> <a href="#"><b>Atletas</b></a> <a href="#"><b>Loja</b></a> <a href="#"><b>Newsletter</b></a> <a href="#"><b>Contactos</b></a> <a href="#"><b>Sign/Login</b></a></div>
+    </header>
+
+    <article>
+    
+        <form method="post" action="newsletter.html" id="form1">
+            <br><h1>UNO Newsletter</h1><br>
+            <fieldset>
+
+                <label for="first-name">Primeiro Nome:</label>
+                <input type="text" name="first-name" pattern="[A-Z][a-z]+\s[A-Z][a-z]+" required>
+                <br><br>
+                <label for="last-name">Último Nome:</label>
+                <input type="text" name="last-name" pattern="[A-Z][a-z]+\s[A-Z][a-z]+" required>
+                <br><br>
+                <label for="gender">Género:</label>
+                <label for="feminino">Feminino</label>
+                <input type="radio" name="genero" id="feminino" value="feminino">
+                <label for="masculino">Masculino</label>
+                <input type="radio" name="genero" id="masculino" value="masculino">
+                <br><br>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required>
+                <br><br>
+                <label for="birthday">Data de Nascimento</label>
+                <input type="date" name="birthday" id="birthday" required>
+                <br><br>
+                <label for="terms">Aceito receber notícias e novidades sobre o UNO Club via email</label>
+                <input type="checkbox" name="tnc" id="tnc" required>
+                <br><br>
+                <button type="reset" value="reset">Limpar</button>
+                <button type="submit" form="form1" value="submit">Submeter</button>
+                    
+            </fieldset>  
+        </form>
+    </article>
+
+    <footer>
+        <div id= "copy">Copyright &copy; UNO Club</div>
+        <div id="footer-links"><a href="#">Atletas</a> <a href="#">Loja</a> <a href="#">Newsletter</a> <a>Contactos</a></div>
+    </footer>
+</body>
