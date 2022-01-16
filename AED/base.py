@@ -3,6 +3,8 @@
 #Daniela Monteiro, nº aluno:40210288
 
 from cgitb import text
+from distutils import command
+from optparse import Values
 from tkinter import *
 from tkinter import ttk
 from tokenize import String
@@ -40,25 +42,26 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     line = userdata.readline()
     for line in userdata:
         user_info = line.split(";")
-        if user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
+        if user_info[3] == "admin\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
+            acc=2
+            username = user_info[2]
+            messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
+            barra_admin(barra_menu)
+            break
+        elif user_info[3]=="user\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
             acc=1
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
+            barra_user(barra_menu)
             break
-        elif (user_info[0]!=Email.get() and user_info[1]==Password.get()) or (user_info[0]==Email.get() and user_info[1]!=Password.get()):
-            msg=Message(window2, text="O email ou password estão errados!", fg="red")
-            msg.place(x=100, y=200)
-            break
-        else:
-            msg=Message(window2, text="Por favor registe-se", fg="red")
-            msg.place(x=100, y=200)
-            break
+    if user_info[0]==Email.get() and user_info[1]!=Password.get():
+        msg=Message(window2, text="Email ou password estão errados!", fg="red")
+        msg.place(x=100, y=200)
     userdata.close()
-    return(user_info[2],acc)
-#depois ponho para fzr return do username^
+    return(username,acc)
 
 #entrar na conta
-def login_entrar():
+def login_entrar(barra_menu: Menu,acc):
     window2=tk.Toplevel()
     screen_width = window2.winfo_screenwidth()
     screen_height = window2.winfo_screenheight()
@@ -92,7 +95,7 @@ def login_entrar():
     btn_entrar.place(x=140, y=150)
 
 #funcao que verifica os dados de um novo utilizador para se registar
-def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2):
+def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2,acc):
     if str(Password.get())!=str(Password2.get()):
         msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
         msg.place(x=300, y=250)
@@ -113,12 +116,20 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get())
-            data.close()
-            messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
-            return(Username.get())
+            if acc==0:
+                data.write(";user")
+                data.close()
+                messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
+                barra_user(barra_menu)
+                return(Username.get())
+            elif acc==2:
+                data.write(";admin")
+                data.close()
+                messagebox.showinfo("Novo admin","Nova conta admin criada!")
+                return(Username.get())
 
 #registar
-def login_registar():
+def login_registar(acc):
     window3=tk.Toplevel()
     screen_width = window3.winfo_screenwidth()
     screen_height = window3.winfo_screenheight()
@@ -131,7 +142,7 @@ def login_registar():
     
     window3.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
 
-    window3.title("Login")
+    window3.title("Registar")
     window3.focus_force()
     window3.grab_set 
 
@@ -160,8 +171,13 @@ def login_registar():
     txt_password2=Entry(window3, width=30, show="*")
     txt_password2.place(x=190, y=180)
 
-    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,txt_email,txt_username,txt_password,txt_password2))
+    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,txt_email,txt_username,txt_password,txt_password2,acc))
     btn_registar.place(x=180, y=220)
+
+def logout(acc):
+    acc=0
+    barraMenu()
+    return acc
 
 #funcao que pede para confirmar que a intensao do utilizador é sair
 def sair():
@@ -169,29 +185,41 @@ def sair():
     if res=="yes":
         window.destroy()
 
-#barra em cima mas é so suposto aparecer adicionar para o admin
-#tomos depois de mudar isso quando o login funcionar
-def barraMenu():
+#barra para o admin
+def barra_admin(barra_menu: Menu):
+    barra_menu.delete(3)
+    barra_menu.delete(2)
+    barra_menu.add_command(label="Adicionar", command=adicionar)
+    barra_menu.add_command(label="Log out", command= logout())
+    barra_menu.add_command(label="Novo admin", command= login_registar())
+    barra_menu.add_command(label="Sair", command=sair)
+
+def barra_user(barra_menu: Menu):
+    barra_menu.delete(3)
+    barra_menu.delete(2)
+    barra_menu.add_command(label="Favoritos", command=lambda:favoritos)
+    barra_menu.add_command(label="Log out", command= logout(acc))
+    barra_menu.add_command(label="Sair", command=sair)
+    return
+
+#barra menu principal
+def barraMenu(acc):
     #cria barra menu
     barra=Menu()
 
-
     #opçoes de filmes
     barra.add_command(label="Catálogo", command=catalogo)
-
-    barra.add_command(label="Favoritos", command=lambda:favoritos(acc))
-
-    barra.add_command(label="Adicionar", command=adicionar)
     
     #login
     opcoes_login=Menu(barra)
-    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar())
-    opcoes_login.add_command(label="Registar", command=lambda:login_registar())
+    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(barra,acc))
+    opcoes_login.add_command(label="Registar", command=lambda:login_registar(acc))
     barra.add_cascade(label="Login", menu=opcoes_login)
 
     barra.add_command(label="Sair", command=sair)
 
     window.configure(menu=barra)
+    return barra
 
 #catalogo de filmes e series 
 #temos de adicionar masi filtros e mudar a aparencia para ficar mais bonito
@@ -269,19 +297,19 @@ def catalogo():
 
     lbl_alf=Label(lframe4, text="Ordem alfabética")
     lbl_alf.place(x=35, y=6)
-    btn_alf=Button(lframe4, width=2, height=1, relief="raised", bg="blue")
+    btn_alf=Button(lframe4, width=2, height=1, relief="raised", bg="blue", command=sort_alf)
     btn_alf.place(x=8, y=5)
 
     lbl_vis=Label(lframe4, text="Visualizações")
     lbl_vis.place(x=35, y=38)
-    btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red")
+    btn_vis=Button(lframe4, width=2, height=1, relief="raised", bg="red", command=sort_vis)
     btn_vis.place(x=8, y=35)
 
-    #rd2=Radiobutton(lframe4, text="Visualizações", variable=selected, value="Visualizações")
-    #rd2.place(x=15, y=35)
+    lbl_pont=Label(lframe4, text="Pontuação")
+    lbl_pont.place(x=35, y=68)
+    btn_pont=Button(lframe4, width=2, height=1, relief="raised", bg="green")
+    btn_pont.place(x=8, y=65)
 
-    #rd3=Radiobutton(lframe4, text="Pontuação", variable=selected, value="Pontuação")
-    #rd3.place(x=15, y=65)
 
     #botões
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
@@ -292,6 +320,8 @@ def catalogo():
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
     btn_fav.place(x=18, y=520)
+
+
 
 #isto é para filtar os dados da tree mas ainda nao funciona
 #copiei do ex11
@@ -322,40 +352,43 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
                 if cb_gen.get() == "" or cb_gen.get() == campos[3]:
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
         
+def sort_alf():
+    linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
+    linhas.sort()
+    for index, (values, item) in enumerate(linhas):
+        tree2.move(item,'',index)
 
+def sort_vis():
+    idk
+        
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
 def favoritos(acc):
-    #acc=1(só pus para ver a página)
-    #caso sessao nao foi iniciada
-    if acc==0:
-        messagebox.showerror("Conta não iniciada","Por favor faça login!")
-    elif acc==1:
-        wFavoritos=Toplevel()
-        wFavoritos.title("Favoritos") 
-        wFavoritos.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
-        wFavoritos.focus_force()     
-        wFavoritos.grab_set()
+    wFavoritos=Toplevel()
+    wFavoritos.title("Favoritos") 
+    wFavoritos.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
+    wFavoritos.focus_force()     
+    wFavoritos.grab_set()
 
-        panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
-        panelF.place(X=100, y=50)
+    panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
+    panelF.place(X=100, y=50)
 
-        tree=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-        tree.column("Nome", width=300, anchor="c")
-        tree.column("Tipo", width=300, anchor="c")
-        tree.column("Estado", width=300, anchor="c")
-        tree.heading("Nome", text="Nome")
-        tree.heading("Tipo", text="Tipo")
-        tree.heading("Estado", text="Estado")
-        tree.place(x=1, y=1)
+    tree=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
+    tree.column("Nome", width=300, anchor="c")
+    tree.column("Tipo", width=300, anchor="c")
+    tree.column("Estado", width=300, anchor="c")
+    tree.heading("Nome", text="Nome")
+    tree.heading("Tipo", text="Tipo")
+    tree.heading("Estado", text="Estado")
+    tree.place(x=1, y=1)
 
-        #botoes
-        bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
-        bttn_remover.place(x=110, y=510)
-        bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
-        bttn_visto.place(x=200, y=510)
-        bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
-        bttn_nvisto.place(x=290, y=510)
+    #botoes
+    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
+    bttn_remover.place(x=110, y=510)
+    bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
+    bttn_visto.place(x=200, y=510)
+    bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
+    bttn_nvisto.place(x=290, y=510)
 
 
 #remove linha
@@ -513,7 +546,7 @@ def mais_informacoes():
     
 
 
-barraMenu()
+barra_menu = barraMenu(acc)
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
@@ -521,6 +554,5 @@ background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 lbl = Label(window, text = "Gestor de Filmes", bg="#ffc04f", font = ("Cambria", 50))
 lbl.place(x=120, y=320)
-
 
 window.mainloop()
