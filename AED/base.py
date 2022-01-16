@@ -539,22 +539,14 @@ def mais_informacoes():
     window6.focus_force()     
     window6.grab_set()
 
-    
-
     lbl23=Label(window6, text="olaaaaa", font=("Helvetica", 9))
     lbl23.place(x=100, y=100)
 
     txt_email=Entry(window6, width=20)
     txt_email.place(x=150, y=50)
 
-<<<<<<< HEAD
 barra_menu = barraMenu()
-=======
-    
 
-
-barra_menu = barraMenu(acc)
->>>>>>> 913185086f1b09fbdac2b7a4f69416b1144672c5
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
