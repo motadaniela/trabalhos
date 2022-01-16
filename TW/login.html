@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel ="Stylesheet" type="text/css" href="login.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in/Registar</title>
+
+    <style>
+        body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #c71a20;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        margin: 0px;
+        }
+        header{
+            display: flex;
+            flex-direction: row;
+            background-color: #c71a20;
+            color: #ffffff;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        fieldset{
+            border-color: #c71a20;
+            color: rgb(238, 204, 55);
+            text-shadow: black;
+        }
+        a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
 </head>
 <body>
-    <a href="pagina-principal.html">« Voltar</a>
-    <form
-    action=""
-    method="post">
-    Email: <input type="email" name="email" id="email" required><br>
-    Password: <input type="password" name="password" id="password" required><br>
-    <input type="submit" name="Entrar">
-    </form>
+    <header>
+        <a href="index.html">« Voltar</a>
+    </header>
+    <fieldset><legend>Iniciar Sessão</legend>
+        <form
+        action=""
+        method="post">
+        Email: <input type="email" name="email" id="email" required><br>
+        Password: <input type="password" name="password" id="password" required><br>
+        <input type="submit" name="Entrar">
+        </form>
+    </fieldset>
     
 </body>
 </html>
