@@ -45,12 +45,14 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
             barra_admin(barra_menu)
+            window2.destroy()
             break
         elif user_info[3]=="user\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
             acc=1
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
             barra_user(barra_menu)
+            window2.destroy()
             break
     if user_info[0]==Email.get() and user_info[1]!=Password.get():
         msg=Message(window2, text="Email ou password estão errados!", fg="red")
@@ -119,11 +121,13 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 data.close()
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
+                window3.destroy()
                 return(Username.get())
             elif acc==2:
                 data.write(";admin")
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
+                window3.destroy()
                 return(Username.get())
 
 #registar
@@ -172,10 +176,12 @@ def login_registar(acc):
     btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,txt_email,txt_username,txt_password,txt_password2,acc))
     btn_registar.place(x=180, y=220)
 
-def logout(acc):
-    acc=0
-    barraMenu()
-    return acc
+def logout(acc, barra_menu: Menu):
+    res = messagebox.askquestion("Log out","Deseja fazer log out?")
+    if res=="yes":
+        acc=0
+        barraMenu()
+        return acc
 
 #funcao que pede para confirmar que a intensao do utilizador é sair
 def sair():
@@ -188,20 +194,20 @@ def barra_admin(barra_menu: Menu):
     barra_menu.delete(3)
     barra_menu.delete(2)
     barra_menu.add_command(label="Adicionar", command=adicionar)
-    barra_menu.add_command(label="Log out", command= logout())
-    barra_menu.add_command(label="Novo admin", command= login_registar())
+    barra_menu.add_command(label="Log out", command=lambda: logout(acc, barra_menu))
+    barra_menu.add_command(label="Novo admin", command=lambda: login_registar(acc))
     barra_menu.add_command(label="Sair", command=sair)
 
 def barra_user(barra_menu: Menu):
     barra_menu.delete(3)
     barra_menu.delete(2)
     barra_menu.add_command(label="Favoritos", command=lambda:favoritos)
-    barra_menu.add_command(label="Log out", command= logout(acc))
+    barra_menu.add_command(label="Log out", command=lambda: logout(acc, barra_menu))
     barra_menu.add_command(label="Sair", command=sair)
     return
 
 #barra menu principal
-def barraMenu(acc):
+def barraMenu():
     #cria barra menu
     barra=Menu()
 
@@ -346,7 +352,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
 
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
-def favoritos(acc):
+def favoritos():
     wFavoritos=Toplevel()
     wFavoritos.title("Favoritos") 
     wFavoritos.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
@@ -393,8 +399,6 @@ def remover(window5):
         f.write(new_text)
     window5.destroy()
     adicionar()
-    
-
 
 #mostra os dados anteriores
 def mostrar():
@@ -512,11 +516,7 @@ def mais_informacoes():
     lbl23.place(x=100, y=100)
 
 
-
-
-
-
-barra_menu = barraMenu(acc)
+barra_menu = barraMenu()
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
