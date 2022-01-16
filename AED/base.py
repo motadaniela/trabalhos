@@ -14,7 +14,6 @@ import tkinter as tk
 
 ficheiro="catalogo.txt"
 acc=0   #conta nao iniciada
-admins=[[]]
 
 #cria janela centrada 
 window=tk.Tk()
