@@ -118,17 +118,17 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get())
-            if acc==0:
+            if acc==2:
+                data.write(";admin")
+                data.close()
+                messagebox.showinfo("Novo admin","Nova conta admin criada!")
+                window3.destroy()
+                return(Username.get())
+            elif acc==0:
                 data.write(";user")
                 data.close()
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
-                window3.destroy()
-                return(Username.get())
-            elif acc==2:
-                data.write(";admin")
-                data.close()
-                messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 window3.destroy()
                 return(Username.get())
 
