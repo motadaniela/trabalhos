@@ -49,6 +49,15 @@
             height: 70vh;
         }
 
+        article a {
+            text-decoration: underline;
+            color: black;
+        }
+        article a:hover {
+            text-decoration: underline;
+            color: blue;
+        }
+
         a {
             text-decoration: none;
             color: #ffffff;
@@ -63,15 +72,34 @@
     <header>
         <img scr="https://cutewallpaper.org/24/uno-png/download-us-uno-play-card-game-new-png-image-with-no-background--pngkeycom.png" width="70px" height="70px">
         <a href="index.html"><h1>UNO Club</h1></a>
-        <div id="header-links"> <a href="#"><b>Atletas</b></a> <a href="#"><b>Loja</b></a> <a href="#"><b>Newsletter</b></a> <a href="#"><b>Contactos</b></a> <a href="#"><b>Sign/Login</b></a></div>
+        <div id="header-links"> <a href="#"><b>Atletas</b></a> <a href="#"><b>Loja</b></a> <a href="contactos.html"><b>Contactos</b></a> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><b>Sign/Login<i data-feather="user"></i></b></a></div>
     </header>
 
     <article>
+        <h1>Contactos</h1>
+        <fieldset>
+            <h3>Localização</h3>
+            <p>Rua D. Sancho I, n.º 981 </p>
+            <p>4480-876, Vila do Conde, Portugal</p>
+            <h3>Telefone</h3>
+            <p>Tlf: 252 111 222</p>
+            <p>Tlm: 912 345 678</p>
+            <h3>Email</h3>
+            <p>unoclub@gmail.com</p>
+            <h3>UNO Newsletter</h3>
+            <p>Subscreva a nossa newsletter para receber notícias e informações adicionais no seguinte <a href="newsletter.html">formulário</a>.</p>
+
+        </fieldset>
         
     </article>
 
     <footer>
         <div id= "copy">Copyright &copy; UNO Club</div>
-        <div id="footer-links"><a href="#">Atletas</a> <a href="#">Loja</a> <a href="#">Newsletter</a> <a>Contactos</a></div>
+        <div id="footer-links"><a href="#">Atletas</a> <a href="#">Loja</a> <a href="newsletter.html">Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
     </footer>
+
+    <script src="feather.js"></script>
+    <script>
+        feather.replace()
+    </script>
 </body>
