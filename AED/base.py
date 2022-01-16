@@ -359,7 +359,15 @@ def sort_alf():
         tree2.move(item,'',index)
 
 def sort_vis():
-    idk
+    f = open(ficheiro, "r", encoding="utf-8")
+    lista = f.readlines()
+    for linha in lista:
+        campos = linha.split(";")
+        linhas=campos[5]
+    linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
+    linhas.sort()
+    for index, (values, item) in enumerate(linhas):
+        tree2.move(item,'',index)
         
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto

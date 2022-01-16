@@ -1,4 +1,4 @@
 Nome;Ano;Filme;Categoria;Pontuação;Visualizações;Favoritos
-Spider-Man: No Way Home;2021;Filme;Ação;0;0
-Euphoria;2019;Série;Drama;0;0
-Sing! 2;2021;Filme;Animação;0;0
+Spider-Man: No Way Home;2021;Filme;Ação;0;7
+Euphoria;2019;Série;Drama;0;4
+Sing! 2;2021;Filme;Animação;0;9
