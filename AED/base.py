@@ -41,31 +41,26 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     line = userdata.readline()
     for line in userdata:
         user_info = line.split(";")
-        if user_info[3] == "admin":
-            acc=1
+        if user_info[3] == "admin\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
+            acc=2
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
             barra_admin(barra_menu)
             break
-        elif user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
+        elif user_info[3]=="user\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
             acc=1
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
             barra_user(barra_menu)
             break
-        elif (user_info[0]!=Email.get() and user_info[1]==Password.get()) or (user_info[0]==Email.get() and user_info[1]!=Password.get()):
-            msg=Message(window2, text="O email ou password estão errados!", fg="red")
-            msg.place(x=100, y=200)
-            break
-        else:
-            msg=Message(window2, text="Por favor registe-se", fg="red")
-            msg.place(x=100, y=200)
-            break
+    if user_info[0]==Email.get() and user_info[1]!=Password.get():
+        msg=Message(window2, text="Email ou password estão errados!", fg="red")
+        msg.place(x=100, y=200)
     userdata.close()
     return(username,acc)
 
 #entrar na conta
-def login_entrar(barra_menu: Menu):
+def login_entrar(barra_menu: Menu,acc):
     window2=tk.Toplevel()
     screen_width = window2.winfo_screenwidth()
     screen_height = window2.winfo_screenheight()
@@ -99,7 +94,7 @@ def login_entrar(barra_menu: Menu):
     btn_entrar.place(x=140, y=150)
 
 #funcao que verifica os dados de um novo utilizador para se registar
-def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2):
+def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2,acc):
     if str(Password.get())!=str(Password2.get()):
         msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
         msg.place(x=300, y=250)
@@ -119,14 +114,21 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 break
         else:
             data=open("userdata.txt", "a")
-            data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get()+";user")
-            data.close()
-            messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
-            barra_user(barra_menu)
-            return(Username.get())
+            data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get())
+            if acc==0:
+                data.write(";user")
+                data.close()
+                messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
+                barra_user(barra_menu)
+                return(Username.get())
+            elif acc==2:
+                data.write(";admin")
+                data.close()
+                messagebox.showinfo("Novo admin","Nova conta admin criada!")
+                return(Username.get())
 
 #registar
-def login_registar():
+def login_registar(acc):
     window3=tk.Toplevel()
     screen_width = window3.winfo_screenwidth()
     screen_height = window3.winfo_screenheight()
@@ -168,83 +170,13 @@ def login_registar():
     txt_password2=Entry(window3, width=30, show="*")
     txt_password2.place(x=190, y=180)
 
-    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,txt_email,txt_username,txt_password,txt_password2))
+    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:newuser(window3,txt_email,txt_username,txt_password,txt_password2,acc))
     btn_registar.place(x=180, y=220)
 
-#funcao para criar novo admin
-def new_admin(window3: Misc,Email: Entry, Username: Entry, Password: Entry, Password2: Entry):
-    if str(Password.get())!=str(Password2.get()):
-        msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
-        msg.place(x=300, y=250)
-    else:
-        userdata=open("userdata.txt", "r")
-        line=userdata.readlines()
-        userdata.close()
-        for i in range(len(line)):
-            user_info=line[i].split(";")
-            if str(user_info[0]) == str(Email.get()):
-                msg=Message(window3, text="Esse email já está em uso, escolha outro!", fg="red")
-                msg.place(x=300, y=250)
-                break   
-            elif str(user_info[2]) == str(Username.get()):
-                msg=Message(window3, text="Username já existe, escolha outro!", fg="red")
-                msg.place(x=300, y=250)
-                break
-        else:
-            data=open("userdata.txt", "a")
-            data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get()+";admin")
-            data.close()
-            messagebox.showinfo("Novo admin","Nova conta admin criada!")
-            barra_user(barra_menu)
-            return(Username.get())
-
-def new_admin_window():
-    window3=tk.Toplevel()
-    screen_width = window3.winfo_screenwidth()
-    screen_height = window3.winfo_screenheight()
-
-    app_width = 450
-    app_height = 350
-
-    x = (screen_width/2) - (app_width/2)
-    y = (screen_height/2) - (app_height/2)
-    
-    window3.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
-
-    window3.title("Registar")
-    window3.focus_force()
-    window3.grab_set 
-
-    #inserir dados
-    lbl_email=Label(window3, text="Email:", font=("Helvetica", 9))
-    lbl_email.place(x=70, y=60)
-
-    txt_email=Entry(window3, width=30)
-    txt_email.place(x=190, y=60)
-
-    lbl_username=Label(window3, text="Username:", font=("Helvetica", 9))
-    lbl_username.place(x=70, y=100)
-
-    txt_username=Entry(window3, width=30)
-    txt_username.place(x=190, y=100)
-
-    lbl_password=Label(window3, text="Password:")
-    lbl_password.place(x=70, y=140)
-
-    txt_password=Entry(window3, width=30, show="*")
-    txt_password.place(x=190, y=140)
-
-    lbl_password2=Label(window3, text="Confirme password:")
-    lbl_password2.place(x=70, y=180)
-
-    txt_password2=Entry(window3, width=30, show="*")
-    txt_password2.place(x=190, y=180)
-
-    btn_registar=Button(window3, text="Registar", width=10, height=2, relief="raised", command=lambda:new_admin(window3,txt_email,txt_username,txt_password,txt_password2))
-    btn_registar.place(x=180, y=220)
-
-def logout():
+def logout(acc):
     acc=0
+    barraMenu()
+    return acc
 
 #funcao que pede para confirmar que a intensao do utilizador é sair
 def sair():
@@ -254,23 +186,23 @@ def sair():
 
 #barra para o admin
 def barra_admin(barra_menu: Menu):
-    barra_menu.delete(2)
     barra_menu.delete(3)
+    barra_menu.delete(2)
     barra_menu.add_command(label="Adicionar", command=adicionar)
-    barra_menu.add_command(label="Log out", command= logout)
-    barra_menu.add_command(label="Novo admin", command= new_admin_window)
+    barra_menu.add_command(label="Log out", command= logout())
+    barra_menu.add_command(label="Novo admin", command= login_registar())
     barra_menu.add_command(label="Sair", command=sair)
 
 def barra_user(barra_menu: Menu):
-    barra_menu.delete(2)
     barra_menu.delete(3)
+    barra_menu.delete(2)
     barra_menu.add_command(label="Favoritos", command=lambda:favoritos)
-    barra_menu.add_command(label="Log out", command= logout)
+    barra_menu.add_command(label="Log out", command= logout(acc))
     barra_menu.add_command(label="Sair", command=sair)
     return
 
 #barra menu principal
-def barraMenu():
+def barraMenu(acc):
     #cria barra menu
     barra=Menu()
 
@@ -279,8 +211,8 @@ def barraMenu():
     
     #login
     opcoes_login=Menu(barra)
-    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(barra))
-    opcoes_login.add_command(label="Registar", command=lambda:login_registar())
+    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(barra,acc))
+    opcoes_login.add_command(label="Registar", command=lambda:login_registar(acc))
     barra.add_cascade(label="Login", menu=opcoes_login)
 
     barra.add_command(label="Sair", command=sair)
@@ -585,7 +517,7 @@ def mais_informacoes():
 
 
 
-barra_menu = barraMenu()
+barra_menu = barraMenu(acc)
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)

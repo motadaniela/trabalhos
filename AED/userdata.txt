@@ -1,3 +1,4 @@
 email;password;username
 1;2;3;user
-daniela;123;nini;admin
+nini;123;Daniela;admin
+admin@email.com;123;admin 1;user
