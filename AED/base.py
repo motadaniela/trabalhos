@@ -540,7 +540,12 @@ def mais_informacoes():
     poster_canvas=Canvas(window6, width=240, height=340, bd=2, relief="sunken" )
     poster_canvas.place(x=10,y=50)
 
-    lista_num=[]
+    lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",20))
+    lbl_avaliar.place(x=10,y=10)
+
+    lista_num=[0,1,2,3,4,5]
+    spin=Spinbox(window6, width=10, values=lista_num)
+    spin.place(x=300,y=200)
 
     
 
