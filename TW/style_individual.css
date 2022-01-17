@@ -18,17 +18,24 @@ article{
     flex:1;
 }
 
-article h1{
+article>div>h1{
     background-color: white;
+    box-shadow: -10px 15px black;
     border: 5px solid black;
+    border-radius: 20px;
+    height: 30px;
+    padding-left: 10px;
 }
 
-article>div{
+
+
+.imagem{
     display: flex;
     flex-wrap: wrap;
-    background-color: rgb(238, 240, 132);
-    border: 5px solid black;
-    border-radius: 25px;
+    background-color: rgb(238, 204, 55);
+    box-shadow: -10px 15px black;
+    border: 5px solid white;
+    border-radius: 20px;
     
 }
 
