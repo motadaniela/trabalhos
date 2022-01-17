@@ -137,6 +137,10 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 return(Username.get())
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9c7f0ca6a9e99b03592816622902ad0136b29506
 
 #registar
 def login_registar(acc):
@@ -325,7 +329,7 @@ def catalogo():
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
     btnpesquisar.place(x=18, y=430)
 
-    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecao(window4))
+    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecao(window4,tree2))
     btn_abrir.place(x=18, y=475)
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
@@ -514,31 +518,16 @@ def adicionar():
     mostrar()
 
 
-#def favoritos_mostrar():
- #   tree.delete(*tree.get_children())
-  #  f = open(ficheiro, "r", encoding="utf-8")
-   # lista=f.readlines()
-    #f.close()
-#    for linha in lista:
- #       campos = linha.split(";")
-  #      if campos[6]=="sim":
-   #         tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
 
-
-def selecao(window4):
-    selecao=tree.focus()
-    selecao=int(selecao[1:],16)
-    if selecao==0:
-        msg=Message(window4, text="Por favor selecione algo", fg="red")
-        msg.place(x=100, y=200)
-
-    else:
-        with open(ficheiro, "r", encoding="UTF-8") as f:
-            
-            new_text=""
-            for line in f[selecao-1]:
-                filme=line.split(";")
-        mais_informacoes()
+def selecao(window4,tree2):
+    selecionar=tree2.focus()
+    selecionar=int(selecionar[1:],16)
+    with open(ficheiro, "r", encoding="UTF-8") as f:
+        new_text=""
+        lista=f[selecionar-1]
+        for line in lista:
+            filme=line.split(";")
+    mais_informacoes()
         
 
 def mais_informacoes():
@@ -558,8 +547,12 @@ def mais_informacoes():
 
     
 
+<<<<<<< HEAD
 
 barra_menu = barraMenu()
+=======
+barra_menu = barraMenu(acc)
+>>>>>>> 9c7f0ca6a9e99b03592816622902ad0136b29506
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
