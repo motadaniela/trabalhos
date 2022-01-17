@@ -44,9 +44,19 @@
         }
 
         article{
-            background-color: #ffffff;
+            background: url("images/uno.jpg");
             width: 100%;
             height: 70vh;
+        }
+
+        article h1 {
+            background-color: white;
+            border: 5px solid black;
+        }
+
+        fieldset {
+            background-color: white;
+            border: 5px solid black;
         }
 
         a {
@@ -56,6 +66,12 @@
         a:hover {
             text-decoration: underline;
         }
+
+        header,
+        footer,
+        article {
+            padding: 1em;
+        }
     </style>
 </head>
 
@@ -63,7 +79,7 @@
     <header>
         <img scr="https://cutewallpaper.org/24/uno-png/download-us-uno-play-card-game-new-png-image-with-no-background--pngkeycom.png" width="70px" height="70px">
         <a href="index.html"><h1>UNO Club</h1></a>
-        <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a> <a href="#"><b>Loja</b></a> <a href="contactos.html"><b>Contactos</b></a> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><b>Sign/Login<i data-feather="user"></i></b></a></div>
+        <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a> <a href="loja.html"><b>Loja</b></a> <a href="contactos.html"><b>Contactos</b></a> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><b>Sign/Login<i data-feather="user"></i></b></a></div>
     </header>
 
     <article>
@@ -102,7 +118,7 @@
 
     <footer>
         <div id= "copy">Copyright &copy; UNO Club</div>
-        <div id="footer-links"><a href="atletas.html">Atletas</a> <a href="#">Loja</a> <a href="newsletter.html"> Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
+        <div id="footer-links"><a href="atletas.html">Atletas</a> <a href="loja.html">Loja</a> <a href="newsletter.html"> Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
     </footer>
 
     <script src="feather.js"></script>
