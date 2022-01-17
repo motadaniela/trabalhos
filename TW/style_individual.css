@@ -6,7 +6,6 @@ body {
     margin: 0px;
 }
 
-
 #main>article {
     flex: 1;
     order: 1;
@@ -16,7 +15,7 @@ body {
 article{
     background-image: url("images/uno.jpg");
     background-color: #cccccc;
-    
+    flex:1;
 }
 
 article>div>h1{
@@ -28,28 +27,27 @@ article>div>h1{
     padding-left: 10px;
 }
 
-.imagens{
-    margin-top: 20px;
+
+
+.imagem{
     display: flex;
     flex-wrap: wrap;
     background-color: rgb(238, 204, 55);
     box-shadow: -10px 15px black;
     border: 5px solid white;
     border-radius: 20px;
-    justify-content: center;
+    
 }
+
+
 
 figure>img{
-    border: 5px solid white;
-    border-radius: 20px;
+    border: 3px solid black;
 }
 
-figcaption{
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bolder;
+.sobre_jogador{
+    margin-left: 20%;
 }
-
-
 
 header,
 footer {
@@ -96,7 +94,7 @@ article {
 
 @media screen and (min-width: 1020px){
     figure {
-      margin: 4%;
+      margin-right: 10px;
     }
   }
 
