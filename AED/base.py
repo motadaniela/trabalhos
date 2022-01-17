@@ -137,10 +137,6 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 return(Username.get())
-<<<<<<< HEAD
-=======
-
->>>>>>> 9c7f0ca6a9e99b03592816622902ad0136b29506
 
 #registar
 def login_registar(acc):
@@ -546,13 +542,7 @@ def mais_informacoes():
     txt_email.place(x=150, y=50)
 
     
-
-<<<<<<< HEAD
-
-barra_menu = barraMenu()
-=======
 barra_menu = barraMenu(acc)
->>>>>>> 9c7f0ca6a9e99b03592816622902ad0136b29506
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
