@@ -325,7 +325,7 @@ def catalogo():
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
     btnpesquisar.place(x=18, y=430)
 
-    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecao(window4,tree2))
+    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecionar(tree2))
     btn_abrir.place(x=18, y=475)
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
@@ -424,8 +424,6 @@ def remover(window5):
     window5.destroy()
     adicionar()
     
-
-
 #mostra os dados anteriores
 def mostrar():
     tree.delete(*tree.get_children())
@@ -513,15 +511,13 @@ def adicionar():
     tree.place(x=1, y=1)
     mostrar()
 
-
-
-def selecao(window4,tree2):
-    selecionar=tree2.focus()
-    selecionar=int(selecionar[1:],16)
+def selecionar(tree2):
+    selecao=tree2.focus()
+    selecao=int(selecao[1:],16)
+    i=0
     with open(ficheiro, "r", encoding="UTF-8") as f:
         new_text=""
-        lista=f[selecionar-1]
-        for line in lista:
+        for line in f:
             filme=line.split(";")
     mais_informacoes()
         
@@ -541,9 +537,8 @@ def mais_informacoes():
     txt_email=Entry(window6, width=20)
     txt_email.place(x=150, y=50)
 
-    
 
-barra_menu = barraMenu(acc)
+barra_menu = barraMenu()
 
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
