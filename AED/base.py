@@ -360,10 +360,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
-    print(linhas)
     linhas.sort()
-    print(linhas)
-
     for index, (values, item) in enumerate(linhas):
         tree2.move(item,'',index)
 
