@@ -132,11 +132,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
                 return(Username.get())
-            elif acc==2:
-                data.write(";admin")
-                data.close()
-                messagebox.showinfo("Novo admin","Nova conta admin criada!")
-                return(Username.get())
+
 
 #registar
 def login_registar(acc):
@@ -317,7 +313,7 @@ def catalogo():
 
     lbl_pont=Label(lframe4, text="Pontuação")
     lbl_pont.place(x=35, y=68)
-    btn_pont=Button(lframe4, width=2, height=1, relief="raised", bg="green")
+    btn_pont=Button(lframe4, width=2, height=1, relief="raised", bg="green", command=sort_pont)
     btn_pont.place(x=8, y=65)
 
 
@@ -364,15 +360,24 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
+    print(linhas)
     linhas.sort()
+    print(linhas)
+
     for index, (values, item) in enumerate(linhas):
         tree2.move(item,'',index)
 
 def sort_vis():
-    linhas = [(tree2.column[5].item(item,"values"), item) for item in tree2.get_children('')]
-    linhas.sort()
+    linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
+    linhas.sort(key=lambda linhas:linhas[0][5])
     for index, (values, item) in enumerate(linhas):
         tree2.move(item,'',index)
+
+def sort_pont():
+    linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
+    linhas.sort(key=lambda linhas:linhas[0][4])
+    for index, (values, item) in enumerate(linhas):
+        tree2.move(item,'',index)        
         
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
