@@ -47,17 +47,18 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
             barra_admin(barra_menu)
+            userdata.close()
             break
         elif user_info[3]=="user\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
             acc=1
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
             barra_user(barra_menu)
+            userdata.close()
             break
     if user_info[0]==Email.get() and user_info[1]!=Password.get():
         msg=Message(window2, text="Email ou password estão errados!", fg="red")
         msg.place(x=100, y=200)
-    userdata.close()
     return(username,acc)
 
 #entrar na conta
@@ -99,6 +100,9 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
     if str(Password.get())!=str(Password2.get()):
         msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
         msg.place(x=300, y=250)
+    elif Email.get().rfind("@") == -1:
+        msg=Message(window3, text="Email inválido!", fg="red")
+        msg.place(x=300, y=250)
     else:
         userdata=open("userdata.txt", "r")
         line=userdata.readlines()
@@ -115,26 +119,32 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 break
         else:
             data=open("userdata.txt", "a")
-            data.write("\n"+Email.get()+";"+Password.get()+";"+Username.get())
+            data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
-                data.write(";admin")
+                data.write(";admin\n")
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 window3.destroy()
                 return(Username.get())
             elif acc==0:
-                data.write(";user")
+                data.write(";user\n")
                 data.close()
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
                 return(Username.get())
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70e48686893f2429b507f6c1a318d483f7b2580b
             elif acc==2:
                 data.write(";admin")
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 return(Username.get())
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70e48686893f2429b507f6c1a318d483f7b2580b
 
 #registar
 def login_registar(acc):
@@ -198,20 +208,20 @@ def barra_admin(barra_menu: Menu):
     barra_menu.delete(3)
     barra_menu.delete(2)
     barra_menu.add_command(label="Adicionar", command=adicionar)
-    barra_menu.add_command(label="Log out", command= logout())
-    barra_menu.add_command(label="Novo admin", command= login_registar())
+    barra_menu.add_command(label="Log out", command=lambda: logout(acc))
+    barra_menu.add_command(label="Novo admin", command=lambda: login_registar(acc))
     barra_menu.add_command(label="Sair", command=sair)
 
 def barra_user(barra_menu: Menu):
     barra_menu.delete(3)
     barra_menu.delete(2)
-    barra_menu.add_command(label="Favoritos", command=lambda:favoritos)
-    barra_menu.add_command(label="Log out", command= logout(acc))
+    barra_menu.add_command(label="Favoritos", command=favoritos)
+    barra_menu.add_command(label="Log out", command=lambda: logout(acc))
     barra_menu.add_command(label="Sair", command=sair)
     return
 
 #barra menu principal
-def barraMenu(acc):
+def barraMenu():
     #cria barra menu
     barra=Menu()
 
@@ -323,7 +333,7 @@ def catalogo():
     btnpesquisar = Button(panel2, width = 24, height= 2, text = "Pesquisar", relief = "raised", command =dados_treeview)
     btnpesquisar.place(x=18, y=430)
 
-    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecao(window4))
+    btn_abrir = Button(panel2, width = 24, height = 2, text = "Mais Informações", relief = "raised", command=lambda:selecionar(tree2))
     btn_abrir.place(x=18, y=475)
 
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
@@ -431,8 +441,6 @@ def remover(window5):
     window5.destroy()
     adicionar()
     
-
-
 #mostra os dados anteriores
 def mostrar():
     tree.delete(*tree.get_children())
@@ -520,32 +528,15 @@ def adicionar():
     tree.place(x=1, y=1)
     mostrar()
 
-
-#def favoritos_mostrar():
- #   tree.delete(*tree.get_children())
-  #  f = open(ficheiro, "r", encoding="utf-8")
-   # lista=f.readlines()
-    #f.close()
-#    for linha in lista:
- #       campos = linha.split(";")
-  #      if campos[6]=="sim":
-   #         tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
-
-
-def selecao(window4):
-    selecao=tree.focus()
+def selecionar(tree2):
+    selecao=tree2.focus()
     selecao=int(selecao[1:],16)
-    if selecao==0:
-        msg=Message(window4, text="Por favor selecione algo", fg="red")
-        msg.place(x=100, y=200)
-
-    else:
-        with open(ficheiro, "r", encoding="UTF-8") as f:
-            
-            new_text=""
-            for line in f[selecao-1]:
-                filme=line.split(";")
-        mais_informacoes()
+    i=0
+    with open(ficheiro, "r", encoding="UTF-8") as f:
+        new_text=""
+        for line in f:
+            filme=line.split(";")
+    mais_informacoes()
         
 
 def mais_informacoes():
@@ -563,10 +554,9 @@ def mais_informacoes():
     txt_email=Entry(window6, width=20)
     txt_email.place(x=150, y=50)
 
-    
 
+barra_menu = barraMenu()
 
-barra_menu = barraMenu(acc)
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
