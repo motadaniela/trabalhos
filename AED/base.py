@@ -129,13 +129,14 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
             elif acc==0:
                 data.write(";user\n")
                 data.close()
+                favoritos = open("Favoritos.txt", "a")
+                vistos = open("Vistos.txt", "a")
+                favoritos.write(Username.get()+";\n")
+                vistos.write(Username.get()+";\n")
+                favoritos.close()
+                vistos.close()
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
-                return(Username.get())
-            elif acc==2:
-                data.write(";admin")
-                data.close()
-                messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 return(Username.get())
 
 #registar
