@@ -42,7 +42,8 @@ article>div>h1{
 
 
 figure>img{
-    border: 3px solid black;
+    border: 5px solid white;
+    border-radius: 20px;
 }
 
 .sobre_jogador{
