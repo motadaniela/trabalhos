@@ -531,13 +531,15 @@ def mais_informacoes():
     window6.focus_force()     
     window6.grab_set()
 
+    lbl_poster=Label(window6, text="blablabla", font=("Helvetica",20))
+    lbl_poster.place(x=10,y=10)
+
+    poster_canvas=Canvas(window6, width=240, height=340, bd=2, relief="sunken" )
+    poster_canvas.place(x=10,y=50)
+
+    lista_num=[]
+
     
-
-    lbl23=Label(window6, text="olaaaaa", font=("Helvetica", 9))
-    lbl23.place(x=100, y=100)
-
-    txt_email=Entry(window6, width=20)
-    txt_email.place(x=150, y=50)
 
 
 barra_menu = barraMenu()
