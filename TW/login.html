@@ -10,7 +10,9 @@
 </head>
 <body>
     <header>
-        <a href="index.html">« Voltar</a>
+        <a href="index.html">
+            <img src="images/reverse.png" id="voltar">
+        </a>
     </header>
     <fieldset><legend><b>Iniciar sessão</b></legend>
         <form
@@ -28,8 +30,9 @@
         method="post">
         Email: <input type="email" name="email" id="email" required>
         Confirme o email: <input type="email" name="emailconf" id="emailconf" required>
+        Username: <input type="text" name="username" id="username" required>
         Password: <input type="password" name="password" id="password" required>
-        Confirme a password: <input type="password" name="password" id="password" required>
+        Confirme a password: <input type="password" name="passwordconf" id="passwordconf" required>
         <input type="submit" name="entrar" value="Entrar">
         </form>
     </fieldset>
