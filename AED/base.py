@@ -100,8 +100,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
     if str(Password.get())!=str(Password2.get()):
         msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
         msg.place(x=300, y=250)
-    email = Email.get()
-    elif Email.get.rfind("@") == -1:
+    elif Email.get().rfind("@") == -1:
         msg=Message(window3, text="Email inválido!", fg="red")
         msg.place(x=300, y=250)
     else:
