@@ -132,19 +132,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
                 return(Username.get())
-<<<<<<< HEAD
 
-=======
->>>>>>> 70e48686893f2429b507f6c1a318d483f7b2580b
-            elif acc==2:
-                data.write(";admin")
-                data.close()
-                messagebox.showinfo("Novo admin","Nova conta admin criada!")
-                return(Username.get())
-<<<<<<< HEAD
-
-=======
->>>>>>> 70e48686893f2429b507f6c1a318d483f7b2580b
 
 #registar
 def login_registar(acc):
