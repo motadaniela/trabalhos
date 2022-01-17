@@ -541,8 +541,8 @@ def mais_informacoes():
     txt_email=Entry(window6, width=20)
     txt_email.place(x=150, y=50)
 
-    
-barra_menu = barraMenu(acc)
+
+barra_menu = barraMenu()
 #foto
 background_image=ImageTk.PhotoImage(Image.open("background.jpg"))
 background_label = tk.Label(image=background_image)
