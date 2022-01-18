@@ -24,7 +24,7 @@ Daniela Monteiro, nº aluno:40210288 -->
         header, footer {
             background-color: #c71a20;
             color: #ffffff;
-            height: 15vh;
+            height: 13vh;
             width: 100%;
             text-align: center;
         }
@@ -37,7 +37,19 @@ Daniela Monteiro, nº aluno:40210288 -->
             align-items: center;
             font-weight: bolder;
         }
+        header>div>a>img{
+            height: 100px;
+        }
 
+        article {
+            align-items: center;
+            height: 50vh;
+            width: 100%;
+        }
+        article>div>img {
+            height: 50vh;
+            width: 100%;
+        }
 
         footer {
             display: flex;
@@ -59,8 +71,7 @@ Daniela Monteiro, nº aluno:40210288 -->
 
 <body>
     <header>
-        <h1>UNO Club</h1>
-        <div id="header-links"> <a href="index.html"><b>Ínicio</b></a></div>
+        <div><a href="index.html"><img src="images/uno_club.png" id="logo"/></a></div>
         <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a></div> 
         <div id="header-links"><a href="loja.html"><b>Loja</b></a> </div> 
         <div id="header-links"><a href="contactos.html"><b>Contactos</b></a></div>
@@ -68,9 +79,12 @@ Daniela Monteiro, nº aluno:40210288 -->
     </header>
 
     <article>
-        <p>hello there! :)</p>
-        
+        <div><img src="https://s.zst.com.br/cms-assets/2022/01/regras-do-uno-capa.webp"></div>
     </article>
+
+    <news>
+        <p>asdfg</p>
+    </news>
 
     <footer>
         <div id= "copy">Copyright &copy; UNO Club</div>
