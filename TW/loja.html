@@ -40,6 +40,7 @@
         article{
         background-image: url("images/uno.jpg");
         background-color: #cccccc;
+        width: 100%;
         padding: 3em;
         }
 
@@ -58,19 +59,24 @@
 
         .imagens{
             margin-top: 20px;
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr ;
+            grid-template-rows: 1fr 1fr 1fr 1fr ;
             background-color: rgb(238, 204, 55);
             box-shadow: -10px 15px black;
             border: 10px solid white;
             border-radius: 20px;
-            justify-content: space-evenly;
-
         }
 
-        figure>img{
-            border: 5px solid white;
-            border-radius: 20px;
+        figure>a>img{
+            border: 7px solid white;
+            border-radius: 30px;
+            transition-timing-function: linear;
+            margin-left: 70px;
+        }
+
+        figure>a>img:hover{
+            height: 36vh;
         }
 
         figcaption{
@@ -81,6 +87,7 @@
             text-shadow: -2px 2px black;
             -webkit-text-stroke: 1px black;
             align-content: center;
+            margin-left: 70px;
         }
 
         footer {
@@ -126,53 +133,62 @@
         </div>
         <div class="imagens">
             <figure>
-                <img src="images/baralho-uno2.jpg" id="uno" title="UNO Clássico"/>
+                <a><img src="images/baralho-uno2.jpg" id="uno" title="UNO Clássico"/></a>
                 <figcaption id="uno">UNO Clássico - 9,99€</figcaption>
-            </figure>
-            <figure>
-                <img src="images/uno-min2.jpg" id="uno" title="UNO Minimalista"/>
-                <figcaption id="uno">UNO Minimalista - 12,49€</figcaption>
-            </figure>
-            <figure>
-                <img src="images/dos2.jpg" id="uno" title="Dos"/>
-                <figcaption id="uno">Dos - 12,95€</figcaption>
-            </figure>
-            <figure>
-                <img src="images/uno-flip2.jpg" id="uno" title="UNO Flip"/>
-                <figcaption id="uno">UNO Flip - 10,99€</figcaption>
-            </figure>
-            <figure>
-                <img src="images/uno-attack2.jpg" id="uno" title="UNO Attack"/>
-                <figcaption id="uno">UNO Attack - 69,69€</figcaption>
-            </figure>
-            <figure>
-                <img src="images/uno-stacko2.jpg" id="uno" title="UNO Stacko"/>
-                <figcaption id="uno">UNO Stacko - 27,50€</figcaption>
-            </figure>
-            <figure>
-                <img src="images/uno-drink2.jpg" id="uno" title="UNO Drink"/>
-                <figcaption id="uno">UNO Drink - 13,99€</figcaption>
             </figure>
             
             <figure>
-                <img src="images/uno-spin2.jpg" id="uno" title="UNO Spin"/>
+                <a><img src="images/uno-spin2.jpg" id="uno" title="UNO Spin"/></a>
                 <figcaption id="uno">UNO Spin - 17,95€</figcaption>
             </figure>
+
             <figure>
-                <img src="images/camisola.jpg" id="uno" title="T-Shirt UNO"/>
-                <figcaption id="uno">T-Shirt UNO - 20€</figcaption>
+                <a><img src="images/uno-min2.jpg" id="uno" title="UNO Minimalista"/></a>
+                <figcaption id="uno">UNO Minimalista - 12,49€</figcaption>
             </figure>
+
             <figure>
-                <img src="images/reverse-shirt.jpg" id="uno" title="T-Shirt Reverse Card"/>
+                <a><img src="images/dos2.jpg" id="uno" title="Dos"/></a>
+                <figcaption id="uno">Dos - 12,95€</figcaption>
+            </figure>
+
+            <figure>
+                <a><img src="images/uno-drink2.jpg" id="uno" title="UNO Drink"/></a>
+                <figcaption id="uno">UNO Drink - 13,99€</figcaption>
+            </figure>
+
+            <figure>
+                <a><img src="images/uno-attack2.jpg" id="uno" title="UNO Attack"/></a>
+                <figcaption id="uno">UNO Attack - 69,69€</figcaption>
+            </figure>
+
+            <figure>
+                <a><img src="images/uno-flip2.jpg" id="uno" title="UNO Flip"/></a>
+                <figcaption id="uno">UNO Flip - 10,99€</figcaption>
+            </figure>
+
+            <figure>
+                <a><img src="images/reverse-shirt.jpg" id="uno" title="T-Shirt Reverse Card"/></a>
                 <figcaption id="uno">T-Shirt Reverse Card - 20€</figcaption>
             </figure>
+
             <figure>
-                <img src="images/4shirt.jpg" id="uno" title="T-Shirt +4"/>
+                <a><img src="images/camisola.jpg" id="uno" title="T-Shirt UNO"/></a>
+                <figcaption id="uno">T-Shirt UNO - 20€</figcaption>
+            </figure>
+
+            <figure>
+                <a><img src="images/uno-stacko2.jpg" id="uno" title="UNO Stacko"/></a>
+                <figcaption id="uno">UNO Stacko - 27,50€</figcaption>
+            </figure>
+            
+            <figure>
+                <a><img src="images/4shirt.jpg" id="uno" title="T-Shirt +4"/></a>
                 <figcaption id="uno">T-Shirt +4 - 20€</figcaption>
             </figure>
             
             <figure>
-                <img src="images/hat.jpg" id="uno" title="UNO Hat"/>
+                <a><img src="images/hat.jpg" id="uno" title="UNO Hat"/></a>
                 <figcaption id="uno">Chapéu UNO - 10€</figcaption>
             </figure>
                  
