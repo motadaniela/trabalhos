@@ -30,8 +30,8 @@ b{
     margin: 10px;
 }
 #resgistar{
-    flex-direction: column;
-    align-items: flex-end;
+    display: flex;
+    align-self: flex-start;
 }
 fieldset{
     font-size: 25px;
@@ -68,7 +68,12 @@ input{
     transition-timing-function: linear;
 }
 #button:hover{
-    height: 20vh;
+    background: url("images/cards.png") no-repeat;
+    border: none;
+    height: 15vh;
+    margin: 0px;
+    margin-left: 170px;
+    transition-timing-function: linear;
 }
 
 a {

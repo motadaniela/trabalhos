@@ -93,12 +93,13 @@
         form{
             margin: 40px;
         }
-        /* a minha ideia era pegar na parte do genero e por em linha*/
-        #genero{
+        /* a minha ideia era pegar so nas partse q e por em linha*/
+        #row{
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
-
+            flex-wrap: nowrap;
+            align-self: flex-start;
+            align-items: flex-start;
         }
 
         input{
@@ -143,10 +144,10 @@
                 <input type="text" name="last-name" pattern="[A-Z][a-z]+\s[A-Z][a-z]+" required>
                 <br><br>
                 <label for="gender">Género:</label>
-                <label for="feminino"  id="genero">Feminino</label>
-                <input type="radio" name="genero" id="genero" value="feminino">
-                <label for="masculino" id="genero">Masculino</label>
-                <input type="radio" name="genero" id="genero" value="masculino">
+                <label for="feminino" id="row">Feminino</label>
+                <input type="radio" name="genero" id="row" value="feminino">
+                <label for="masculino" id="row">Masculino</label>
+                <input type="radio" name="genero" id="row" value="masculino">
                 <br><br>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required>
@@ -154,11 +155,11 @@
                 <label for="birthday">Data de Nascimento</label>
                 <input type="date" name="birthday" id="birthday" required>
                 <br><br>
-                <label for="terms">Aceito receber notícias e novidades sobre o UNO Club via email</label>
-                <input type="checkbox" name="tnc" id="tnc" required>
+                <label for="terms" id="row">Aceito receber notícias e novidades sobre o UNO Club via email</label>
+                <input type="checkbox" name="tnc" id="tnc"  id="row" required>
                 <br><br>
-                <button type="reset" value="reset">Limpar</button>
-                <button type="submit" form="form1" value="submit">Submeter</button>      
+                <button type="reset" value="reset" id="row">Limpar</button>
+                <button type="submit" form="form1" value="submit" id="row">Submeter</button>      
             </fieldset>  
 
         </form>
