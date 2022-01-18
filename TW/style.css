@@ -62,7 +62,7 @@ header,
 footer {
     background-color: #c71a20;
     color: #ffffff;
-    height: 15vh;
+    height: 13vh;
     width: 100%;
     text-align: center;
 }
@@ -72,17 +72,18 @@ header{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    height: 10vh;
+    height: 6vh;
 
 }
 
 header>div>a{
     text-shadow: -2px 2px black;
     -webkit-text-stroke: 1px black;
+    font-size:17px;
 }
 
 header>div>a>img{
-    height: 120px;
+    height: 100px;
 }
 
 footer{
