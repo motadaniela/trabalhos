@@ -24,31 +24,38 @@ Daniela Monteiro, nº aluno:40210288 -->
         header, footer {
             background-color: #c71a20;
             color: #ffffff;
-            height: 15vh;
+            height: 13vh;
             width: 100%;
             text-align: center;
         }
 
         header {
-            background-image: url("images/uno-logo.png");
+            background-image: url("images/capa2.jpg");
             display: flex;
             flex-direction: row;
             justify-content: space-around;
             align-items: center;
+            font-weight: bolder;
+        }
+        header>div>a>img{
+            height: 100px;
         }
 
-
+        article {
+            align-items: center;
+            height: 50vh;
+            width: 100%;
+        }
+        article>div>img {
+            height: 50vh;
+            width: 100%;
+        }
 
         footer {
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
-        }
-
-        #footer-links footer {
-            display: flex;
-            justify-content: space-between;
         }
 
         a {
@@ -58,23 +65,60 @@ Daniela Monteiro, nº aluno:40210288 -->
         a:hover {
             text-decoration: underline;
         }
+
+        h1 {
+          margin: 0
+        }
+        .box {
+          height: 200px;
+          width: 300px;
+          overflow: hidden;
+          border: 1px solid red;
+          background: #ff0;
+        }
+        .hid-box {
+            top: 100%;
+            position: relative;
+            transition: all .3s ease-out;
+            background: #428bca;
+            height: 100%;
+        }
+
+        .box:hover > .hid-box{
+            top: 0;
+        }
+        
     </style>
 </head>
 
 <body>
     <header>
-        <a href="index.html"><h1>UNO Club</h1></a>
-        <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a> <a href="loja.html"><b>Loja</b></a> <a href="contactos.html"><b>Contactos</b></a> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><b>Sign/Login<i data-feather="user"></i></b></a></div>
+        <div><a href="index.html"><img src="images/uno_club.png" id="logo"/></a></div>
+        <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a></div> 
+        <div id="header-links"><a href="loja.html"><b>Loja</b></a> </div> 
+        <div id="header-links"><a href="contactos.html"><b>Contactos</b></a></div>
+        <div id="other-links"> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><i data-feather="user"></i></a></div>
     </header>
 
-    <image>
-        <p>hello there! :)</p>
+    <article>
+        <div><img src="https://s.zst.com.br/cms-assets/2022/01/regras-do-uno-capa.webp"></div>
+
         
-    </image>
+
+    </article>
+
+    <news>
+        <div class="box">
+            <div class="hid-box">
+              <h1>CSS3 slide up</h1>
+              <p>This is a quick demo of slide-up effect using CSS animation when hover the box. No JS required!</p>
+            </div>
+        </div>
+    </news>
 
     <footer>
         <div id= "copy">Copyright &copy; UNO Club</div>
-        <div id="footer-links"><a href="atletas.html">Atletas</a> <a href="loja.html">Loja</a> <a href="newsletter.html">Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
+        <div id="footer-links"><a href="atletas.html">Atletas</a> <a href="loja.html">Loja</a> <a href="newsletter.html"> Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
     </footer>
 
     <script src="feather.js"></script>
