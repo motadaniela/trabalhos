@@ -60,13 +60,17 @@ input{
     padding: 10px;
 }
 #button{
-    background: url("images/backcard.png") no-repeat;
+    background: url("images/backcard2.png") no-repeat;
     border: none;
-    height: 100%;
+    height: 15vh;
+    margin: 0px;
+    margin-left: 170px;
+    transition-timing-function: linear;
 }
 #button:hover{
-    height: 150%;
+    height: 20vh;
 }
+
 a {
     text-decoration: none;
     color: white;
