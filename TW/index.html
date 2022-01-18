@@ -65,6 +65,28 @@ Daniela Monteiro, nº aluno:40210288 -->
         a:hover {
             text-decoration: underline;
         }
+
+        h1 {
+          margin: 0
+        }
+        .box {
+          height: 200px;
+          width: 300px;
+          overflow: hidden;
+          border: 1px solid red;
+          background: #ff0;
+        }
+        .hid-box {
+            top: 100%;
+            position: relative;
+            transition: all .3s ease-out;
+            background: #428bca;
+            height: 100%;
+        }
+
+        .box:hover > .hid-box{
+            top: 0;
+        }
         
     </style>
 </head>
@@ -80,10 +102,18 @@ Daniela Monteiro, nº aluno:40210288 -->
 
     <article>
         <div><img src="https://s.zst.com.br/cms-assets/2022/01/regras-do-uno-capa.webp"></div>
+
+        
+
     </article>
 
     <news>
-        <p>asdfg</p>
+        <div class="box">
+            <div class="hid-box">
+              <h1>CSS3 slide up</h1>
+              <p>This is a quick demo of slide-up effect using CSS animation when hover the box. No JS required!</p>
+            </div>
+        </div>
     </news>
 
     <footer>
