@@ -542,12 +542,33 @@ def mais_informacoes():
     poster_canvas=Canvas(window6, width=240, height=340, bd=2, relief="sunken" )
     poster_canvas.place(x=10,y=50)
 
-    lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",20))
-    lbl_avaliar.place(x=10,y=10)
+    lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
+    lbl_avaliar.place(x=320,y=340)
 
     lista_num=[0,1,2,3,4,5]
     spin=Spinbox(window6, width=10, values=lista_num)
-    spin.place(x=300,y=200)
+    spin.place(x=335,y=370)
+
+    panel_video=PanedWindow(window6, width=380, height=280, bd="3", relief="sunken")
+    panel_video.place(x=300, y=50)
+
+    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2)
+    btn_fav.place(x=500,y=340)
+
+    lbl_poster=Label(window6, text="Sipnose", font=("Helvetica",18))
+    lbl_poster.place(x=800,y=50)
+
+    lbl_comentario=Label(window6, text="Deixe um comentário!", font=("Helvetica",11))
+    lbl_comentario.place(x=10,y=420)
+
+    txt_comentario=Text(window6, width=30,height=5, wrap="word")
+    txt_comentario.place(x=10,y=450)
+
+    lbl_comentarios=Label(window6, text="Comentários:", font=("Helvetica",11))
+    lbl_comentarios.place(x=300,y=420)
+
+    lbox_comentarios=Listbox(window6,height=7, width=65, selectmode="single")
+    lbox_comentarios.place(x=300, y=450)
 
     
 
