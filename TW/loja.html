@@ -24,12 +24,21 @@
             text-align: center;
         }
 
-        header {
+        header{
             display: flex;
             flex-direction: row;
             justify-content: space-around;
             align-items: center;
-            
+            height: 6vh;
+            padding-bottom: 1em;
+            padding-top: 1em;
+
+        }
+
+        header>div>a{
+            text-shadow: -2px 2px black;
+            -webkit-text-stroke: 1px black;
+            font-size:17px;
         }
 
         #main>article {
@@ -38,10 +47,13 @@
         }
 
         article{
-        background-image: url("images/uno.jpg");
-        background-color: #cccccc;
-        width: 100%;
-        padding: 3em;
+            background-image: url("images/bckgrnd-login.jpg");
+            background-color: #cccccc;
+            width: 100%;
+            padding-top:2em;
+            padding-left: 10em;
+            padding-right: 10em;
+            padding-bottom: 3em;
         }
 
         article>div>h1{
@@ -168,8 +180,8 @@
             </figure>
 
             <figure>
-                <a><img src="images/reverse-shirt.jpg" id="uno" title="T-Shirt Reverse Card"/></a>
-                <figcaption id="uno">T-Shirt Reverse Card - 20€</figcaption>
+                <a><img src="images/reverse-shirt.jpg" id="uno" title="T-Shirt Reverse"/></a>
+                <figcaption id="uno">T-Shirt Reverse - 20€</figcaption>
             </figure>
 
             <figure>
