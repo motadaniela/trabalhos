@@ -448,7 +448,10 @@ def adicionar_linha():
     ano2 = str(ano.get())
     tipologia2 = tipologia.get()
     categoria2 = categoria.get()
-    linha = nome2 + ";" +ano2+ ";" +tipologia2+ ";" +categoria2+";0;0"+ "\n" 
+    imagem=nome_imagem(nome2)
+    link=trailer.get()+" "
+    sinopse2=sinopse.get()
+    linha = nome2+";"+ano2+";"+tipologia2+";"+categoria2+";0;0;"+imagem+";"+link+";"+sinopse2+"\n" 
     campos = linha.split(";")
     f.write(linha)
     f.close()
@@ -476,30 +479,44 @@ def adicionar():
     global nome
     nome=StringVar()
     lblnome = Label(window5, text="Nome")
-    lblnome.place(x=200, y=450)
+    lblnome.place(x=110, y=450)
     txtnome = Entry(window5, width = 20, textvariable=nome)
-    txtnome.place(x=160, y=500)
+    txtnome.place(x=70, y=500)
 
     global ano
     ano=IntVar()
     lblano = Label(window5, text="Ano")
-    lblano.place(x=350, y=450)
+    lblano.place(x=260, y=450)
     txtano = Entry(window5, width = 20, textvariable=ano)
-    txtano.place(x=310, y=500)
+    txtano.place(x=210, y=500)
 
     global tipologia
     tipologia=StringVar()
     lbltipologia = Label(window5, text="Tipologia")
-    lbltipologia.place(x=470, y=450)
+    lbltipologia.place(x=390, y=450)
     txttipologia = Entry(window5, width = 20, textvariable=tipologia)
-    txttipologia.place(x=450, y=500)
+    txttipologia.place(x=350, y=500)
 
     global categoria
     categoria=StringVar()
     lblcategoria = Label(window5, text="Categoria")
-    lblcategoria.place(x=620, y=450)
+    lblcategoria.place(x=520, y=450)
     txtcategoria = Entry(window5, width = 20, textvariable=categoria)
-    txtcategoria.place(x=600, y=500)
+    txtcategoria.place(x=490, y=500)
+
+    global trailer
+    trailer=StringVar()
+    lbltrailer = Label(window5, text="Trailer")
+    lbltrailer.place(x=670, y=450)
+    txttrailer = Entry(window5, width = 20, textvariable=trailer)
+    txttrailer.place(x=630, y=500)
+
+    global sinopse
+    sinopse=StringVar()
+    lblsinopse = Label(window5, text="Sinopse")
+    lblsinopse.place(x=800, y=450)
+    txtsinopse = Entry(window5, width = 20, textvariable=sinopse)
+    txtsinopse.place(x=770, y=500)
 
     # Panel
     panel1 = PanedWindow(window5, width = 950, height = 400, bd = "3", relief = "sunken")
@@ -518,29 +535,58 @@ def adicionar():
     tree.place(x=1, y=1)
     mostrar()
 
+def nome_imagem(nome2):
+    min=nome2.lower()
+    sem_esp=min.replace(" ","_")
+    sem_doisp=sem_esp.replace(":", "")
+    imagem=sem_doisp+".jpg"
+
+    return imagem
+
+
 def selecionar(tree2):
     selecao=tree2.focus()
     selecao=int(selecao[1:],16)
+    lista=[]
     i=0
     with open(ficheiro, "r", encoding="UTF-8") as f:
         new_text=""
         for line in f:
+            i+=1
             filme=line.split(";")
-    mais_informacoes()
+            lista=filme
+            if selecao==i:
+                for linha in ficheiro:
+                    stripped_line = linha.strip()
+                    line_list = stripped_line.split(";")
+                    lista.append(line_list)
+                    nome_selecao=lista[0]
+                    imagem_selecao=lista[6]
+                    link_selecao=lista[7]
+                    sinopse_selecao=lista[8]
+                mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao)
+            else:
+                new_text=new_text+line
+    
         
 
-def mais_informacoes():
+def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
     window6.title("Informações") 
     window6.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
     window6.focus_force()     
     window6.grab_set()
 
-    lbl_poster=Label(window6, text="blablabla", font=("Helvetica",20))
+    lbl_poster=Label(window6, text=nome_selecao, font=("Helvetica",20))
     lbl_poster.place(x=10,y=10)
 
     poster_canvas=Canvas(window6, width=240, height=340, bd=2, relief="sunken" )
     poster_canvas.place(x=10,y=50)
+
+    global img_poster
+    local_imagem="imgs_filmes/" + imagem_selecao
+    img_poster=ImageTk.PhotoImage(Image.open(local_imagem))
+    poster_canvas.create_image(120,170 , image=img_poster)
 
     lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
     lbl_avaliar.place(x=320,y=340)

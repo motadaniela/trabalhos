@@ -1,6 +1,9 @@
-Nome;Ano;Filme;Categoria;Pontuação;Visualizações;Poster;Link;Sinopse
-Spider-Man: No Way Home;2021;Filme;Ação;1;4
+Nome(0);Ano(1);Filme(2);Categoria(3);Pontuação(4);Visualizações(5);Poster(6);Link(7);Sinopse(8)
 Euphoria;2019;Série;Drama;3;3
 Sing! 2;2021;Filme;Animação;2;1
 Stranger Things;2016;Série;Ficção Científica;5;2
 Adams Family;1991;Filme;Comédia;0;0
+ola: hu hu;488;Filme;Terror;0;0;ola_hu_hu.jpg
+o o;2003;ji;ji;0;0;o_o.jpg;https://www.geeksforgeeks.org/python-remove-spaces-from-a-string/;There are various approaches to remove whitespaces in a string. The first one is the Naive approach, which has been discussed in this article. But here we will discuss all the approaches which are specific to Python.
+ola;99;kk;kk;0;0;ola.jpg;https://github.com/motadaniela/trabalhos ;O interesse pelo texto como objeto de estudo gerou vários trabalhos importantes de teóricos da Linguística Textual, que percorreram fases diversas cujas
+Spider-Man: No Way Home;2021;Filme;Ação;0;0;spider-man_no_way_home.jpg;https://youtu.be/JfVOs4VSpmA ;With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.
