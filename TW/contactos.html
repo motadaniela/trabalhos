@@ -32,34 +32,50 @@
             align-items: center;
         }
 
-        footer {
+        footer{
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
         }
 
-        #footer-links-footer {
+        #footer-links>footer {
             display: flex;
-            justify-content: space-between;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
         }
 
+        
         article{
-            background: url("images/uno.jpg");
+            background: url("images/bckgrnd-login.jpg");
             width: 100%;
             height: 70vh;
             justify-content: center;
+            
         }
 
-        article h1 {
+        article>div>h1{
             background-color: white;
+            box-shadow: -10px 15px black;
             border: 5px solid black;
-        }
+            border-radius: 20px;
+            height: 30px;
+            padding-left: 10px;
+            align-items: center;
+            margin-left: 670px;
+            margin-right: 700px;
+        }    
 
-        fieldset {
-            background-color: white;
-            border: 5px solid black;
-        }
+        fieldset{
+            border: 10px solid white;
+            background-color: rgb(238, 204, 55);
+            box-shadow: -10px 15px black;
+            color: black;
+            margin-left: 365px;
+            width: 50%;
+            border-radius: 20px;
+        }  
 
         article a {
             text-decoration: underline;
@@ -77,18 +93,26 @@
         a:hover {
             text-decoration: underline;
         }
+
+        
     </style>
 </head>
 
 <body>
     <header>
-        <img scr="https://cutewallpaper.org/24/uno-png/download-us-uno-play-card-game-new-png-image-with-no-background--pngkeycom.png" width="70px" height="70px">
-        <a href="index.html"><h1>UNO Club</h1></a>
-        <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a> <a href="loja.html"><b>Loja</b></a> <a href="contactos.html"><b>Contactos</b></a> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><b>Sign/Login<i data-feather="user"></i></b></a></div>
-    </header>
+        <h1>UNO Club</h1>
+        <div id="header-links"> <a href="index.html"><b>Ínicio</b></a></div>
+        <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a></div> 
+        <div id="header-links"><a href="loja.html"><b>Loja</b></a> </div> 
+        <div id="header-links"><a href="contactos.html"><b>Contactos</b></a></div>
+        <div id="other-links"> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><i data-feather="user"></i></a></div>
+    </header>    
 
-    <article>
-        <h1>Contactos</h1>
+    <article id="main">
+        <div class="titulo">
+            <h1>Contactos</h1>
+        </div>
+        
         <fieldset>
             <h3>Localização</h3>
             <p>Rua D. Sancho I, n.º 981 </p>
@@ -100,14 +124,14 @@
             <p>unoclub@gmail.com</p>
             <h3>UNO Newsletter</h3>
             <p>Subscreva a nossa newsletter para receber notícias e informações adicionais no seguinte <a href="newsletter.html">formulário</a>.</p>
-
+            
         </fieldset>
         
     </article>
 
     <footer>
         <div id= "copy">Copyright &copy; UNO Club</div>
-        <div id="footer-links"><a href="atletas.html">Atletas</a> <a href="loja.html">Loja</a> <a href="newsletter.html">Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
+        <div id="footer-links"><a href="atletas.html">Atletas</a> <a href="loja.html">Loja</a> <a href="newsletter.html"> Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
     </footer>
 
     <script src="feather.js"></script>
