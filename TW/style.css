@@ -81,8 +81,8 @@ header>div>a{
     -webkit-text-stroke: 1px black;
 }
 
-header>div>img{
-    height: 100px;
+header>div>a>img{
+    height: 120px;
 }
 
 footer{
