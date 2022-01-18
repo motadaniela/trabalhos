@@ -601,8 +601,11 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2)
     btn_fav.place(x=500,y=340)
 
-    lbl_poster=Label(window6, text="Sipnose", font=("Helvetica",18))
-    lbl_poster.place(x=800,y=50)
+    lbl_sipnose=Label(window6, text="Sipnose", font=("Helvetica",18))
+    lbl_sipnose.place(x=800,y=50)
+    
+    msg_sinopse=Message(window6, text=sinopse_selecao, font=("Helvetica",12), bg="white")
+    msg_sinopse.place(x=750, y=80)
 
     lbl_comentario=Label(window6, text="Deixe um comentário!", font=("Helvetica",11))
     lbl_comentario.place(x=10,y=420)
@@ -615,6 +618,8 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
 
     lbox_comentarios=Listbox(window6,height=7, width=65, selectmode="single")
     lbox_comentarios.place(x=300, y=450)
+
+    
 
     
 
