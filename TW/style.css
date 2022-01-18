@@ -16,8 +16,10 @@ body {
 article{
     background-image: url("images/uno.jpg");
     background-color: #cccccc;
-    padding: 3em;
-    
+    padding-top:2em;
+    padding-left: 10em;
+    padding-right: 10em;
+    padding-bottom: 3em;
 }
 
 article>div>h1{
