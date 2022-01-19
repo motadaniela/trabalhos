@@ -1,0 +1,119 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 0px;
+}
+
+header, footer {
+    background-color: #c71a20;
+    color: #ffffff;
+    height: 13vh;
+    width: 100%;
+    text-align: center;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 6vh;
+    padding-bottom: 1em;
+    padding-top: 1em;
+
+}
+
+header>div>a{
+    text-shadow: -2px 2px black;
+    -webkit-text-stroke: 1px black;
+    font-size:17px;
+}
+
+#main>article {
+    flex: 1;
+    order: 1;
+}
+
+article{
+    background-image: url("images/bckgrnd-login.jpg");
+    background-color: #cccccc;
+    width: 100%;
+    padding-top:2em;
+    padding-left: 10em;
+    padding-right: 10em;
+    padding-bottom: 3em;
+}
+
+article>div>h1{
+    background-color: white;
+    box-shadow: -10px 15px black;
+    border: 5px solid black;
+    border-radius: 20px;
+    height: 30px;
+    padding-left: 10px;
+}    
+
+header>div>a>img{
+    height: 100px;
+}
+
+.imagens{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+    grid-template-rows: 1fr 1fr 1fr 1fr ;
+    background-color: rgb(238, 204, 55);
+    box-shadow: -10px 15px black;
+    border: 10px solid white;
+    border-radius: 20px;
+}
+
+figure>a>img{
+    border: 7px solid white;
+    border-radius: 30px;
+    transition-timing-function: linear;
+    margin-left: 70px;
+}
+
+figure>a>img:hover{
+    height: 36vh;
+}
+
+figcaption{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    color: white;
+    font-size: 25px;
+    text-shadow: -2px 2px black;
+    -webkit-text-stroke: 1px black;
+    align-content: center;
+    margin-left: 70px;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#footer-links footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (min-width: 1020px){
+    figure {
+        margin: 4%;
+    }
+}
