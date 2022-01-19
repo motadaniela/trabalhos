@@ -83,7 +83,7 @@ footer {
 header>div{
     display: flex;
     flex-direction:column;
-    height: 4vh;
+    height: 3vh;
 
 }
 

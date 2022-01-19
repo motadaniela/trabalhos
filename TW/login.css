@@ -85,15 +85,64 @@ a {
 a:hover {
     text-decoration: underline;
 }
-footer{
+footer>div{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+footer{
+    height:20vh;
+    padding: 1em;
     background-color: #c71a20;
     color: #ffffff;
-    height: 10vh;
     width: 100%;
     text-align: center;
-    padding: 1em;
 }
+
+
+#footer-links-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: #ffffff;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+#social>a{
+    padding:1em ;
+}
+
+#instagram:hover{
+    color:rgb(255, 126, 212);
+}
+
+#twitter:hover{
+    color:rgb(127, 164, 231);
+}
+
+#twitch:hover{
+    color:rgb(217, 66, 255);
+}
+
+#facebook:hover{
+    color:rgb(0, 4, 247);
+}
+
+#youtube:hover{
+    color:rgb(121, 0, 0);
+}
+
+
+
+@media screen and (min-width: 1020px){
+    figure {
+      margin: 4%;
+    }
+  }
