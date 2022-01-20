@@ -20,6 +20,7 @@ header{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    width: 100%;
     height: 6vh;
     padding-bottom: 1em;
     padding-top: 1em;
@@ -55,7 +56,7 @@ article{
     width: 100%;
     height: 70vh;
     justify-content: center;
-    padding: 3em;
+    
 }
 
 article>div>h1{
