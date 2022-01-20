@@ -158,12 +158,16 @@ footer {
 h1 {
   margin: 0
 }
+
+#box1 {
+    background: url("attack-game2.jpg");
+}
+
 .box {
   height: 200px;
   width: 300px;
   overflow: hidden;
   border: 1px solid red;
-  background: #ff0;
 }
 .hid-box {
     top: 100%;
@@ -179,5 +183,12 @@ h1 {
 
 news{
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1em;
+    justify-content: space-between;
+}
+
+dates {
     padding: 1em;
 }
