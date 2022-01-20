@@ -4,7 +4,7 @@ body {
     flex-wrap: wrap;
     flex-direction: column;
     margin: 0px;
-    background-image: url("images/fundo2.jpg");
+    background-image: url("images/bckgrnd-login.jpg");
     align-items: center;
 }
 
@@ -20,6 +20,9 @@ fieldset img {
 }
 
 fieldset{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: 10px solid white;
     background-color: rgb(78, 150, 69);
     box-shadow: -10px 15px black;
@@ -131,6 +134,13 @@ header input{
     
 }
 
+#genero {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    
+}
 
 header a{
     text-shadow: -2px 2px black;
