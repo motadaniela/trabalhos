@@ -12,7 +12,8 @@ article{
     width: 100%;
     height: 70vh;
     justify-content: center;
-    padding: 3em;
+    padding-top: 3em;
+    padding-bottom: 3em;
 }
 
 article>div>h1{

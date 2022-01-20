@@ -48,8 +48,8 @@ figure>a>img{
     transition-timing-function: linear;
 }
 
-figure>a>img:hover{
-    height: 51vh;
+figure:hover{
+    transform: translateY(-2%);
 }
 
 figcaption{

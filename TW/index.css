@@ -158,17 +158,37 @@ footer {
 h1 {
   margin: 0
 }
-
 #box1 {
-    background: url("attack-game2.jpg");
-}
-
-.box {
   height: 200px;
   width: 300px;
   overflow: hidden;
   border: 1px solid red;
+  background-image: url("images/fundo2.jpg");
 }
+
+#box2 {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    border: 1px solid red;
+    background-image: url("images/block_azul.jpg");
+  }
+
+  #box3 {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    border: 1px solid red;
+    background-image: url("images/dos2.jpg");
+  }
+
+  #box4 {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    border: 1px solid red;
+    background-image: url("images/profile.jpg");
+  }
 .hid-box {
     top: 100%;
     position: relative;
@@ -177,7 +197,18 @@ h1 {
     height: 100%;
 }
 
-.box:hover > .hid-box{
+#box1:hover > .hid-box{
+    top: 0;
+}
+#box2:hover > .hid-box{
+    top: 0;
+}
+
+#box3:hover > .hid-box{
+    top: 0;
+}
+
+#box4:hover > .hid-box{
     top: 0;
 }
 
