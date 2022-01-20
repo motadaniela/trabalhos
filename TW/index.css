@@ -224,3 +224,10 @@ news{
 dates {
     padding: 1em;
 }
+
+fieldset {
+    background-color: rgb(245, 239, 239);
+    border: rgb(245, 239, 239);
+
+    
+}
