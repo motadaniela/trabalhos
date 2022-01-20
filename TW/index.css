@@ -176,3 +176,8 @@ h1 {
 .box:hover > .hid-box{
     top: 0;
 }
+
+news{
+    display: flex;
+    padding: 1em;
+}
