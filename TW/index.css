@@ -158,12 +158,14 @@ footer {
 h1 {
   margin: 0
 }
+
 #box1 {
   height: 200px;
   width: 300px;
   overflow: hidden;
   border: 1px solid red;
   background-image: url("images/attack-game2.jpg");
+  margin:1em;
 }
 
 #box2 {
@@ -172,22 +174,25 @@ h1 {
     overflow: hidden;
     border: 1px solid red;
     background-image: url("images/game.jpg");
+    margin:1em;
   }
 
-  #box3 {
+#box3 {
     height: 200px;
     width: 300px;
     overflow: hidden;
     border: 1px solid red;
     background-image: url("images/shirtss.jpg");
+    margin:1em;
   }
 
-  #box4 {
+#box4 {
     height: 200px;
     width: 300px;
     overflow: hidden;
     border: 1px solid red;
     background-image: url("images/jogadores.jpg");
+    margin:1em;
   }
 .hid-box {
     top: 100%;
@@ -214,12 +219,17 @@ h1 {
 }
 
 news{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     padding: 1em;
-    justify-content: space-between;
 }
+
+.noticias{
+    display: flex;
+    
+    
+}
+
+
 
 dates {
     padding: 1em;
