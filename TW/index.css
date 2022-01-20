@@ -163,7 +163,7 @@ h1 {
   width: 300px;
   overflow: hidden;
   border: 1px solid red;
-  background-image: url("images/fundo2.jpg");
+  background-image: url("images/attack-game2.jpg");
 }
 
 #box2 {
@@ -171,7 +171,7 @@ h1 {
     width: 300px;
     overflow: hidden;
     border: 1px solid red;
-    background-image: url("images/block_azul.jpg");
+    background-image: url("images/game.jpg");
   }
 
   #box3 {
@@ -179,7 +179,7 @@ h1 {
     width: 300px;
     overflow: hidden;
     border: 1px solid red;
-    background-image: url("images/dos2.jpg");
+    background-image: url("images/shirtss.jpg");
   }
 
   #box4 {
@@ -187,13 +187,14 @@ h1 {
     width: 300px;
     overflow: hidden;
     border: 1px solid red;
-    background-image: url("images/profile.jpg");
+    background-image: url("images/jogadores.jpg");
   }
 .hid-box {
     top: 100%;
     position: relative;
     transition: all .3s ease-out;
-    background: #428bca;
+    color: #ffffff;
+    background: #c71a20cc;
     height: 100%;
 }
 
