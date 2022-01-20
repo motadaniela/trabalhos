@@ -21,43 +21,93 @@
             order: 1;
         }
 
-        article{
+        article {
             background-image: url("images/bckgrnd-login.jpg");
             background-color: #cccccc;
             width: 100%;
-            padding-top:2em;
+            padding-top: 2em;
             padding-left: 10em;
             padding-right: 10em;
             padding-bottom: 3em;
         }
 
-        article>div>h1{
+        article>div>h1 {
             background-color: white;
             box-shadow: -10px 15px black;
             border: 5px solid black;
             border-radius: 20px;
             height: 30px;
             padding-left: 10px;
-        }    
+        }
 
-        .imagens{
+        .imagens {
             margin-top: 20px;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr ;
-            grid-template-rows: 1fr 1fr 1fr 1fr ;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
             background-color: rgb(238, 204, 55);
             box-shadow: -10px 15px black;
             border: 10px solid white;
             border-radius: 20px;
         }
 
-        #other-links a{
-        flex-direction: row;
-        justify-content: space-between;
+        .imagens figure {
+            display: flex;
+            flex-direction: column;
+            box-shadow: -10px 15px black;
+            border-radius: 20px;
+            border: 4px solid white;
+            align-items: center;
+            height: 350px;
+            width: 250px;
         }
 
-        #other-links a:hover, #search:hover{
-            color:black;
+        .green {
+            background-color: rgb(56, 168, 56);
+        }
+
+        .red {
+            background-color: rgb(255, 52, 52);
+        }
+
+        .blue {
+            background-color: rgb(49, 49, 255);
+        }
+
+        .imagens figure img {
+            margin-top: 20px;
+            height: 200px;
+            border-radius: 20px;
+        }
+
+        .imagens figure figcaption {
+            margin-top: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: white;
+            font-size: 20px;
+        }
+
+        .imagens figure button {
+            background-color: white;
+            margin-top: 25px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            border-radius: 20px;
+            border: none;
+            box-shadow: -3px 4px black;
+        }
+
+        .imagens figure button:hover {
+            transform: translateY(10%);
+        }
+
+        #other-links a {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        #other-links a:hover,
+        #search:hover {
+            color: black;
         }
 
 
@@ -69,74 +119,118 @@
             text-align: center;
         }
 
-        header>div{
+        header>div {
             display: flex;
-            flex-direction:column;
+            flex-direction: column;
             height: 3vh;
 
         }
 
-        .um{
+        .um {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            padding-top:1em ;
+            padding-top: 1em;
             align-items: center;
         }
 
-        header input{
+        header input {
             border-radius: 10px;
             width: 70%;
             padding: 5px;
         }
 
-        .direita{
-            display: flex;
-            flex-direction: row;
-    
+        .dropdown {
+            position: relative;
+            display: inline-block;
         }
 
-        .direita a{
+        #dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 180px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 20px;
+            box-shadow: -10px 15px black;
+        }
+
+        #dropdown-content a {
+            border-radius: 20px;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            text-shadow: none;
+            align-items: center;
+            font-size: 13px;
+            -webkit-text-stroke: 0px;
+        }
+
+        #dropdown-content a:hover {
+            text-decoration: none;
+        }
+
+        #dropdown-content img {
+            height: 80px;
+            margin-right: 10px;
+        }
+
+        #dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover #dropdown-content {
+            display: block;
+        }
+
+        .direita {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .direita a {
             padding-right: 2em;
         }
 
-        .dois{
-            display:flex;
+        .dois {
+            display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: flex-end;
         }
 
-        .dois a{
+        .dois a {
             padding-right: 2em;
             padding-left: 2em;
-    
+
         }
 
 
-        header a{
+        header a {
             text-shadow: -2px 2px black;
             -webkit-text-stroke: 1px black;
-            font-size:17px;
+            font-size: 17px;
         }
 
-        header img{
+        header #logo {
             height: 100px;
         }
 
-        header img:hover{
+        header #logo:hover {
             height: 110px;
         }
 
-        footer>div{
+        footer>div {
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
         }
 
-        footer{
-            height:20vh;
+        footer {
+            height: 20vh;
         }
 
 
@@ -149,32 +243,33 @@
             text-decoration: none;
             color: #ffffff;
         }
+
         a:hover {
             text-decoration: underline;
         }
 
-        #social>a{
-            padding:1em ;
+        #social>a {
+            padding: 1em;
         }
 
-        #instagram:hover{
-            color:rgb(255, 126, 212);
+        #instagram:hover {
+            color: rgb(255, 126, 212);
         }
 
-        #twitter:hover{
-            color:rgb(127, 164, 231);
+        #twitter:hover {
+            color: rgb(127, 164, 231);
         }
 
-        #twitch:hover{
-            color:rgb(217, 66, 255);
+        #twitch:hover {
+            color: rgb(217, 66, 255);
         }
 
-        #facebook:hover{
-            color:rgb(0, 4, 247);
+        #facebook:hover {
+            color: rgb(0, 4, 247);
         }
 
-        #youtube:hover{
-            color:rgb(121, 0, 0);
+        #youtube:hover {
+            color: rgb(121, 0, 0);
         }
 
         header,
@@ -183,112 +278,153 @@
         }
 
 
-        @media screen and (min-width: 1020px){
+        @media screen and (min-width: 1020px) {
             figure {
-            margin: 4%;
+                margin: 4%;
             }
         }
-
-
     </style>
 </head>
 
 <body>
-    <header>  
+    <header>
         <div class="um">
-            <div><a href="index.html"><img src="images/uno_club.png" id="logo"/></a></div>
+            <div><a href="index.html"><img src="images/uno_club.png" id="logo" /></a></div>
             <div class="direita">
-                <div id="pesquisar"><form><input type="text"></form></div>
-                <div id="other-links"><a id="search" href="#"><i data-feather="search"></i></a><a href="#"><i data-feather="shopping-cart"></i></a><a href="login.html"><i data-feather="user"></i></a><a href="gerir_conta.html"><i data-feather="settings"></i></a></div>
+                <div id="pesquisar">
+                    <form><input type="text"></form>
+                </div>
+                <div id="other-links">
+                    <a id="search" href="#"><i data-feather="search"></i></a>
+                    <div class="dropdown">
+                        <a href="#"><i data-feather="shopping-cart" class="dropbtn"></i></a>
+                        <div id="dropdown-content">
+
+                        </div>
+                    </div>
+                    <a href="login.html"><i data-feather="user"></i></a>
+                    <a href="gerir_conta.html"><i data-feather="settings"></i></a>
+                </div>
             </div>
 
         </div>
         <div class="dois">
-            <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a></div> 
-            <div id="header-links"><a href="loja.html"><b>Loja</b></a> </div> 
+            <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a></div>
+            <div id="header-links"><a href="loja.html"><b>Loja</b></a> </div>
             <div id="header-links"><a href="contactos.html"><b>Contactos</b></a></div>
         </div>
 
-    </header>    
+    </header>
 
     <article id="main">
         <div class="titulo">
             <h1>Loja</h1>
         </div>
         <div class="imagens">
-            <figure>
-                <a><img src="images/baralho-uno2.jpg" id="uno" title="UNO Clássico"/></a>
-                <figcaption id="uno">UNO Clássico - 9,99€</figcaption>
+            <figure class="green">
+                <a><img src="images/baralho-uno2.jpg" class="uno" title="UNO Clássico" /></a>
+                <figcaption class="uno">UNO Clássico - 9,99€</figcaption>
             </figure>
-            
-            <figure>
-                <a><img src="images/uno-spin2.jpg" id="uno" title="UNO Spin"/></a>
-                <figcaption id="uno">UNO Spin - 17,95€</figcaption>
+
+            <figure class="blue">
+                <a><img src="images/uno-spin2.jpg" class="uno" title="UNO Spin" /></a>
+                <figcaption class="uno">UNO Spin - 17,95€</figcaption>
+            </figure>
+
+            <figure class="red">
+                <a><img src="images/uno-min2.jpg" class="uno" title="UNO Minimalista" /></a>
+                <figcaption class="uno">UNO Minimalista - 12,49€</figcaption>
+            </figure>
+
+            <figure class="blue">
+                <a><img src="images/dos2.jpg" class="uno" title="Dos" /></a>
+                <figcaption class="uno">Dos - 12,95€</figcaption>
+            </figure>
+
+            <figure class="red">
+                <a><img src="images/uno-drink2.jpg" class="uno" title="UNO Drink" /></a>
+                <figcaption class="uno">UNO Drink - 13,99€</figcaption>
+            </figure>
+
+            <figure class="green">
+                <a><img src="images/uno-attack2.jpg" class="uno" title="UNO Attack" /></a>
+                <figcaption class="uno">UNO Attack - 69,69€</figcaption>
             </figure>
 
             <figure>
-                <a><img src="images/uno-min2.jpg" id="uno" title="UNO Minimalista"/></a>
-                <figcaption id="uno">UNO Minimalista - 12,49€</figcaption>
+                <a><img src="images/uno-flip2.jpg" class="uno" title="UNO Flip" /></a>
+                <figcaption class="uno">UNO Flip - 10,99€</figcaption>
             </figure>
 
             <figure>
-                <a><img src="images/dos2.jpg" id="uno" title="Dos"/></a>
-                <figcaption id="uno">Dos - 12,95€</figcaption>
+                <a><img src="images/reverse-shirt.jpg" class="uno" title="T-Shirt Reverse" /></a>
+                <figcaption class="uno">T-Shirt Reverse - 20€</figcaption>
             </figure>
 
             <figure>
-                <a><img src="images/uno-drink2.jpg" id="uno" title="UNO Drink"/></a>
-                <figcaption id="uno">UNO Drink - 13,99€</figcaption>
+                <a><img src="images/camisola.jpg" class="uno" title="T-Shirt UNO" /></a>
+                <figcaption class="uno">T-Shirt UNO - 20€</figcaption>
             </figure>
 
             <figure>
-                <a><img src="images/uno-attack2.jpg" id="uno" title="UNO Attack"/></a>
-                <figcaption id="uno">UNO Attack - 69,69€</figcaption>
+                <a><img src="images/uno-stacko2.jpg" class="uno" title="UNO Stacko" /></a>
+                <figcaption class="uno">UNO Stacko - 27,50€</figcaption>
             </figure>
 
             <figure>
-                <a><img src="images/uno-flip2.jpg" id="uno" title="UNO Flip"/></a>
-                <figcaption id="uno">UNO Flip - 10,99€</figcaption>
+                <a><img src="images/4shirt.jpg" class="uno" title="T-Shirt +4" /></a>
+                <figcaption class="uno">T-Shirt +4 - 20€</figcaption>
             </figure>
 
             <figure>
-                <a><img src="images/reverse-shirt.jpg" id="uno" title="T-Shirt Reverse"/></a>
-                <figcaption id="uno">T-Shirt Reverse - 20€</figcaption>
+                <a><img src="images/hat.jpg" class="uno" title="UNO Hat" /></a>
+                <figcaption class="uno">Chapéu UNO - 10€</figcaption>
             </figure>
 
-            <figure>
-                <a><img src="images/camisola.jpg" id="uno" title="T-Shirt UNO"/></a>
-                <figcaption id="uno">T-Shirt UNO - 20€</figcaption>
-            </figure>
-
-            <figure>
-                <a><img src="images/uno-stacko2.jpg" id="uno" title="UNO Stacko"/></a>
-                <figcaption id="uno">UNO Stacko - 27,50€</figcaption>
-            </figure>
-            
-            <figure>
-                <a><img src="images/4shirt.jpg" id="uno" title="T-Shirt +4"/></a>
-                <figcaption id="uno">T-Shirt +4 - 20€</figcaption>
-            </figure>
-            
-            <figure>
-                <a><img src="images/hat.jpg" id="uno" title="UNO Hat"/></a>
-                <figcaption id="uno">Chapéu UNO - 10€</figcaption>
-            </figure>
-                 
         </div>
     </article>
 
     <footer>
-        <div id="footer-links"><a href="newsletter.html">Subscrever Newsletter</a><br> <a href="contactos.html">Contactos</a></div>
+        <div id="footer-links"><a href="newsletter.html">Subscrever Newsletter</a><br> <a
+                href="contactos.html">Contactos</a></div>
         <br>
-        <div><div id="social"><a id="instagram" href="#"><i data-feather="instagram"></i></a><a id="twitter" href="#"><i data-feather="twitter"></i></a><a id="twitch" href="#"><i data-feather="twitch"></i></a><a href="#"><i id="facebook" data-feather="facebook"></i></a><a id="youtube" href="#"><i data-feather="youtube"></i></a></div></div>       
+        <div>
+            <div id="social"><a id="instagram" href="#"><i data-feather="instagram"></i></a><a id="twitter" href="#"><i
+                        data-feather="twitter"></i></a><a id="twitch" href="#"><i data-feather="twitch"></i></a><a
+                    href="#"><i id="facebook" data-feather="facebook"></i></a><a id="youtube" href="#"><i
+                        data-feather="youtube"></i></a></div>
+        </div>
         <br>
-        <div id= "copy">Copyright &copy; UNO Club</div>
+        <div id="copy">Copyright &copy; UNO Club</div>
     </footer>
 
     <script src="feather.js"></script>
     <script>
         feather.replace()
+    </script>
+    <script src="carrinho.js">
+        // var i = 0;
+        // var h = new Array();
+        // addButton();
+        // function addButton() {
+        //     i++;
+        //     var container = document.getElementById("main");
+
+        //     h[i] = document.createElement("input");
+        //     h[i].type = 'button';
+        //     h[i].name = 'number' + i;
+        //     h[i].value = "number" + i;
+        //     h[i].id = 'number' + i;
+
+        //     h[i].onclick = function () {
+        //         showAlert(i)
+        //     };
+
+        //     container.appendChild(h[i]);
+        // }
+
+        // function showAlert(number) {
+        //     alert("You clicked Button " + number);
+        // }
     </script>
 </body>
