@@ -6,12 +6,13 @@ body {
     margin: 0px;
 }
 
+
 article {
     align-items: center;
     height: 50vh;
     width: 100%;
-    margin-bottom: 10em;
-
+    margin-bottom: 5em;
+    
 }
 
 
@@ -36,7 +37,7 @@ footer {
 header>div{
     display: flex;
     flex-direction:column;
-    height: 3vh;
+    height: 4vh;
 
 }
 
@@ -84,11 +85,11 @@ header a{
     font-size:17px;
 }
 
-header #logo{
+header img{
     height: 100px;
 }
 
-header #logo:hover{
+header img:hover{
     height: 110px;
 }
 
@@ -100,7 +101,7 @@ footer>div{
 }
 
 footer{
-    height:20vh;
+    height:24vh;
 }
 
 
@@ -216,7 +217,7 @@ h1 {
     top: 0;
 }
 
-.news{
+news{
     flex-direction: column;
     padding: 1em;
 }
@@ -241,7 +242,7 @@ h1 {
 }
 
 
-.dates {
+dates {
     margin-left: 40px;
     padding: 1em;
 }
@@ -257,8 +258,6 @@ fieldset {
     flex-wrap: wrap;
     justify-content: space-around;
 }
-
-/*para o slideshow*/
 
 * {box-sizing:border-box}
 
