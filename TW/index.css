@@ -158,26 +158,104 @@ footer {
 h1 {
   margin: 0
 }
-.box {
+
+#box1 {
   height: 200px;
   width: 300px;
   overflow: hidden;
   border: 1px solid red;
-  background: #ff0;
+  background-image: url("images/attack-game2.jpg");
+  margin:1em;
 }
+
+#box2 {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    border: 1px solid red;
+    background-image: url("images/game.jpg");
+    margin:1em;
+  }
+
+#box3 {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    border: 1px solid red;
+    background-image: url("images/shirtss.jpg");
+    margin:1em;
+  }
+
+#box4 {
+    height: 200px;
+    width: 300px;
+    overflow: hidden;
+    border: 1px solid red;
+    background-image: url("images/jogadores.jpg");
+    margin:1em;
+  }
 .hid-box {
     top: 100%;
     position: relative;
     transition: all .3s ease-out;
-    background: #428bca;
+    color: #ffffff;
+    background: #c71a20cc;
     height: 100%;
 }
 
-.box:hover > .hid-box{
+#box1:hover > .hid-box{
+    top: 0;
+}
+#box2:hover > .hid-box{
+    top: 0;
+}
+
+#box3:hover > .hid-box{
+    top: 0;
+}
+
+#box4:hover > .hid-box{
     top: 0;
 }
 
 news{
-    display: flex;
+    flex-direction: column;
     padding: 1em;
+}
+
+.noticias{
+    display: flex; 
+    gap: 30px;
+    margin-left: 25px;
+}
+
+.titulo1 {
+    margin-left: 40px;
+    color: rgb(255, 230, 0);
+    text-shadow: -2px 2px black;
+    -webkit-text-stroke: 1px black;
+}
+
+.titulo2 {
+    color: rgb(255, 230, 0);
+    text-shadow: -2px 2px black;
+    -webkit-text-stroke: 1px black;
+}
+
+
+dates {
+    margin-left: 40px;
+    padding: 1em;
+}
+
+fieldset {
+    background-color: rgb(245, 239, 239);
+    border: rgb(245, 239, 239);
+    width: 130%;
+    height: 50vh;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
