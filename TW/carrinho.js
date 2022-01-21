@@ -1,7 +1,8 @@
 var i = 0
-
+const carrinho =[]
 
 create_button()
+
 function create_button() {
     for (let i = 0; i < document.getElementById("main").children[1].childElementCount; i++) {
         let article = document.getElementById("main").children[1].children[i];
@@ -21,5 +22,25 @@ function create_button() {
             carrinho.append(link);
         });
         article.append(btn);
+    }
+}
+
+function adicionarItem(Item){
+    for (let i = 0; i < carrinho.length; i+= 1){
+        if (carrinho[i].item === item){
+            cart[i].qty += 1
+        
+        }
+    }
+}
+
+function removeItem(item){
+    for(let i = 0; i < carrinho.length; i+=1){
+        bttn.id = "Remover" + 0
+        bttn.innerHTML = "Remover"
+        if(carrinho[i].item === item){
+            carrinho.splice(i, 1)
+        return
+        }
     }
 }
