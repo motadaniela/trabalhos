@@ -224,20 +224,38 @@ news{
 }
 
 .noticias{
-    display: flex;
-    
-    
+    display: flex; 
+    gap: 30px;
+    margin-left: 25px;
+}
+
+.titulo1 {
+    margin-left: 40px;
+    color: rgb(255, 230, 0);
+    text-shadow: -2px 2px black;
+    -webkit-text-stroke: 1px black;
+}
+
+.titulo2 {
+    color: rgb(255, 230, 0);
+    text-shadow: -2px 2px black;
+    -webkit-text-stroke: 1px black;
 }
 
 
-
 dates {
+    margin-left: 40px;
     padding: 1em;
 }
 
 fieldset {
     background-color: rgb(245, 239, 239);
     border: rgb(245, 239, 239);
-
-    
+    width: 130%;
+    height: 50vh;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
