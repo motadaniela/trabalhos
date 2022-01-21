@@ -17,13 +17,22 @@ Daniela Monteiro, nº aluno:40210288 -->
 </head>
 
 <body>
-    <header>
-        <div><a href="index.html"><img src="images/uno_club.png" id="logo"/></a></div>
-        <div id="header-links"> <a href="atletas.html"><b>Atletas</b></a></div> 
-        <div id="header-links"><a href="loja.html"><b>Loja</b></a> </div> 
-        <div id="header-links"><a href="contactos.html"><b>Contactos</b></a></div>
-        <div id="other-links"> <a href="#"><i data-feather="shopping-bag"></i></a> <a href="login.html"><i data-feather="user"></i></a></div>
-    </header>
+    <header>  
+        <div class="um">
+            <div><a href="index.html"><img src="images/uno_club.png" id="logo"/></a></div>
+            <div class="direita">
+                <div id="pesquisar"><form><input type="text"></form></div>
+                <div id="other-links"><a id="search" href="#"><i data-feather="search"></i></a><a href="#"><i data-feather="shopping-cart"></i></a><a href="login.html"><i data-feather="user"></i></a><a href="gerir_conta.html"><i data-feather="settings"></i></a></div>
+            </div>
+
+        </div>
+        <div class="dois">
+            <div id="header-links"> <a href="atletas.html"><b>Jogadores</b></a></div> 
+            <div id="header-links"><a href="loja.html"><b>Loja</b></a> </div> 
+            <div id="header-links"><a href="contactos.html"><b>Contactos</b></a></div>
+        </div>
+
+    </header> 
 
     <article>
         <div class="slideshow-container">
@@ -122,8 +131,11 @@ Daniela Monteiro, nº aluno:40210288 -->
     </dates>
 
     <footer>
+        <div id="footer-links"><a href="newsletter.html">Subscrever Newsletter</a><br> <a href="contactos.html">Contactos</a></div>
+        <br>
+        <div><div id="social"><a id="instagram" href="#"><i data-feather="instagram"></i></a><a id="twitter" href="#"><i data-feather="twitter"></i></a><a id="twitch" href="#"><i data-feather="twitch"></i></a><a href="#"><i id="facebook" data-feather="facebook"></i></a><a id="youtube" href="#"><i data-feather="youtube"></i></a></div></div>       
+        <br>
         <div id= "copy">Copyright &copy; UNO Club</div>
-        <div id="footer-links"><a href="atletas.html">Atletas</a> <a href="loja.html">Loja</a> <a href="newsletter.html"> Subscrever Newsletter</a> <a href="contactos.html">Contactos</a></div>
     </footer>
 
     <script src="feather.js"></script>
