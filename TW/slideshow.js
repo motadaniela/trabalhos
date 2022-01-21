@@ -5,7 +5,7 @@ function currentSlide(n) {
     showSlides(slideIndex = n);
 }
 
-function plusSlides(n) {
+function slidebar(n) {
   showSlides(slideIndex += n);
 }
 
