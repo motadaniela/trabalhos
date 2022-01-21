@@ -16,9 +16,13 @@ form>div>h1{
     border: 5px solid black;
     border-radius: 20px;
     height: 30px;
-    padding-left: 370px;
+    padding-left: 10px;
     padding-right: 10px;
     align-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 355px;
+    margin-right: 355px;
 }    
 
 fieldset{
