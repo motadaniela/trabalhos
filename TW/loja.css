@@ -87,6 +87,10 @@ article>div>h1 {
 }
 
 .imagens figure button:hover {
+    background-color: rgb(226, 226, 226);
+}
+
+.imagens figure button:active {
     transform: translateY(10%);
 }
 
