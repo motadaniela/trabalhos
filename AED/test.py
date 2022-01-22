@@ -26,4 +26,24 @@ for line in all_comments:
 comentarios.close()
 
 window.mainloop()
+#-------------------------------
+def comentar(nome_selecao,lbox_comentarios, txt_comentario):
+    comentarios = open("comentarios.txt", "r", encoding="UTF-8")
+    all_comments = comentarios.readlines()
+    lbox_comentarios.delete(0,END)
+    for line in all_comments:
+        campo = line.split(";")
+        if username == "":
+            msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
+        if campo[0] == nome_selecao:
+            all_comments[all_comments.index(line)] = (line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n"  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+            comentarios = open("comentarios.txt", "w")
+            comentarios.write("")     #apaga todo o ficheiro
+            comentarios = open("comentarios.txt", "a")
+            for i in range(len(all_comments)):
+                comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+            break
+    comentarios.close()
+
+    mostrar_comentarios(nome_selecao, lbox_comentarios)
 
