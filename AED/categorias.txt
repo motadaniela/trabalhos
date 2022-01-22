@@ -1,0 +1,19 @@
+Ação
+Animação
+Aventura
+Comédia
+Comédia Romântica
+Dança
+Documentário
+Drama
+Espionagem
+Faroeste
+Fantasia
+Ficção Científica
+Guerra
+Mistério
+Musical
+Policial
+Romance
+Terror
+Thriller
