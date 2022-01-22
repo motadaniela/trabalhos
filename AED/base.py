@@ -4,6 +4,7 @@
 
 from cgitb import text
 from distutils import command
+import encodings
 from optparse import Values
 from tkinter import *
 from tkinter import ttk
@@ -296,10 +297,18 @@ def catalogo():
     lframe3 = LabelFrame(panel2, width=180, height=90, bd=3, text="Género", fg="blue", relief="sunken")
     lframe3.place(x=18, y=215)
 
+    
+    lista = []
+    f = open("categorias.txt", "r", encoding="utf-8")
+    lista2 = f.readlines()
+    f.close()
+    for linha in lista2:
+        lista.append(linha)
+
     global cb_gen 
     cb_gen = StringVar()
-    lista = ["Ação", "Animação", "Aventura", "Comédia", "Comédia Romântica", "Dança", "Documentário", "Drama", "Espionagem", "Faroeste", "Fantasia", "Ficção Científica", "Guerra", "Mistério", "Musical", "Policial", "Romance", "Terror", "Thriller"]
-    cb_gen=Combobox(lframe3, values=lista)
+
+    cb_gen=Combobox(lframe3, value=(lista))
     cb_gen.place(x=15, y=20)
 
     #frame ordenar
@@ -334,8 +343,7 @@ def catalogo():
 
 
 
-#isto é para filtar os dados da tree mas ainda nao funciona
-#copiei do ex11
+#isto é para filtar os dados da tree 
 def dados_treeview():  # Remove TODAS as linhas da Treeview
     tree2.delete(*tree2.get_children())
     tipo = ""
