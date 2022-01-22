@@ -655,6 +655,7 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
         campo = line.split(";")
         if nome_selecao not in campo:
             lbox_comentarios.insert(END,"Ainda não existem comentários!")
+            break
         if campo[0] == nome_selecao:
             for i in range(len(campo)-1,0,-1):
                 lbox_comentarios.insert(END,campo[i])
@@ -670,6 +671,7 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
         if nome_selecao not in campo:
             comentarios = open("comentarios.txt", "a")
             comentarios.write(nome_selecao + ";" + username + ": "+ txt_comentario)
+            break
         elif campo[0] == nome_selecao:
             new_comment = ";" + username + ": ;" + txt_comentario
             copy = open("storage.txt","w")
