@@ -343,14 +343,15 @@ def catalogo():
 def dados_treeview():  # Remove TODAS as linhas da Treeview
     tree2.delete(*tree2.get_children())
     tipo = ""
+    genero = ""
     if vals.get() == True and valf.get() == True:   # Se está checado serie e filme (vals e valf)
         tipo = "T"
     elif vals.get() == True: # serie checado
         tipo = "Série"
     elif valf.get() == True: # filme checado
         tipo = "Filme"
-
-    
+    elif cb_gen.get() == True:
+        
     elif vals.get() == False and valf.get() == False:  #nada selecionado -> catálogo todo 
         f=open(ficheiro, "r", encoding="utf-8")
         lista = f.readlines()
