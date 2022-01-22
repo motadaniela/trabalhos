@@ -303,18 +303,14 @@ def catalogo():
     lframe3 = LabelFrame(panel2, width=180, height=90, bd=3, text="Género", fg="blue", relief="sunken")
     lframe3.place(x=18, y=215)
 
-    
-    lista = []
     f = open("categorias.txt", "r", encoding="utf-8")
-    lista2 = f.readlines()
+    lista = f.readlines()
     f.close()
-    for linha in lista2:
-        lista.append(linha)
-
+   
     global cb_gen 
     cb_gen = StringVar()
 
-    cb_gen=Combobox(lframe3, value=(lista))
+    cb_gen=Combobox(lframe3, values=(lista))
     cb_gen.place(x=15, y=20)
 
     #frame ordenar
