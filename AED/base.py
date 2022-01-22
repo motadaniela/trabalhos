@@ -356,8 +356,6 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         tipo = "Série"
     elif valf.get() == True: # filme checado
         tipo = "Filme"
-    elif cb_gen.get() == True:
-        
     elif vals.get() == False and valf.get() == False:  #nada selecionado -> catálogo todo 
         f=open(ficheiro, "r", encoding="utf-8")
         lista = f.readlines()
@@ -373,7 +371,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         campos = linha.split(";")
         if tipo == "T" or campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
-                if cb_gen.get() == "" or cb_gen.get() == campos[3]:
+                if cb_gen.get() == "" or cb_gen.get() == (campos[3] + "\n"):
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
         
 def sort_alf():
