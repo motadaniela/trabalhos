@@ -646,20 +646,26 @@ def selecionar(tree2):
             else:
                 new_text=new_text+line
 
-def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
-    comentarios = open("comentarios.txt", "r")
+def mostrar_comentarios(nome,lbox_comentarios: Listbox):
+    lbox_comentarios.delete(0,END)
+    comentarios = open("comentarios.txt", "r",encoding="utf-8")
     all_comments = comentarios.readlines()
     comentarios.close()
-    lbox_comentarios.delete(0,END)
+
     for line in all_comments:
         campo = line.split(";")
-        if campo[0] == nome_selecao:
-            for i in range(len(campo)-1,0,-1):
-                lbox_comentarios.insert(END,campo[i])
+        if campo[0] == nome:
+            i=1
+            for i in range(campo):
+                lbox_comentarios.insert(campo[i])
         else:
-            lbox_comentarios.insert(END,"Ainda não existem comentários!")        
+            lbox_comentarios.insert(END,"Ainda não existem comentários!")    
+            break 
+        
+        
+           
 
-def comentar(nome_selecao,lbox_comentarios):
+def comentar(nome,lbox_comentarios):
     #so pus para exprimentar
     username = "Username"
     comentarios = open("comentarios.txt", "r")
@@ -668,17 +674,18 @@ def comentar(nome_selecao,lbox_comentarios):
     lbox_comentarios.delete(0,END)
     for line in all_comments:
         campo = line.split(";")
-        if nome_selecao not in campo:
+        if nome not in campo:
             comentarios = open("comentarios.txt", "a")
-            comentarios.write(nome_selecao + ";" + username + ": "+ cm+"\n")
-        elif campo[0] == nome_selecao:
+            comentarios.write(nome + ";" + username + ": "+ cm+"\n")
+        elif campo[0] == nome:
             new_comment = ";" + username + ": ;" + cm
             copy = open("storage.txt","w")
     comentarios.close()
-    mostrar_comentarios(nome_selecao, lbox_comentarios)
+    mostrar_comentarios(nome, lbox_comentarios)
 
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
+    nome=nome_selecao
     window6=Toplevel()   
     window6.title("Informações") 
     window6.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
@@ -729,7 +736,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     txt_comentario=Entry(window6, width=30 ,textvariable=comentario)
     txt_comentario.place(x=10,y=450)
 
-    btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome_selecao, lbox_comentarios))
+    btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome, lbox_comentarios))
     btn_comentar.place(x=270, y=450)
 
     lbl_comentarios=Label(window6, text="Comentários:", font=("Helvetica",11))

@@ -1,11 +1,4 @@
 Nome do filme;username: comentario; username: comentario mais recente(...)
 Sing! 2;Username: ola
 Euphoria;Username: oi
-Euphoria;Username: oi
-Euphoria;Username: oi
-The Addams Family;Username: uuu
-The Addams Family;Username: uuu
-The Addams Family;Username: uuu
-The Addams Family;Username: uuu
-The Addams Family;Username: uuu
 The Addams Family;Username: uuu
