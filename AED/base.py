@@ -201,13 +201,7 @@ def sair():
 def barra_admin(barra_menu: Menu):
     barra_menu.delete(3)
     barra_menu.delete(2)
-    
-    #adicionar filmes/series e categorias
-    opcoes_add=Menu(barra_menu)
-    opcoes_add.add_command(label="Filmes/Séries", command=adicionar)
-    opcoes_add.add_command(label="Categorias", command=adicionar_categoria)
-    barra_menu.add_cascade(label="Adicionar", menu=opcoes_add)
-
+    barra_menu.add_command(label="Adicionar", command=adicionar)
     barra_menu.add_command(label="Log out", command=lambda: logout(acc))
     barra_menu.add_command(label="Novo admin", command=lambda: login_registar(acc))
     barra_menu.add_command(label="Sair", command=sair)
@@ -467,7 +461,7 @@ def adicionar_linha():
     f.close()
     tree.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3]))
 
-#adicionar filme/serie pagina
+#adicionar pagina
 def adicionar():
     window5 = Toplevel()   
     window5.title("Adicionar ao catalogo") 
@@ -545,74 +539,6 @@ def adicionar():
     tree.place(x=1, y=1)
     mostrar()
 
-def adicionar_categoria():
-    window7 = Toplevel()   
-    window7.title("Adicionar categoria") 
-    window7.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
-    window7.focus_force()    
-    window7.grab_set()       
-
-    #lbox categorias
-    lbl_categoria=Label(window7, text="Categorias", font=("Helvetica", 15))
-    lbl_categoria.place(x=230, y=20)
-
-    panel1 = PanedWindow(window7, width=200, height=450, bd=3, relief="sunken")
-    panel1.place(x=190, y=60)
-
-    global lbox_categorias
-    lbox_categorias = Listbox(panel1, width=35, height=35, selectmode="single")
-    lbox_categorias.place(x=1, y=1)
-
-    f = open("categorias.txt", "r", encoding="utf-8")
-    lista = f.readlines()
-    f.close()
-    for linha in lista:
-        lbox_categorias.insert("end", linha)
-
-    #nova categoria
-    lbl_catg = Label(window7, text="Nova Categoria: ", font=("Helvetica", 15))
-    lbl_catg.place(x=600, y=140)
-
-    global nova_catg
-    nova_catg = StringVar()
-    txt_catg = Entry(window7, width=40, textvariable=nova_catg)
-    txt_catg.place(x=550, y=210)
-
-    #botões
-    btn_add = Button(window7, text="Adicionar", width=20, height=3, fg="blue", command=linha_catg)
-    btn_add.place(x=600, y=300)
-
-    btn_remove = Button(window7, text="Remover", width=20, height=3, fg="red", command=remover_catg)
-    btn_remove.place(x=600, y=380)
-
-def linha_catg():
-    #adicionar
-    f = open("categorias.txt", "a", encoding="utf-8")
-    nome = nova_catg.get()
-    linha = nome + "\n"
-    f.write(linha)
-    f.close()
-
-    #mostrar na lista
-    f = open("categorias.txt", "r", encoding="utf-8")
-    f.readlines()
-    f.close()
-    lbox_categorias.insert("end", nome)
-
-def remover_catg():
-    lbox_categorias.delete(lbox_categorias.curselection())
-    f = open("categorias.txt", "w", encoding="utf-8")
-    cont = lbox_categorias.size()
-    for i in range(cont):
-        categoria = lbox_categorias.get(i) 
-        if categoria.find("\n") == -1:
-            categoria = categoria + "\n"
-
-        f.write(categoria)
-    f.close()  
-
-                
-
 def nome_imagem(nome2):
     min=nome2.lower()
     sem_esp=min.replace(" ","_")
@@ -659,16 +585,21 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
             for i in range(len(campo)-1,0,-1):
                 lbox_comentarios.insert(END,campo[i])
 
-def comentar(nome_selecao,lbox_comentarios):
+def comentar(nome_selecao,lbox_comentarios, txt_comentario):
     #so pus para exprimentar
     username = "Username"
     comentarios = open("comentarios.txt", "r")
     all_comments = comentarios.readlines()
-    comentarios.close()
     lbox_comentarios.delete(0,END)
     for line in all_comments:
         campo = line.split(";")
-            
+        if nome_selecao not in campo:
+            comentarios = open("comentarios.txt", "a")
+            comentarios.write(nome_selecao + ";" + username + ": "+ txt_comentario)
+        elif campo[0] == nome_selecao:
+            new_comment = ";" + username + ": ;" + txt_comentario
+            copy = open("storage.txt","w")
+    comentarios.close()
 
     mostrar_comentarios(nome_selecao, lbox_comentarios)
 
@@ -715,7 +646,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     txt_comentario=Text(window6, width=30,height=5, wrap="word")
     txt_comentario.place(x=10,y=450)
 
-    btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome_selecao, lbox_comentarios))
+    btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome_selecao, lbox_comentarios, txt_comentario.get))
     btn_comentar.place(x=20, y=540)
 
     lbl_comentarios=Label(window6, text="Comentários:", font=("Helvetica",11))
