@@ -308,7 +308,7 @@ def catalogo():
     global cb_gen 
     cb_gen = StringVar()
 
-    cb_gen=Combobox(lframe3, value=(lista))
+    cb_gen=Combobox(lframe3, values=(lista))
     cb_gen.place(x=15, y=20)
 
     #frame ordenar
@@ -353,6 +353,8 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         tipo = "Série"
     elif valf.get() == True: # filme checado
         tipo = "Filme"
+
+    
     elif vals.get() == False and valf.get() == False:  #nada selecionado -> catálogo todo 
         f=open(ficheiro, "r", encoding="utf-8")
         lista = f.readlines()
