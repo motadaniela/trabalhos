@@ -27,6 +27,8 @@ global app_height, app_width
 global x, y
 global username
 
+username = StringVar()
+
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 
@@ -64,7 +66,7 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     return(username,acc)
 
 #entrar na conta
-def login_entrar(barra_menu: Menu,acc):
+def login_entrar(acc):
     window2=tk.Toplevel()
     screen_width = window2.winfo_screenwidth()
     screen_height = window2.winfo_screenheight()
@@ -139,7 +141,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 vistos.close()
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
-                return(Username.get())
+                username = Username.get()
 
 #registar
 def login_registar(acc):
@@ -189,6 +191,7 @@ def login_registar(acc):
 
 def logout(acc):
     acc=0
+    username = ""
     barraMenu()
     return acc
 
@@ -227,13 +230,14 @@ def barra_user(barra_menu: Menu):
 def barraMenu():
     #cria barra menu
     barra=Menu()
+    username = ""
 
     #opçoes de filmes
     barra.add_command(label="Catálogo", command=catalogo)
     
     #login
     opcoes_login=Menu(barra)
-    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(barra,acc))
+    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(acc))
     opcoes_login.add_command(label="Registar", command=lambda:login_registar(acc))
     barra.add_cascade(label="Login", menu=opcoes_login)
 
@@ -272,6 +276,8 @@ def catalogo():
     tree2.heading("Pontuação", text="Pontuação")
     tree2.heading("Visualizações", text="Visualizações")
     tree2.place(x=1, y=1)
+
+    treeview_inicio() #chama a funcao que mostra o catalogo na treeview
 
     #painel
     panel2 = PanedWindow(window4, width = 220, height = 570, bd = "3", relief = "sunken")
@@ -374,7 +380,16 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
             if val3.get() == "" or val3.get() == campos[0]:
                 if cb_gen.get() == "" or cb_gen.get() == (campos[3] + "\n"):
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
-        
+
+#funcao que demonstra todo o catalogo na treeview em ordem dos adicionados mais recentemente
+def treeview_inicio():
+    catalogo = open("catalogo.txt", "r", encoding="utf-8")
+    lista = catalogo.readlines()
+    catalogo.close()
+    for i in range(len(lista)-1, 0, -1):
+        campos = lista[i].split(";")
+        tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
     linhas.sort()
@@ -668,13 +683,16 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
     lbox_comentarios.delete(0,END)
     for line in all_comments:
         campo = line.split(";")
-        if nome_selecao not in campo:
+        if username == "":
+            msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
+        if campo[0] == nome_selecao:
+            all_comments[all_comments.index(line)] = (line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n"  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+            comentarios = open("comentarios.txt", "w")
+            comentarios.write("")     #apaga todo o ficheiro
             comentarios = open("comentarios.txt", "a")
-            comentarios.write(nome_selecao + ";" + username + ": "+ txt_comentario)
+            for i in range(len(all_comments)):
+                comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
             break
-        elif campo[0] == nome_selecao:
-            new_comment = ";" + username + ": ;" + txt_comentario
-            copy = open("storage.txt","w")
     comentarios.close()
 
     mostrar_comentarios(nome_selecao, lbox_comentarios)

@@ -1,2 +1,7 @@
 Nome do filme;username: comentario; username: comentario mais recente(...)
-line
+line;tex;user123: text text text
+plz
+work
+im
+begging
+pleek
