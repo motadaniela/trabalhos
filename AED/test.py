@@ -24,3 +24,4 @@ comentarios.write(str())
 comentarios.close()
 
 window.mainloop()
+
