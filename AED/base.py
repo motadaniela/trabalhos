@@ -641,8 +641,32 @@ def selecionar(tree2):
                 mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao)
             else:
                 new_text=new_text+line
-    
-        
+
+def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
+    comentarios = open("comentarios.txt", "r")
+    all_comments = comentarios.readlines()
+    comentarios.close()
+    lbox_comentarios.delete(0,END)
+    for line in all_comments:
+        campo = line.split(";")
+        if nome_selecao not in campo:
+            lbox_comentarios.insert(END,"Ainda não existem comentários!")
+        if campo[0] == nome_selecao:
+            for i in range(len(campo)-1,0,-1):
+                lbox_comentarios.insert(END,campo[i])
+
+def comentar(nome_selecao,lbox_comentarios):
+    #so pus para exprimentar
+    username = "Username"
+    comentarios = open("comentarios.txt", "r")
+    all_comments = comentarios.readlines()
+    comentarios.close()
+    lbox_comentarios.delete(0,END)
+    for line in all_comments:
+        campo = line.split(";")
+            
+
+    mostrar_comentarios(nome_selecao, lbox_comentarios)
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
@@ -687,12 +711,15 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     txt_comentario=Text(window6, width=30,height=5, wrap="word")
     txt_comentario.place(x=10,y=450)
 
+    btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome_selecao, lbox_comentarios))
+    btn_comentar.place(x=20, y=540)
+
     lbl_comentarios=Label(window6, text="Comentários:", font=("Helvetica",11))
     lbl_comentarios.place(x=300,y=420)
 
     lbox_comentarios=Listbox(window6,height=7, width=65, selectmode="single")
     lbox_comentarios.place(x=300, y=450)
-
+    mostrar_comentarios(nome_selecao,lbox_comentarios)
     
 
     
