@@ -666,31 +666,45 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
     all_comments = comentarios.readlines()
     comentarios.close()
     lbox_comentarios.delete(0,END)
+    all_movies = []
     for line in all_comments:
-        campo = line.split(";")
-        if nome_selecao not in campo:
-            lbox_comentarios.insert(END,"Ainda não existem comentários!")
-            break
-        if campo[0] == nome_selecao:
-            for i in range(len(campo)-1,0,-1):
-                lbox_comentarios.insert(END,campo[i])
+        campos = line.split(";")
+        all_movies.append(campos[0])
+    if nome_selecao not in all_movies:
+        lbox_comentarios.insert(END,"Ainda não existem comentários!")
+    else:
+        for line in all_comments:
+            campos = line.split(";")
+            if campos[0] == nome_selecao:
+                for i in range(len(campos)-1,0,-1):
+                    lbox_comentarios.insert(END,campos[i])
 
 def comentar(nome_selecao,lbox_comentarios, txt_comentario):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
-    lbox_comentarios.delete(0,END)
+    all_names = []
     for line in all_comments:
-        campo = line.split(";")
-        if username == "":
-            msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
-        if campo[0] == nome_selecao:
-            all_comments[all_comments.index(line)] = (line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n"  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
-            comentarios = open("comentarios.txt", "w")
-            comentarios.write("")     #apaga todo o ficheiro
-            comentarios = open("comentarios.txt", "a")
-            for i in range(len(all_comments)):
-                comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
-            break
+        campos = line.split(";")
+        all_names.append(campos[0])
+    if username == "":
+        msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
+    elif username != "" and nome_selecao not in all_names:
+        comentarios = open("comentarios.txt", "a")
+        new_line = str(nome_selecao + ";" + username + ": " + txt_comentario +"\n")
+        comentarios.write(new_line)
+    else:
+        for line in all_comments:
+            campos = line.split(";")
+            if username != "" and campos[0] == nome_selecao:
+                pos = all_comments.index(line)
+                all_comments[pos] = str((line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n")  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+                comentarios = open("comentarios.txt", "w")
+                comentarios.write("")     #apaga todo o ficheiro
+                comentarios = open("comentarios.txt", "a")
+                for i in range(len(all_comments)):
+                    comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+                break
+
     comentarios.close()
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
