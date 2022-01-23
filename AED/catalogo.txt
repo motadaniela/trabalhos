@@ -1,5 +1,4 @@
 Nome(0);Ano(1);Filme(2);Categoria(3);Pontuação(4);Visualizações(5);Poster(6);Link(7);Sinopse(8);Data(9)
-<<<<<<< HEAD
 Spider-Man: No Way Home;2021;Filme;Ação;0;0;spider-man_no_way_home.jpg;https://www.youtube.com/watch?v=JfVOs4VSpmA ;Pela primeira vez na história cinematográfica de Spider-Man, a identidade do nosso herói amigo da vizinhança é revelada, colocando as suas responsabilidades de super-herói em conflito com a sua vida pessoal/normal e colocando em risco aqueles com quem se preocupa. Peter pede ajuda a Dr. Strange para restaurar o seu segredo, o feitiço abre um buraco no seu mundo, libertando os vilões mais poderosos que já lutaram contra Spider-Man em qualquer universo.;23/01/202218:56:43
 Euphoria;2019;Série;Drama;0;0;euphoria.jpg;https://www.youtube.com/watch?v=6XGnv7Zgbeg ;Um grupo de estudantes do ensino médio lida com diferentes situações típicas da idade como drogas, sexo, busca pela identidade, traumas, comportamento nas redes sociais e amizade.;23/01/202218:58:30
 The Addams Family;1991;Filme;Comédia;0;0;the_addams_family.jpg;https://www.youtube.com/watch?v=G388UMkJIBE ;Quando um homem dizendo ser Funério, o irmão desaparecido de Gomez Addams, chega à casa dos Addams, a família está feliz. No entanto, Morticia começa a suspeitar que Funério é uma fraude, já que ele não consegue se lembrar de detalhes da sua vida. Com a ajuda do advogado Tully Alford, Funério consegue fazer com que o clã Addams seja despejado de sua casa. Gomez percebe que os dois homens estão conspirando para roubar a fortuna de sua família.;23/01/202219:01:03
@@ -17,11 +16,4 @@ Brooklyn Nine-Nine;2013;Série;Policial;0;0;brooklyn_nine-nine.jpg;https://www.y
 Me Before You;2016;Filme;Romance;0;0;me_before_you.jpg;https://www.youtube.com/watch?v=Eh993__rOxA ;De origem modesta e sem grandes aspirações, a peculiar Louisa Clark é contratada para ser cuidadora de Will, um jovem tetraplégico depressivo e cínico.;23/01/202220:13:42
 It;2017;Filme;Terror;0;0;it.jpg;https://www.youtube.com/watch?v=FnCdOQsX5kc ;Um grupo de crianças se une para investigar o misterioso desaparecimento de vários jovens em sua cidade. Eles descobrem que o culpado é Pennywise, um palhaço cruel que se alimenta de seus medos e cuja violência teve origem há vários séculos.;23/01/202220:41:57
 The Sinner;2017;Série;Thriller;0;0;the_sinner.jpg;https://www.youtube.com/watch?v=ZEfnpFuzxnE ;Um detetive busca respostas para crimes perturbadores enquanto luta contra os próprios demônios.;23/01/202220:48:33
-=======
-Spider-Man: No Way Home;2021;Filme;Ação;0;0;spider-man_no_way_home.jpg;https://youtu.be/JfVOs4VSpmA ;With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.
-Euphoria;2019;Série;Drama;0;0;euphoria.jpg;https://youtu.be/6XGnv7Zgbeg ;A look at life for a group of high school students as they grapple with issues of drugs, sex, and violence.
-The Addams Family;1991;Filme;Comédia;0;0;the_addams_family.jpg;https://youtu.be/A6X4VAHdDVg ;Con artists plan to fleece an eccentric family using an accomplice who claims to be their long-lost uncle.
-Sing! 2;2021;Filme;Animação;0;0;sing!_2.jpg;https://youtu.be/RcElrZYafmM ;Buster Moon and his friends must persuade reclusive rock star Clay Calloway to join them for the opening of a new show.
-Stranger Things;2016;Série;Ficção Científica;0;0;stranger_things.jpg;https://youtu.be/b9EkMc79ZSU ;When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.
-1;2;3;4;0;0;1.jpg;5 ;6;23/01/202219:24:28
->>>>>>> 2159a549eb154f7ef4ed644a22a7d495b2577a9a
+
