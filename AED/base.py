@@ -558,7 +558,7 @@ def adicionar():
     panel1.place(x=10, y=10)
     #ListBox
     global tree  
-    tree=ttk.Treeview(panel1,height=17,selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria"), show="headings")
+    tree=ttk.Treeview(panel1,height=20,selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria"), show="headings")
     tree.column("Nome", width=240, anchor="c")
     tree.column("Ano", width=230, anchor="c")
     tree.column("Tipologia", width=230, anchor="c")
