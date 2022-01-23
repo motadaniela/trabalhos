@@ -6,3 +6,4 @@ i@;123;123;user
 o@;123;321;user
 bea@;123;bea;admin
 132@;123;1233;user
+email@email.com;123;user1;user
