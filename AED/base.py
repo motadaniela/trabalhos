@@ -775,7 +775,7 @@ def notificacoes(hora):
             data=user_info[4]
 
     newdate1 = time.strptime(hora, "%d/%m/%Y")
-    newdate2 = time.strptime(date2, "%d/%m/%Y")
+    newdate2 = time.strptime(data, "%d/%m/%Y")
     filmes = open("catalogo.txt", "r") 
     linha = filmes.readline()
     filmes.close()
