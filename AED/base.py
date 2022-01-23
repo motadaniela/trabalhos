@@ -14,6 +14,7 @@ from PIL import ImageTk,Image
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 import tkinter as tk
+import webbrowser
 
 ficheiro="catalogo.txt"
 acc=0   #conta nao iniciada
@@ -25,6 +26,8 @@ global screen_width
 global app_height, app_width
 global x, y
 global username
+
+username = StringVar()
 
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
@@ -63,7 +66,7 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     return(username,acc)
 
 #entrar na conta
-def login_entrar(barra_menu: Menu,acc):
+def login_entrar(acc):
     window2=tk.Toplevel()
     screen_width = window2.winfo_screenwidth()
     screen_height = window2.winfo_screenheight()
@@ -138,7 +141,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 vistos.close()
                 messagebox.showinfo("Bem vindo!","Bem vindo, " + Username.get() + "!")
                 barra_user(barra_menu)
-                return(Username.get())
+                username = Username.get()
 
 #registar
 def login_registar(acc):
@@ -188,6 +191,7 @@ def login_registar(acc):
 
 def logout(acc):
     acc=0
+    username = ""
     barraMenu()
     return acc
 
@@ -199,6 +203,7 @@ def sair():
 
 #barra para o admin
 def barra_admin(barra_menu: Menu):
+    acc=2
     barra_menu.delete(3)
     barra_menu.delete(2)
 
@@ -213,6 +218,7 @@ def barra_admin(barra_menu: Menu):
     barra_menu.add_command(label="Sair", command=sair)
 
 def barra_user(barra_menu: Menu):
+    acc=1
     barra_menu.delete(3)
     barra_menu.delete(2)
     barra_menu.add_command(label="Favoritos", command=favoritos)
@@ -224,13 +230,14 @@ def barra_user(barra_menu: Menu):
 def barraMenu():
     #cria barra menu
     barra=Menu()
+    username = ""
 
     #opçoes de filmes
     barra.add_command(label="Catálogo", command=catalogo)
     
     #login
     opcoes_login=Menu(barra)
-    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(barra,acc))
+    opcoes_login.add_command(label="Entrar", command=lambda:login_entrar(acc))
     opcoes_login.add_command(label="Registar", command=lambda:login_registar(acc))
     barra.add_cascade(label="Login", menu=opcoes_login)
 
@@ -269,6 +276,8 @@ def catalogo():
     tree2.heading("Pontuação", text="Pontuação")
     tree2.heading("Visualizações", text="Visualizações")
     tree2.place(x=1, y=1)
+
+    treeview_inicio() #chama a funcao que mostra o catalogo na treeview
 
     #painel
     panel2 = PanedWindow(window4, width = 220, height = 570, bd = "3", relief = "sunken")
@@ -343,8 +352,6 @@ def catalogo():
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
     btn_fav.place(x=18, y=520)
 
-
-
 #isto é para filtar os dados da tree 
 def dados_treeview():  # Remove TODAS as linhas da Treeview
     tree2.delete(*tree2.get_children())
@@ -371,9 +378,18 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         campos = linha.split(";")
         if tipo == "T" or campos[2] == tipo:
             if val3.get() == "" or val3.get() == campos[0]:
-                if cb_gen.get() == "" or cb_gen.get() == campos[3]:
+                if cb_gen.get() == "" or cb_gen.get() == (campos[3] + "\n"):
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
-        
+
+#funcao que demonstra todo o catalogo na treeview em ordem dos adicionados mais recentemente
+def treeview_inicio():
+    catalogo = open("catalogo.txt", "r", encoding="utf-8")
+    lista = catalogo.readlines()
+    catalogo.close()
+    for i in range(len(lista)-1, 0, -1):
+        campos = lista[i].split(";")
+        tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
     linhas.sort()
@@ -420,7 +436,6 @@ def favoritos(acc):
     bttn_visto.place(x=200, y=510)
     bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
     bttn_nvisto.place(x=290, y=510)
-
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
@@ -647,7 +662,7 @@ def selecionar(tree2):
                 new_text=new_text+line
 
 def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
-    comentarios = open("comentarios.txt", "r")
+    comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     comentarios.close()
     lbox_comentarios.delete(0,END)
@@ -655,27 +670,28 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
         campo = line.split(";")
         if nome_selecao not in campo:
             lbox_comentarios.insert(END,"Ainda não existem comentários!")
+            break
         if campo[0] == nome_selecao:
             for i in range(len(campo)-1,0,-1):
                 lbox_comentarios.insert(END,campo[i])
 
 def comentar(nome_selecao,lbox_comentarios, txt_comentario):
-    #so pus para exprimentar
-    username = "Username"
-    comentarios = open("comentarios.txt", "r")
+    comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     lbox_comentarios.delete(0,END)
     for line in all_comments:
         campo = line.split(";")
-        if nome_selecao not in campo:
+        if username == "":
+            msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
+        if campo[0] == nome_selecao:
+            all_comments[all_comments.index(line)] = (line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n"  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+            comentarios = open("comentarios.txt", "w")
+            comentarios.write("")     #apaga todo o ficheiro
             comentarios = open("comentarios.txt", "a")
-            comentarios.write(nome_selecao + ";" + username + ": "+ txt_comentario)
-        elif campo[0] == nome_selecao:
-            new_comment = ";" + username + ": ;" + txt_comentario
-            copy = open("storage.txt","w")
+            for i in range(len(all_comments)):
+                comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+            break
     comentarios.close()
-
-    mostrar_comentarios(nome_selecao, lbox_comentarios)
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
@@ -695,23 +711,29 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     img_poster=ImageTk.PhotoImage(Image.open(local_imagem))
     poster_canvas.create_image(120,170 , image=img_poster)
 
+    lbl_pontuacao=Label(window6, text="Pontuação:", font=("Helvetica",13))
+    lbl_pontuacao.place(x=300,y=150)
+
     lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
-    lbl_avaliar.place(x=320,y=340)
+    lbl_avaliar.place(x=300,y=240)
 
     lista_num=[0,1,2,3,4,5]
     spin=Spinbox(window6, width=10, values=lista_num)
-    spin.place(x=335,y=370)
+    spin.place(x=315,y=270)
 
-    panel_video=PanedWindow(window6, width=380, height=280, bd="3", relief="sunken")
-    panel_video.place(x=300, y=50)
+    btn_avaliar=Button(window6, text="Avaliar", height=2)
+    btn_avaliar.place(x=450,y=250)
+
+    btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
+    btn_video.place(x=300,y=50)
 
     btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2)
-    btn_fav.place(x=500,y=340)
+    btn_fav.place(x=300,y=340)
 
-    lbl_sipnose=Label(window6, text="Sipnose", font=("Helvetica",18))
-    lbl_sipnose.place(x=800,y=50)
+    lbl_sinopse=Label(window6, text="Sinopse", font=("Helvetica",18))
+    lbl_sinopse.place(x=800,y=50)
     
-    msg_sinopse=Message(window6, text=sinopse_selecao, font=("Helvetica",12), bg="white")
+    msg_sinopse=Message(window6, text=sinopse_selecao, font=("Helvetica",12), bg="white", width=200)
     msg_sinopse.place(x=750, y=80)
 
     lbl_comentario=Label(window6, text="Deixe um comentário!", font=("Helvetica",11))
@@ -721,17 +743,18 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     txt_comentario.place(x=10,y=450)
 
     btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome_selecao, lbox_comentarios, txt_comentario.get))
-    btn_comentar.place(x=20, y=540)
+    btn_comentar.place(x=270, y=450)
 
     lbl_comentarios=Label(window6, text="Comentários:", font=("Helvetica",11))
-    lbl_comentarios.place(x=300,y=420)
+    lbl_comentarios.place(x=400,y=420)
 
     lbox_comentarios=Listbox(window6,height=7, width=65, selectmode="single")
-    lbox_comentarios.place(x=300, y=450)
+    lbox_comentarios.place(x=400, y=450)
     mostrar_comentarios(nome_selecao,lbox_comentarios)
-    
-
-    
+  
+def playVideo(link_selecao):
+    url=link_selecao
+    webbrowser.open(url,new=0,autoraise=True)
 
 
 barra_menu = barraMenu()

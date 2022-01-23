@@ -1,4 +1,8 @@
-email;password;username
+email;password;username; categoria favorita(most engaged)
 1;2;3;user
 nini;123;Daniela;admin
 admin1@email.com;123;admin1;user
+i@;123;123;user
+o@;123;321;user
+bea@;123;bea;admin
+132@;123;1233;user
