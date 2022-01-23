@@ -1,4 +1,4 @@
-Nome(0);Ano(1);Filme(2);Categoria(3);Pontuação(4);Visualizações(5);Poster(6);Link(7);Sinopse(8)
+Nome(0);Ano(1);Filme(2);Categoria(3);Pontuação(4);Visualizações(5);Poster(6);Link(7);Sinopse(8);Data(9)
 Spider-Man: No Way Home;2021;Filme;Ação;0;0;spider-man_no_way_home.jpg;https://youtu.be/JfVOs4VSpmA ;With Spider-Man's identity now revealed, Peter asks Doctor Strange for help. When a spell goes wrong, dangerous foes from other worlds start to appear, forcing Peter to discover what it truly means to be Spider-Man.
 Euphoria;2019;Série;Drama;0;0;euphoria.jpg;https://youtu.be/6XGnv7Zgbeg ;A look at life for a group of high school students as they grapple with issues of drugs, sex, and violence.
 The Addams Family;1991;Filme;Comédia;0;0;the_addams_family.jpg;https://youtu.be/A6X4VAHdDVg ;Con artists plan to fleece an eccentric family using an accomplice who claims to be their long-lost uncle.

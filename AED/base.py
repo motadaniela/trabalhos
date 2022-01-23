@@ -15,6 +15,7 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 import tkinter as tk
 import webbrowser
+from datetime import datetime
 
 ficheiro="catalogo.txt"
 acc=0   #conta nao iniciada
@@ -44,6 +45,7 @@ window.title("Gestor de Filmes e Séries")
 def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
+    global username
     for line in userdata:
         user_info = line.split(";")
         if user_info[3] == "admin\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
@@ -123,15 +125,19 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
                 break
         else:
             data=open("userdata.txt", "a")
+            now = datetime.now()
+            hora=now.strftime("%d/%m/%Y%H:%M:%S")
             data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
-                data.write(";admin\n")
+                data.write(";admin;")
+                data.write(hora+"\n")
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 window3.destroy()
                 return(Username.get())
             elif acc==0:
-                data.write(";user\n")
+                data.write(";user;")
+                data.write(hora+"\n")
                 data.close()
                 favoritos = open("Favoritos.txt", "a")
                 vistos = open("Vistos.txt", "a")
@@ -221,8 +227,9 @@ def barra_user(barra_menu: Menu):
     acc=1
     barra_menu.delete(3)
     barra_menu.delete(2)
-    barra_menu.add_command(label="Favoritos", command=favoritos)
+    barra_menu.add_command(label="Favoritos", command=lambda:favoritos(acc))
     barra_menu.add_command(label="Log out", command=lambda: logout(acc))
+    barra_menu.add_command(label="Notificações", command=notificacoes)
     barra_menu.add_command(label="Sair", command=sair)
     return
 
@@ -470,6 +477,8 @@ def mostrar():
 #adicionar filme/serie  
 def adicionar_linha():
     f = open(ficheiro, "a", encoding="utf-8")
+    now = datetime.now()
+    hora=now.strftime("%d/%m/%Y%H:%M:%S")
     nome2 = nome.get()
     ano2 = str(ano.get())
     tipologia2 = tipologia.get()
@@ -477,7 +486,7 @@ def adicionar_linha():
     imagem=nome_imagem(nome2)
     link=trailer.get()+" "
     sinopse2=sinopse.get()
-    linha = nome2+";"+ano2+";"+tipologia2+";"+categoria2+";0;0;"+imagem+";"+link+";"+sinopse2+"\n" 
+    linha = nome2+";"+ano2+";"+tipologia2+";"+categoria2+";0;0;"+imagem+";"+link+";"+sinopse2+";"+hora+"\n" 
     campos = linha.split(";")
     f.write(linha)
     f.close()
@@ -649,7 +658,7 @@ def selecionar(tree2):
             filme=line.split(";")
             lista=filme
             if selecao==i:
-                for linha in ficheiro:
+                for linha in f:
                     stripped_line = linha.strip()
                     line_list = stripped_line.split(";")
                     lista.append(line_list)
@@ -755,6 +764,27 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
 def playVideo(link_selecao):
     url=link_selecao
     webbrowser.open(url,new=0,autoraise=True)
+
+def notificacoes():
+    userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
+    line = userdata.readline()
+    userdata.close()
+    for line in userdata:
+        user_info = line.split(";")
+        if username==user_info[2]:
+            data=user_info[4]
+
+    filmes = open("catalogo.txt", "r") 
+    linha = filmes.readline()
+    filmes.close()
+    lista=[]
+    i=0
+    for linha in filmes:
+        i+=1
+        cat_info = linha.split(";")
+        if data<cat_info[9]:
+            data=user_info[4]
+    
 
 
 barra_menu = barraMenu()
