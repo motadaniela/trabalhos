@@ -15,7 +15,7 @@ from tkinter import messagebox
 from tkinter.ttk import Combobox
 import tkinter as tk
 import webbrowser
-from datetime import datetime
+from datetime import datetime, timedelta
 
 ficheiro="catalogo.txt"
 acc=0   #conta nao iniciada
@@ -43,9 +43,9 @@ window.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int
 window.title("Gestor de Filmes e Séries")
 
 def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
+    global username
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
-    global username
     for line in userdata:
         user_info = line.split(";")
         if user_info[3] == "admin\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
@@ -55,7 +55,7 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
             barra_admin(barra_menu)
             userdata.close()
             break
-        elif user_info[3]=="user\n" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
+        elif user_info[3]=="user" and user_info[0] == str(Email.get()) and user_info[1] == str(Password.get()):
             acc=1
             username = user_info[2]
             messagebox.showinfo("Bem vindo!","Bem vindo, " + user_info[2]+"!")
@@ -229,7 +229,7 @@ def barra_user(barra_menu: Menu):
     barra_menu.delete(2)
     barra_menu.add_command(label="Favoritos", command=lambda:favoritos(acc))
     barra_menu.add_command(label="Log out", command=lambda: logout(acc))
-    barra_menu.add_command(label="Notificações", command=notificacoes)
+    barra_menu.add_command(label="Notificações", command=not_window)
     barra_menu.add_command(label="Sair", command=sair)
     return
 
@@ -765,28 +765,49 @@ def playVideo(link_selecao):
     url=link_selecao
     webbrowser.open(url,new=0,autoraise=True)
 
-def notificacoes(hora):
+def notificacoes():
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
-    line = userdata.readline()
+    olaa = userdata.readline()
     userdata.close()
-    for line in userdata:
-        user_info = line.split(";")
+    for line in olaa:
+        user_info = olaa.split(";")
         if username==user_info[2]:
-            data=user_info[4]
-
-    newdate1 = time.strptime(hora, "%d/%m/%Y")
-    newdate2 = time.strptime(data, "%d/%m/%Y")
+            data=user_info[4].replace("\n","")
+            data1 = datetime.strptime(data, "%d/%m/%Y%H:%M:%S")
     filmes = open("catalogo.txt", "r") 
     linha = filmes.readline()
     filmes.close()
     lista=[]
-    i=0
-    for linha in filmes:
-        i+=1
+    for line in linha:
         cat_info = linha.split(";")
-        if data<cat_info[9]:
+        data_cat=cat_info[9].replace("\n", "")
+        data2=datetime.strptime(data_cat, "%d/%m/%Y%H:%M:%S")
+        if data1<data2:
             lista.append(cat_info[0])
-    
+    return lista
+
+def gerar_not(window7):
+    lista=[]
+    lista=notificacoes()
+    yy=60
+    for i in len(lista):
+        msg=Button(window7, text=lista[i]+"foi adicionado ao catalogo", height=2)
+        msg.place(x=20, y=yy)
+        yy+=20
+        i+=1
+
+def not_window():
+    window7=Toplevel()   
+    window7.title("Notificações") 
+    window7.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
+    window7.focus_force()     
+    window7.grab_set()
+
+    lbl_not=Label(window7, text="Notificações", font=("Helvetica",13))
+    lbl_not.place(x=20, y=20)
+
+    gerar_not(window7)
+
 
 
 barra_menu = barraMenu()

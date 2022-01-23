@@ -4,3 +4,4 @@ Euphoria;2019;Série;Drama;0;0;euphoria.jpg;https://youtu.be/6XGnv7Zgbeg ;A look
 The Addams Family;1991;Filme;Comédia;0;0;the_addams_family.jpg;https://youtu.be/A6X4VAHdDVg ;Con artists plan to fleece an eccentric family using an accomplice who claims to be their long-lost uncle.
 Sing! 2;2021;Filme;Animação;0;0;sing!_2.jpg;https://youtu.be/RcElrZYafmM ;Buster Moon and his friends must persuade reclusive rock star Clay Calloway to join them for the opening of a new show.
 Stranger Things;2016;Série;Ficção Científica;0;0;stranger_things.jpg;https://youtu.be/b9EkMc79ZSU ;When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.
+1;2;3;4;0;0;1.jpg;5 ;6;23/01/202219:24:28
