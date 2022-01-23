@@ -356,8 +356,6 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         tipo = "Série"
     elif valf.get() == True: # filme checado
         tipo = "Filme"
-    elif cb_gen.get() == True:
-        
     elif vals.get() == False and valf.get() == False:  #nada selecionado -> catálogo todo 
         f=open(ficheiro, "r", encoding="utf-8")
         lista = f.readlines()
