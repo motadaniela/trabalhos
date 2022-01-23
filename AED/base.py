@@ -765,7 +765,7 @@ def playVideo(link_selecao):
     url=link_selecao
     webbrowser.open(url,new=0,autoraise=True)
 
-def notificacoes():
+def notificacoes(hora):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     line = userdata.readline()
     userdata.close()
@@ -774,6 +774,8 @@ def notificacoes():
         if username==user_info[2]:
             data=user_info[4]
 
+    newdate1 = time.strptime(hora, "%d/%m/%Y")
+    newdate2 = time.strptime(date2, "%d/%m/%Y")
     filmes = open("catalogo.txt", "r") 
     linha = filmes.readline()
     filmes.close()
@@ -783,7 +785,7 @@ def notificacoes():
         i+=1
         cat_info = linha.split(";")
         if data<cat_info[9]:
-            data=user_info[4]
+            lista.append(cat_info[0])
     
 
 

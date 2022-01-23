@@ -3,3 +3,6 @@ Username;Filme favorito;serie favorita;outra serie;outro filme(...)
 123;
 321;
 1233;
+user;
+2;
+2;

@@ -3,3 +3,6 @@ Username;um filme visto;outro filme visto;uma série vista(...)
 123;
 321;
 1233;
+user;
+2;
+2;
