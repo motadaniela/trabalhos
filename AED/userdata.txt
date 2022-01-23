@@ -1,4 +1,4 @@
-email;password;username; categoria favorita(most engaged)
+email;password;username;admin/user;data;categoria favorita(most engaged)
 1;2;3;user
 nini;123;Daniela;admin
 admin1@email.com;123;admin1;user
@@ -6,3 +6,9 @@ i@;123;123;user
 o@;123;321;user
 bea@;123;bea;admin
 132@;123;1233;user
+<<<<<<< HEAD
+teste@;123;user;user
+2@;2;2;user;23/01/202215:54:50
+=======
+email@email.com;123;user1;user
+>>>>>>> 0dedbafdc33d52cc8e2f8fd976cce9139136e969
