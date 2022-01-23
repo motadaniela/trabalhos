@@ -126,18 +126,18 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             now = datetime.now()
-            hora=now.strftime("%d/%m/%Y%H:%M:%S")
+            #hora=now.strftime("%d/%m/%Y%H:%M:%S")
             data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
                 data.write(";admin;")
-                data.write(hora+"\n")
+                #data.write(hora+"\n")
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 window3.destroy()
                 return(Username.get())
             elif acc==0:
                 data.write(";user;")
-                data.write(hora+"\n")
+                #data.write(hora+"\n")
                 data.close()
                 favoritos = open("Favoritos.txt", "a")
                 vistos = open("Vistos.txt", "a")
@@ -284,7 +284,7 @@ def catalogo():
     tree2.heading("Visualizações", text="Visualizações")
     tree2.place(x=1, y=1)
 
-    treeview_inicio() #chama a funcao que mostra o catalogo na treeview
+    #treeview_inicio() #chama a funcao que mostra o catalogo na treeview
 
     #painel
     panel2 = PanedWindow(window4, width = 220, height = 570, bd = "3", relief = "sunken")
