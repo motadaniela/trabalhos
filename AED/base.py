@@ -126,21 +126,21 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             now = datetime.now()
-            #hora=now.strftime("%d/%m/%Y%H:%M:%S")
+            hora=now.strftime("%d/%m/%Y%H:%M:%S")
             data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
                 data.write(";admin;")
-                #data.write(hora+"\n")
+                data.write(hora+"\n")
                 data.close()
                 messagebox.showinfo("Novo admin","Nova conta admin criada!")
                 window3.destroy()
                 return(Username.get())
             elif acc==0:
                 data.write(";user;")
-                #data.write(hora+"\n")
+                data.write(hora+"\n")
                 data.close()
-                favoritos = open("Favoritos.txt", "a")
-                vistos = open("Vistos.txt", "a")
+                favoritos = open("favoritos.txt", "a")
+                vistos = open("vistos.txt", "a")
                 favoritos.write(Username.get()+";\n")
                 vistos.write(Username.get()+";\n")
                 favoritos.close()
@@ -389,13 +389,13 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
 #funcao que demonstra todo o catalogo na treeview em ordem dos adicionados mais recentemente
-def treeview_inicio():
-    catalogo = open("catalogo.txt", "r", encoding="utf-8")
-    lista = catalogo.readlines()
-    catalogo.close()
-    for i in range(len(lista)-1, 0, -1):
-        campos = lista[i].split(";")
-        tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+#def treeview_inicio():
+ #   catalogo = open("catalogo.txt", "r", encoding="utf-8")
+  #  lista = catalogo.readlines()
+   # catalogo.close()
+    #for i in range(len(lista)-1, 0, -1):
+     #   campos = lista[i].split(";")
+      #  tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
@@ -425,25 +425,24 @@ def favoritos(acc):
     wFavoritos.grab_set()
 
     panelF = PanedWindow(wFavoritos, width=610, height=480, relief="sunken", bd="3")
-    panelF.place(X=100, y=50)
+    panelF.place(x=100, y=50)
 
-    tree=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Ano","Tipologia","Categoria","Pontuação","Visualizações"), show="headings")
-    tree.column("Nome", width=300, anchor="c")
-    tree.column("Tipo", width=300, anchor="c")
-    tree.column("Estado", width=300, anchor="c")
-    tree.heading("Nome", text="Nome")
-    tree.heading("Tipo", text="Tipo")
-    tree.heading("Estado", text="Estado")
-    tree.place(x=1, y=1)
+    tree3=ttk.Treeview(panelF, height=40, selectmode="browse",columns=("Nome","Tipo","Estado"), show="headings")
+    tree3.column("Nome", width=200, anchor="c")
+    tree3.column("Tipo", width=200, anchor="c")
+    tree3.column("Estado", width=200, anchor="c")
+    tree3.heading("Nome", text="Nome")
+    tree3.heading("Tipo", text="Tipo")
+    tree3.heading("Estado", text="Estado")
+    tree3.place(x=1, y=1)
 
     #botoes
     bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
-    bttn_remover.place(x=110, y=510)
+    bttn_remover.place(x=750, y=100)
     bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
-    bttn_visto.place(x=200, y=510)
+    bttn_visto.place(x=750, y=250)
     bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
-    bttn_nvisto.place(x=290, y=510)
-
+    bttn_nvisto.place(x=750, y=400)
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
 def remover(window5):
@@ -779,7 +778,7 @@ def playVideo(link_selecao):
     url=link_selecao
     webbrowser.open(url,new=0,autoraise=True)
 
-def notificacoes():
+def notificacoes(window7):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
     olaa = userdata.readline()
     userdata.close()
@@ -788,27 +787,29 @@ def notificacoes():
         if username==user_info[2]:
             data=user_info[4].replace("\n","")
             data1 = datetime.strptime(data, "%d/%m/%Y%H:%M:%S")
-    filmes = open("catalogo.txt", "r") 
-    linha = filmes.readline()
-    filmes.close()
-    lista=[]
-    for line in linha:
-        cat_info = linha.split(";")
-        data_cat=cat_info[9].replace("\n", "")
-        data2=datetime.strptime(data_cat, "%d/%m/%Y%H:%M:%S")
-        if data1<data2:
-            lista.append(cat_info[0])
-    return lista
+            filmes = open("catalogo.txt", "r") 
+            linha = filmes.readline()
+            filmes.close()
+            lista=[]
+            for line in linha:
+                cat_info = linha.split(";")
+                data_cat=cat_info[9].replace("\n", "")
+                data2=datetime.strptime(data_cat, "%d/%m/%Y%H:%M:%S")
+                if data1<data2:
+                    lista.append(cat_info[0])
+                if line=="":
+                    lulu(lista,window7)
 
-def gerar_not(window7):
-    lista=[]
-    lista=notificacoes()
-    yy=60
+def lulu(lista,window7):
+    yy=60        
     for i in len(lista):
         msg=Button(window7, text=lista[i]+"foi adicionado ao catalogo", height=2)
         msg.place(x=20, y=yy)
         yy+=20
-        i+=1
+        i+=1 
+    if len(lista)==0:   
+        msg=Label(window7, text="Não tem notificações!", font=("Helvetica",11))
+        msg.place(x=20, y=60)
 
 def not_window():
     window7=Toplevel()   
@@ -817,10 +818,12 @@ def not_window():
     window7.focus_force()     
     window7.grab_set()
 
+    notificacoes(window7)
+
     lbl_not=Label(window7, text="Notificações", font=("Helvetica",13))
     lbl_not.place(x=20, y=20)
 
-    gerar_not(window7)
+    
 
 
 
