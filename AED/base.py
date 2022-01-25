@@ -126,7 +126,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             now = datetime.now()
-            hora=now.strftime("%d/%m/%Y%H:%M:%S")
+            hora=now.strftime("%Y%m/%d%H%M%S")
             data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
                 data.write(";admin;")
@@ -205,6 +205,19 @@ def logout(acc):
 def sair():
     res = messagebox.askquestion("Sair","Deseja sair?")
     if res=="yes":
+        userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
+        olaa = userdata.readlines()
+        userdata.close()
+        for line in olaa:
+            user_info = line.split(";")
+            if username==user_info[2]:
+                userdata = open("userdata.txt", "a")     #abre o ficheiro para leitura
+                hora=now.strftime("%Y%m/%d%H%M%S")
+                data=userdata[4].replace("line","")
+                userdata.close()
+                now = datetime.now()
+                
+
         window.destroy()
 
 #barra para o admin
@@ -477,7 +490,7 @@ def mostrar():
 def adicionar_linha():
     f = open(ficheiro, "a", encoding="utf-8")
     now = datetime.now()
-    hora=now.strftime("%d/%m/%Y%H:%M:%S")
+    hora=now.strftime("%Y%m/%d%H%M%S")
     nome2 = nome.get()
     ano2 = str(ano.get())
     tipologia2 = tipologia.get()
@@ -780,33 +793,30 @@ def playVideo(link_selecao):
 
 def notificacoes(window7):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
-    olaa = userdata.readline()
+    olaa = userdata.readlines()
     userdata.close()
     for line in olaa:
-        user_info = olaa.split(";")
+        user_info = line.split(";")
         if username==user_info[2]:
             data=user_info[4].replace("\n","")
-            data1 = datetime.strptime(data, "%d/%m/%Y%H:%M:%S")
-            filmes = open("catalogo.txt", "r") 
-            linha = filmes.readline()
-            filmes.close()
-            lista=[]
-            for line in linha:
-                cat_info = linha.split(";")
-                data_cat=cat_info[9].replace("\n", "")
-                data2=datetime.strptime(data_cat, "%d/%m/%Y%H:%M:%S")
-                if data1<data2:
-                    lista.append(cat_info[0])
-                if line=="":
-                    lulu(lista,window7)
+            break
+    filmes = open("catalogo.csv", "r") 
+    linha = filmes.readlines()
+    filmes.close()
+    lista=[]
+    for line in linha:
+        cat_info = line.split(";")
+        data_cat=cat_info[9].replace("\n", "")
+        if data<data_cat:
+            lista.append(cat_info[0])
+    lulu(lista,window7)
 
 def lulu(lista,window7):
     yy=60        
-    for i in len(lista):
+    for i in range(len(lista)):
         msg=Button(window7, text=lista[i]+"foi adicionado ao catalogo", height=2)
         msg.place(x=20, y=yy)
-        yy+=20
-        i+=1 
+        yy+=40
     if len(lista)==0:   
         msg=Label(window7, text="Não tem notificações!", font=("Helvetica",11))
         msg.place(x=20, y=60)
