@@ -126,7 +126,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             now = datetime.now()
-            hora=now.strftime("%Y%m/%d%H%M%S")
+            hora=now.strftime("%Y%m%d%H%M%S")
             data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
                 data.write(";admin;")
@@ -196,8 +196,8 @@ def login_registar(acc):
     btn_registar.place(x=180, y=220)
 
 def logout(acc):
+    username=""
     acc=0
-    username = ""
     barraMenu()
     return acc
 
@@ -205,20 +205,19 @@ def logout(acc):
 def sair():
     res = messagebox.askquestion("Sair","Deseja sair?")
     if res=="yes":
-        userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
-        olaa = userdata.readlines()
-        userdata.close()
-        for line in olaa:
-            user_info = line.split(";")
-            if username==user_info[2]:
-                userdata = open("userdata.txt", "a")     #abre o ficheiro para leitura
-                hora=now.strftime("%Y%m/%d%H%M%S")
-                data=userdata[4].replace("line","")
-                userdata.close()
-                now = datetime.now()
-                
-
-        window.destroy()
+        with open("userdata.txt", "r", encoding="UTF-8") as f:
+            new_text = ""
+            for line in f:
+                user = line.split(";")
+                if username == user[2]:
+                    now = datetime.now()
+                    user[4] = now.strftime("%Y%m%d%H%M%S")+"\n"
+                    new_text = new_text + ";".join(user)
+                else:
+                    new_text = new_text + line
+        with open("userdata.txt", "w", encoding="UTF-8") as f:      # re-write the data
+            f.write(new_text)
+        exit() 
 
 #barra para o admin
 def barra_admin(barra_menu: Menu):
@@ -401,14 +400,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
                 if cb_gen.get() == "" or cb_gen.get() == (campos[3] + "\n"):
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
-#funcao que demonstra todo o catalogo na treeview em ordem dos adicionados mais recentemente
-#def treeview_inicio():
- #   catalogo = open("catalogo.txt", "r", encoding="utf-8")
-  #  lista = catalogo.readlines()
-   # catalogo.close()
-    #for i in range(len(lista)-1, 0, -1):
-     #   campos = lista[i].split(";")
-      #  tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+
 
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
@@ -479,7 +471,7 @@ def remover(window5):
 #mostra os dados anteriores
 def mostrar():
     tree.delete(*tree.get_children())
-    f = open(ficheiro, "r", encoding="utf-8")
+    f = open("catalogo.txt", "r", encoding="utf-8")
     lista=f.readlines()
     f.close()
     for linha in lista:
@@ -490,7 +482,7 @@ def mostrar():
 def adicionar_linha():
     f = open(ficheiro, "a", encoding="utf-8")
     now = datetime.now()
-    hora=now.strftime("%Y%m/%d%H%M%S")
+    hora=now.strftime("%Y%m%d%H%M%S")
     nome2 = nome.get()
     ano2 = str(ano.get())
     tipologia2 = tipologia.get()
@@ -498,7 +490,7 @@ def adicionar_linha():
     imagem=nome_imagem(nome2)
     link=trailer.get()+" "
     sinopse2=sinopse.get()
-    linha = nome2+";"+ano2+";"+tipologia2+";"+categoria2+";0;0;"+imagem+";"+link+";"+sinopse2+";"+hora+"\n" 
+    linha = nome2+";"+ano2+";"+tipologia2+";"+categoria2+";00;0;"+imagem+";"+link+";"+sinopse2+";"+hora+"\n" 
     campos = linha.split(";")
     f.write(linha)
     f.close()
@@ -648,7 +640,6 @@ def remover_catg():
 
         f.write(categoria)
     f.close()  
-   
 
 def nome_imagem(nome2):
     min=nome2.lower()
@@ -726,7 +717,6 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
                 for i in range(len(all_comments)):
                     comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
-
     comentarios.close()
 
 def add_favoritos(nome_selecao):
@@ -751,6 +741,33 @@ def add_favoritos(nome_selecao):
                     favoritos.write(all_users[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
 
+def avaliar(spin,nome_selecao):
+    catalogo = open("catalogo.txt","r", encoding="UTF-8")
+    lista = catalogo.readlines()
+    if username == "":
+        msg = messagebox("Sessão não iniciada", "Por favor faça login!")
+    else:
+        for line in lista:
+            campos = line.split(";")
+            if campos[0] == nome_selecao:
+                numerador = float(campos[4][0])
+                divisor = float(campos[4][1])
+                numerador = numerador*divisor + float(spin)  #soma anterior + nova pontuacao
+                divisor += 1
+                number = round(numerador/divisor)   #pontuacao é igual à media
+                campos[4] = str(number) + str(round(divisor))
+                new_line = campos[0] + ";" + campos[1] + ";" + campos[2] + ";" + campos[3] + ";" + campos[4] + ";" + campos[5] + ";" + campos[6] + ";" + campos[7] + ";" + campos[8] + ";" + campos[9]
+                lista[lista.index(line)] = str(new_line)
+                catalogo = open("catalogo.txt", "w")
+                catalogo.write("")
+                catalogo = open("catalogo.txt", "a", encoding="UTF-8")
+                for i in range(len(lista)):
+                    catalogo.write(lista[i])
+                break
+    catalogo.close()
+
+#def mostrar_avaliar(lbl_numero: Label)
+
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
     window6.title("Informações") 
@@ -771,6 +788,8 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
 
     lbl_pontuacao=Label(window6, text="Pontuação:", font=("Helvetica",13))
     lbl_pontuacao.place(x=300,y=150)
+    lbl_numero=Label(window6, text="numero", font=("Helvetica",13))
+    lbl_numero.place(x=350,y=150)
 
     lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
     lbl_avaliar.place(x=300,y=240)
@@ -779,7 +798,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     spin=Spinbox(window6, width=10, values=lista_num)
     spin.place(x=315,y=270)
 
-    btn_avaliar=Button(window6, text="Avaliar", height=2)
+    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao))
     btn_avaliar.place(x=450,y=250)
 
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
@@ -823,7 +842,7 @@ def notificacoes(window7):
         if username==user_info[2]:
             data=user_info[4].replace("\n","")
             break
-    filmes = open("catalogo.csv", "r") 
+    filmes = open("catalogo.txt", "r") 
     linha = filmes.readlines()
     filmes.close()
     lista=[]
@@ -835,12 +854,15 @@ def notificacoes(window7):
     lulu(lista,window7)
 
 def lulu(lista,window7):
-    yy=60        
-    for i in range(len(lista)):
-        msg=Button(window7, text=lista[i]+"foi adicionado ao catalogo", height=2)
-        msg.place(x=20, y=yy)
-        yy+=40
-    if len(lista)==0:   
+    yy=60    
+    cont=0    
+    if len(lista)!=0:
+        for i in range(len(lista)):
+            msg=Button(window7, text=lista[i]+" foi adicionado ao catalogo", height=2)
+            msg.place(x=20, y=yy)
+            yy+=40
+            cont+=1
+    elif len(lista)==0:   
         msg=Label(window7, text="Não tem notificações!", font=("Helvetica",11))
         msg.place(x=20, y=60)
 
@@ -855,9 +877,6 @@ def not_window():
 
     lbl_not=Label(window7, text="Notificações", font=("Helvetica",13))
     lbl_not.place(x=20, y=20)
-
-    
-
 
 
 barra_menu = barraMenu()
