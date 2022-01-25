@@ -697,7 +697,7 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
     if username == "":
         msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
     elif username != "" and nome_selecao not in all_names:
-        comentarios = open("comentarios.txt", "a")
+        comentarios = open("comentarios.txt", "a", encoding="UTF-8")
         new_line = str(nome_selecao + ";" + username + ": " + txt_comentario +"\n")
         comentarios.write(new_line)
     else:
@@ -706,14 +706,36 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
             if username != "" and campos[0] == nome_selecao:
                 pos = all_comments.index(line)
                 all_comments[pos] = str((line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n")  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
-                comentarios = open("comentarios.txt", "w")
+                comentarios = open("comentarios.txt", "w", encoding="UTF-8")
                 comentarios.write("")     #apaga todo o ficheiro
-                comentarios = open("comentarios.txt", "a")
+                comentarios = open("comentarios.txt", "a", encoding="UTF-8")
                 for i in range(len(all_comments)):
                     comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
 
     comentarios.close()
+
+def add_favoritos(nome_selecao):
+    favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
+    lista = favoritos.readlines()
+    all_users = []
+    for line in lista:
+        campos = line.split(";")
+        all_users.append(campos[0])
+    if username not in all_users:
+        msg = messagebox("Sessão não iniciada", "Por favor faça login!")
+    else:
+        for line in all_users:
+            campos = line.split(";")
+            if lista[all_users.index(username)]:
+                pos = all_users.index(line)
+                all_users[pos] = str((line[0:len(line)-2]) + nome_selecao +"\n")  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+                favoritos = open("Favoritos.txt", "w", encoding="UTF-8")
+                favoritos.write("")
+                favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
+                for i in range(len(all_users)):
+                    favoritos.write(all_users[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+                break
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
@@ -749,7 +771,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
     btn_video.place(x=300,y=50)
 
-    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2)
+    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2, command=lambda: add_favoritos())
     btn_fav.place(x=300,y=340)
 
     lbl_sinopse=Label(window6, text="Sinopse", font=("Helvetica",18))
