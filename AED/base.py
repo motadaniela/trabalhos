@@ -706,6 +706,7 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
                 for i in range(len(campos)-1,0,-1):
                     lbox_comentarios.insert(END,campos[i])
 
+
 def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
@@ -732,6 +733,7 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                     comentarios.write(str(all_comments[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
 
+   #para mostrar os comentarios(refresh)
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     comentarios.close()
