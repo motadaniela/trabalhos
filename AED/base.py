@@ -62,9 +62,10 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
             barra_user(barra_menu)
             userdata.close()
             break
-    if user_info[0]==Email.get() and user_info[1]!=Password.get():
-        msg=Message(window2, text="Email ou password estão errados!", fg="red")
-        msg.place(x=100, y=200)
+        else:
+            msg=Message(window2, text="Email ou password estão errados!", fg="red")
+            msg.place(x=100, y=200)
+            break
     return(username,acc)
 
 #entrar na conta
@@ -679,11 +680,11 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
     all_comments = comentarios.readlines()
     comentarios.close()
     lbox_comentarios.delete(0,END)
-    all_movies = []
+    all_comments = []
     for line in all_comments:
         campos = line.split(";")
-        all_movies.append(campos[0])
-    if nome_selecao not in all_movies:
+        all_comments.append(campos[0])
+    if nome_selecao not in all_comments:
         lbox_comentarios.insert(END,"Ainda não existem comentários!")
     else:
         for line in all_comments:
@@ -692,7 +693,7 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
                 for i in range(len(campos)-1,0,-1):
                     lbox_comentarios.insert(END,campos[i])
 
-def comentar(nome_selecao,lbox_comentarios, txt_comentario):
+def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     all_names = []
@@ -701,22 +702,34 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
         all_names.append(campos[0])
     if username == "":
         msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
-    elif username != "" and nome_selecao not in all_names:
+    elif nome_selecao not in all_names:
         comentarios = open("comentarios.txt", "a", encoding="UTF-8")
-        new_line = nome_selecao + ";" + username + ": " + str(txt_comentario) +"\n"
-        comentarios.write(new_line)
+        new_line = str(nome_selecao + ";" + username + ": " + txt_comentario +"\n")
+        comentarios.write(str(new_line))
     else:
         for line in all_comments:
             campos = line.split(";")
             if username != "" and campos[0] == nome_selecao:
                 pos = all_comments.index(line)
-                all_comments[pos] = line[0:len(line)-2] + ";" + username + ": " + str(txt_comentario) +"\n"  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
-                comentarios = open("comentarios.txt", "w", encoding="UTF-8")
+                all_comments[pos] = str(line[0:len(line)-2] + ";" + username + ": " + txt_comentario)  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+                comentarios = open("comentarios.txt", "w")
                 comentarios.write("")     #apaga todo o ficheiro
                 comentarios = open("comentarios.txt", "a", encoding="UTF-8")
                 for i in range(len(all_comments)):
-                    comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+                    comentarios.write(str(all_comments[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
+
+    comentarios = open("comentarios.txt", "r", encoding="UTF-8")
+    all_comments = comentarios.readlines()
+    comentarios.close()
+    lbox_comentarios.delete(0,END)
+    for line in all_comments:
+        campos = line.split(";")
+        if campos[0] == nome_selecao:
+            for i in range(len(campos)-1,0,-1):
+                lbox_comentarios.insert(END,campos[i])
+        break
+                
     comentarios.close()
 
 def add_favoritos(nome_selecao):
@@ -766,18 +779,7 @@ def avaliar(spin,nome_selecao):
                 break
     catalogo.close()
 
-def get_pontuacao(nome_selecao):
-    f = open(ficheiro, "r")
-    lista = f.readlines()
-    f.close()
-    for line in lista:
-        campos = line.split(";")
-        if campos[0] == nome_selecao:
-            pontuacao = campos[4][0]
-            break
-        else:
-            pontuacao = 0
-    return pontuacao
+#def mostrar_avaliar(lbl_numero: Label)
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
@@ -800,9 +802,8 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     lbl_pontuacao=Label(window6, text="Pontuação:", font=("Helvetica",13))
     lbl_pontuacao.place(x=300,y=150)
 
-    pontuacao = get_pontuacao(nome_selecao)
-    msg_numero=Message(window6, text=pontuacao, font=("Helvetica",13), bg="none", width=10)
-    msg_numero.place(x=350,y=150)
+    #msg_numero=Message(window6, text="numero", font=("Helvetica",13), bg="white", width=10)
+    #msg_numero.place(x=350,y=150)
 
     lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
     lbl_avaliar.place(x=300,y=240)
@@ -832,7 +833,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     txt_comentario=Text(window6, width=30,height=5, wrap="word")
     txt_comentario.place(x=10,y=450)
 
-    btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome_selecao, lbox_comentarios, txt_comentario.get))
+    btn_comentar = Button(window6, text="Comentar", relief="raised", width=10, height=2, font=("Helvitica", 10), command=lambda: comentar(nome_selecao, lbox_comentarios, txt_comentario.get("1.0", END)))
     btn_comentar.place(x=270, y=450)
 
     lbl_comentarios=Label(window6, text="Comentários:", font=("Helvetica",11))
