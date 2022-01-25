@@ -471,7 +471,7 @@ def remover(window5):
 #mostra os dados anteriores
 def mostrar():
     tree.delete(*tree.get_children())
-    f = open(ficheiro, "r", encoding="utf-8")
+    f = open("catalogo.txt", "r", encoding="utf-8")
     lista=f.readlines()
     f.close()
     for linha in lista:
@@ -717,7 +717,6 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
                 for i in range(len(all_comments)):
                     comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
-
     comentarios.close()
 
 def add_favoritos(nome_selecao):
@@ -767,7 +766,7 @@ def avaliar(spin,nome_selecao):
                 break
     catalogo.close()
 
-def mostrar_avaliar(lbl_numero: Label)
+#def mostrar_avaliar(lbl_numero: Label)
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
