@@ -753,20 +753,26 @@ def add_favoritos(nome_selecao):
 def avaliar(spin,nome_selecao):
     catalogo = open("catalogo.txt","r", encoding="UTF-8")
     lista = catalogo.readlines()
-    for line in lista:
-        campos = line.split(";")
-        if campos[0] == nome_selecao:
-            campos[4][0] = int(campos[4][0]*campos[4][1]) + int(spin)  #soma anterior + nova pontuacao
-            campos[4][1] += 1
-            campos[4] = str(campos[4][0]/campos[4][1]) + str(campos[4][1])
-            new_line = campos[0] + ";" + campos[1] + ";" + campos[2] + ";" + campos[3] + ";" + campos[4] + ";" + campos[5] + ";" + campos[6] + ";" + campos[7] + ";" + campos[8] + ";" + campos[9]
-            lista[lista.index(line)] = str(new_line)
-            catalogo = open("catalogo.txt", "w")
-            catalogo.write("")
-            catalogo = open("catalogo.txt", "a", encoding="UTF-8")
-            for i in range(len(lista)):
-                catalogo.write(lista[i])
-            break
+    if username == "":
+        msg = messagebox("Sessão não iniciada", "Por favor faça login!")
+    else:
+        for line in lista:
+            campos = line.split(";")
+            if campos[0] == nome_selecao:
+                numerador = float(campos[4][0])
+                divisor = float(campos[4][1])
+                numerador = numerador*divisor + float(spin)  #soma anterior + nova pontuacao
+                divisor += 1
+                number = round(numerador/divisor)   #pontuacao é igual à media
+                campos[4] = str(number) + str(round(divisor))
+                new_line = campos[0] + ";" + campos[1] + ";" + campos[2] + ";" + campos[3] + ";" + campos[4] + ";" + campos[5] + ";" + campos[6] + ";" + campos[7] + ";" + campos[8] + ";" + campos[9]
+                lista[lista.index(line)] = str(new_line)
+                catalogo = open("catalogo.txt", "w")
+                catalogo.write("")
+                catalogo = open("catalogo.txt", "a", encoding="UTF-8")
+                for i in range(len(lista)):
+                    catalogo.write(lista[i])
+                break
     catalogo.close()
 
 def mostrar_avaliar(lbl_numero: Label)
