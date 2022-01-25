@@ -1,5 +1,5 @@
-Username;Filme favorito;serie favorita;outra serie;outro filme(...)
-1;Beatriz;
+Username;Filme favorito
+1;
 123;
 321;
 1233;

@@ -197,7 +197,19 @@ def login_registar(acc):
     btn_registar.place(x=180, y=220)
 
 def logout(acc):
-    username=""
+    with open("userdata.txt", "r", encoding="UTF-8") as f:
+        new_text = ""
+        for line in f:
+            user = line.split(";")
+            if username == user[2]:
+                now = datetime.now()
+                user[4] = now.strftime("%Y%m%d%H%M%S")+"\n"
+                new_text = new_text + ";".join(user)
+            else:
+                new_text = new_text + line
+    with open("userdata.txt", "w", encoding="UTF-8") as f:      # re-write the data
+        f.write(new_text)
+    
     acc=0
     barraMenu()
     return acc
@@ -667,11 +679,12 @@ def selecionar(tree2):
                     stripped_line = linha.strip()
                     line_list = stripped_line.split(";")
                     lista.append(line_list)
+                    global nome_selecao
                     nome_selecao=lista[0]
                     imagem_selecao=lista[6]
                     link_selecao=lista[7]
                     sinopse_selecao=lista[8]
-                mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao)
+                mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,selecao)
             else:
                 new_text=new_text+line
 
@@ -732,27 +745,28 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 
     comentarios.close()
 
-def add_favoritos(nome_selecao):
-    favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
-    lista = favoritos.readlines()
-    all_users = []
-    for line in lista:
-        campos = line.split(";")
-        all_users.append(campos[0])
-    if username not in all_users:
-        msg = messagebox("Sessão não iniciada", "Por favor faça login!")
-    else:
-        for line in all_users:
+    
+
+def add_favoritos():
+    with open("favoritos.txt", "r", encoding="UTF-8") as f:
+        lista = f.readlines()
+        all_users = []
+        for line in lista:
             campos = line.split(";")
-            if lista[all_users.index(username)]:
-                pos = all_users.index(line)
-                all_users[pos] = str((line[0:len(line)-2]) + nome_selecao +"\n")  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
-                favoritos = open("Favoritos.txt", "w", encoding="UTF-8")
-                favoritos.write("")
-                favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
-                for i in range(len(all_users)):
-                    favoritos.write(all_users[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
-                break
+            all_users.append(campos[0])
+            if username==campos[0]:
+                filme=nome_selecao
+                lista2=campos[1]
+                for line in lista2:
+                    seccao=lista2.split("+")
+                    if (filme not in seccao)==True:
+                        with open("sample.txt", "a") as objeto:
+                            objeto.write(filme+"+")
+                    else:
+                       msg = messagebox("Já adicionado!", "Já foi adicionado à sua lista!") 
+            elif (username not in all_users)==True:
+                msg = messagebox("Sessão não iniciada", "Por favor faça login!")
+                
 
 def avaliar(spin,nome_selecao):
     catalogo = open("catalogo.txt","r", encoding="UTF-8")
@@ -781,7 +795,7 @@ def avaliar(spin,nome_selecao):
 
 #def mostrar_avaliar(lbl_numero: Label)
 
-def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
+def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,selecao):
     window6=Toplevel()   
     window6.title("Informações") 
     window6.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
@@ -818,7 +832,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
     btn_video.place(x=300,y=50)
 
-    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2, command=lambda: add_favoritos())
+    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2, command=lambda: add_favoritos(nome_selecao,selecao))
     btn_fav.place(x=300,y=340)
 
     lbl_sinopse=Label(window6, text="Sinopse", font=("Helvetica",18))
