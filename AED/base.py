@@ -126,7 +126,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             now = datetime.now()
-            hora=now.strftime("%d/%m/%Y%H:%M:%S")
+            hora=now.strftime("%Y%m/%d%H%M%S")
             data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
                 data.write(";admin;")
@@ -205,6 +205,19 @@ def logout(acc):
 def sair():
     res = messagebox.askquestion("Sair","Deseja sair?")
     if res=="yes":
+        userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
+        olaa = userdata.readlines()
+        userdata.close()
+        for line in olaa:
+            user_info = line.split(";")
+            if username==user_info[2]:
+                userdata = open("userdata.txt", "a")     #abre o ficheiro para leitura
+                hora=now.strftime("%Y%m/%d%H%M%S")
+                data=userdata[4].replace("line","")
+                userdata.close()
+                now = datetime.now()
+                
+
         window.destroy()
 
 #barra para o admin
@@ -477,7 +490,7 @@ def mostrar():
 def adicionar_linha():
     f = open(ficheiro, "a", encoding="utf-8")
     now = datetime.now()
-    hora=now.strftime("%d/%m/%Y%H:%M:%S")
+    hora=now.strftime("%Y%m/%d%H%M%S")
     nome2 = nome.get()
     ano2 = str(ano.get())
     tipologia2 = tipologia.get()
@@ -698,7 +711,7 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
     if username == "":
         msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
     elif username != "" and nome_selecao not in all_names:
-        comentarios = open("comentarios.txt", "a")
+        comentarios = open("comentarios.txt", "a", encoding="UTF-8")
         new_line = str(nome_selecao + ";" + username + ": " + txt_comentario +"\n")
         comentarios.write(new_line)
     else:
@@ -707,14 +720,36 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
             if username != "" and campos[0] == nome_selecao:
                 pos = all_comments.index(line)
                 all_comments[pos] = str((line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n")  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
-                comentarios = open("comentarios.txt", "w")
+                comentarios = open("comentarios.txt", "w", encoding="UTF-8")
                 comentarios.write("")     #apaga todo o ficheiro
-                comentarios = open("comentarios.txt", "a")
+                comentarios = open("comentarios.txt", "a", encoding="UTF-8")
                 for i in range(len(all_comments)):
                     comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
 
     comentarios.close()
+
+def add_favoritos(nome_selecao):
+    favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
+    lista = favoritos.readlines()
+    all_users = []
+    for line in lista:
+        campos = line.split(";")
+        all_users.append(campos[0])
+    if username not in all_users:
+        msg = messagebox("Sessão não iniciada", "Por favor faça login!")
+    else:
+        for line in all_users:
+            campos = line.split(";")
+            if lista[all_users.index(username)]:
+                pos = all_users.index(line)
+                all_users[pos] = str((line[0:len(line)-2]) + nome_selecao +"\n")  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+                favoritos = open("Favoritos.txt", "w", encoding="UTF-8")
+                favoritos.write("")
+                favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
+                for i in range(len(all_users)):
+                    favoritos.write(all_users[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+                break
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
@@ -750,7 +785,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
     btn_video.place(x=300,y=50)
 
-    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2)
+    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2, command=lambda: add_favoritos())
     btn_fav.place(x=300,y=340)
 
     lbl_sinopse=Label(window6, text="Sinopse", font=("Helvetica",18))
@@ -781,33 +816,30 @@ def playVideo(link_selecao):
 
 def notificacoes(window7):
     userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
-    olaa = userdata.readline()
+    olaa = userdata.readlines()
     userdata.close()
     for line in olaa:
-        user_info = olaa.split(";")
+        user_info = line.split(";")
         if username==user_info[2]:
             data=user_info[4].replace("\n","")
-            data1 = datetime.strptime(data, "%d/%m/%Y%H:%M:%S")
-            filmes = open("catalogo.txt", "r") 
-            linha = filmes.readline()
-            filmes.close()
-            lista=[]
-            for line in linha:
-                cat_info = linha.split(";")
-                data_cat=cat_info[9].replace("\n", "")
-                data2=datetime.strptime(data_cat, "%d/%m/%Y%H:%M:%S")
-                if data1<data2:
-                    lista.append(cat_info[0])
-                if line=="":
-                    lulu(lista,window7)
+            break
+    filmes = open("catalogo.csv", "r") 
+    linha = filmes.readlines()
+    filmes.close()
+    lista=[]
+    for line in linha:
+        cat_info = line.split(";")
+        data_cat=cat_info[9].replace("\n", "")
+        if data<data_cat:
+            lista.append(cat_info[0])
+    lulu(lista,window7)
 
 def lulu(lista,window7):
     yy=60        
-    for i in len(lista):
+    for i in range(len(lista)):
         msg=Button(window7, text=lista[i]+"foi adicionado ao catalogo", height=2)
         msg.place(x=20, y=yy)
-        yy+=20
-        i+=1 
+        yy+=40
     if len(lista)==0:   
         msg=Label(window7, text="Não tem notificações!", font=("Helvetica",11))
         msg.place(x=20, y=60)
