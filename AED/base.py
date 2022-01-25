@@ -569,6 +569,7 @@ def adicionar():
     tree.place(x=1, y=1)
     mostrar()
 
+#página adicionar categoria
 def adicionar_categoria():
     window7 = Toplevel()   
     window7.title("Adicionar categoria") 
