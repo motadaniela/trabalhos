@@ -388,7 +388,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
         f.close()
         for linha in lista:
             campos = linha.split(";")
-            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))                 
+            tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4][0], campos[5]))                 
     
     f = open(ficheiro, "r", encoding="utf-8")
     lista = f.readlines()
@@ -703,14 +703,14 @@ def comentar(nome_selecao,lbox_comentarios, txt_comentario):
         msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
     elif username != "" and nome_selecao not in all_names:
         comentarios = open("comentarios.txt", "a", encoding="UTF-8")
-        new_line = str(nome_selecao + ";" + username + ": " + txt_comentario +"\n")
+        new_line = nome_selecao + ";" + username + ": " + str(txt_comentario) +"\n"
         comentarios.write(new_line)
     else:
         for line in all_comments:
             campos = line.split(";")
             if username != "" and campos[0] == nome_selecao:
                 pos = all_comments.index(line)
-                all_comments[pos] = str((line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n")  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
+                all_comments[pos] = line[0:len(line)-2] + ";" + username + ": " + str(txt_comentario) +"\n"  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
                 comentarios = open("comentarios.txt", "w", encoding="UTF-8")
                 comentarios.write("")     #apaga todo o ficheiro
                 comentarios = open("comentarios.txt", "a", encoding="UTF-8")
@@ -766,7 +766,18 @@ def avaliar(spin,nome_selecao):
                 break
     catalogo.close()
 
-#def mostrar_avaliar(lbl_numero: Label)
+def get_pontuacao(nome_selecao):
+    f = open(ficheiro, "r")
+    lista = f.readlines()
+    f.close()
+    for line in lista:
+        campos = line.split(";")
+        if campos[0] == nome_selecao:
+            pontuacao = campos[4][0]
+            break
+        else:
+            pontuacao = 0
+    return pontuacao
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
@@ -788,8 +799,10 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
 
     lbl_pontuacao=Label(window6, text="Pontuação:", font=("Helvetica",13))
     lbl_pontuacao.place(x=300,y=150)
-    lbl_numero=Label(window6, text="numero", font=("Helvetica",13))
-    lbl_numero.place(x=350,y=150)
+
+    pontuacao = get_pontuacao(nome_selecao)
+    msg_numero=Message(window6, text=pontuacao, font=("Helvetica",13), bg="none", width=10)
+    msg_numero.place(x=350,y=150)
 
     lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
     lbl_avaliar.place(x=300,y=240)
