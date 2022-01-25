@@ -872,9 +872,6 @@ def not_window():
     lbl_not=Label(window7, text="Notificações", font=("Helvetica",13))
     lbl_not.place(x=20, y=20)
 
-    
-
-
 
 barra_menu = barraMenu()
 
