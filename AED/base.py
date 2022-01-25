@@ -498,7 +498,7 @@ def adicionar_linha():
     imagem=nome_imagem(nome2)
     link=trailer.get()+" "
     sinopse2=sinopse.get()
-    linha = nome2+";"+ano2+";"+tipologia2+";"+categoria2+";0;0;"+imagem+";"+link+";"+sinopse2+";"+hora+"\n" 
+    linha = nome2+";"+ano2+";"+tipologia2+";"+categoria2+";00;0;"+imagem+";"+link+";"+sinopse2+";"+hora+"\n" 
     campos = linha.split(";")
     f.write(linha)
     f.close()
@@ -648,7 +648,6 @@ def remover_catg():
 
         f.write(categoria)
     f.close()  
-   
 
 def nome_imagem(nome2):
     min=nome2.lower()
@@ -769,6 +768,8 @@ def avaliar(spin,nome_selecao):
                 catalogo.write(lista[i])
             break
     catalogo.close()
+
+def mostrar_avaliar(lbl_numero: Label)
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
