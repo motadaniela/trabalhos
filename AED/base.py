@@ -731,7 +731,7 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 for i in range(len(all_comments)):
                     comentarios.write(str(all_comments[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
-
+   #para mostrar os comentarios(refresh)
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     comentarios.close()
@@ -749,22 +749,24 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
 
 def add_favoritos():
     with open("favoritos.txt", "r", encoding="UTF-8") as f:
-        lista = f.readlines()
-        all_users = []
+        lista = f.readlines()   #le todas as linhas do ficheiro 
+        all_users = []      
         for line in lista:
             campos = line.split(";")
-            all_users.append(campos[0])
-            if username==campos[0]:
-                filme=nome_selecao
-                lista2=campos[1]
-                for line in lista2:
-                    seccao=lista2.split("+")
-                    if (filme not in seccao)==True:
-                        with open("sample.txt", "a") as objeto:
-                            objeto.write(filme+"+")
-                    else:
-                       msg = messagebox("Já adicionado!", "Já foi adicionado à sua lista!") 
-            elif (username not in all_users)==True:
+            all_users.append(campos[0])     #vai buscar todos os users
+            if (username in all_users)==True:   #se o username estiver na lista continua
+                for i in range(len(all_users)):
+                    if username==all_users[i][0]:
+                        filme=nome_selecao
+                        lista2=campos[1]
+                        for line in lista2:
+                            seccao=lista2.split("+")
+                            if (filme not in seccao)==True:
+                                with open("favoritos.txt", "a") as objeto:
+                                    objeto.write(filme+"+")
+                            else:
+                                msg = messagebox("Já adicionado!", "Já foi adicionado à sua lista!") 
+            else:
                 msg = messagebox("Sessão não iniciada", "Por favor faça login!")
                 
 
