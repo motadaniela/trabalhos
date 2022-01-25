@@ -5,23 +5,29 @@ window = Tk()
 window.geometry("500x500")
 window.title("Test")
 
-lbox_comentarios = Listbox(window,height=7, width=65, selectmode="single")
-lbox_comentarios.place(x=20, y=20)
+nome_selecao = "Nome(0)"
+#txt_comentario = "text text text"
+#username = "user123"
+spin = "pleek"
 
-nome_selecao = "line"
-txt_comentario = "text text text"
-username = "user123"
+button = Button(window,height=3, width=10, text=">", command = lambda: avaliar(spin,nome_selecao))
+button.place(x=20, y=20)
 
-comentarios = open("comentarios.txt", "r")
-all_comments = comentarios.readlines()
-for line in all_comments:
-    campo = line.split(";")
-    if campo[0] == nome_selecao:
-        all_comments[all_comments.index(line)] = (line[0:len(line)-2]) + ";" + username + ": " + txt_comentario +"\n"  #muda o elemento da lista(linha com todos os comentarios de um determinado filme/serie)
-        comentarios = open("comentarios.txt", "w")
-        comentarios.write("")     #apaga todo o ficheiro
-        comentarios = open("comentarios.txt", "a")
-        for i in range(len(all_comments)):
-            comentarios.write(all_comments[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
-comentarios.close()
+def avaliar(spin,nome_selecao):
+    catalogo = open("catalogo.txt","r", encoding="UTF-8")
+    lista = catalogo.readlines()
+    for line in lista:
+        campos = line.split(";")
+        if campos[0] == nome_selecao:
+            campos[4][0] = str(spin)
+            new_line = campos[0] + ";" + campos[1] + ";" + campos[2] + ";" + campos[3] + ";" + campos[4] + ";" + campos[5] + ";" + campos[6] + ";" + campos[7] + ";" + campos[8] + ";" + campos[9]
+            lista[lista.index(line)] = str(new_line)
+            catalogo = open("catalogo.txt", "w")
+            catalogo.write("")
+            catalogo = open("catalogo.txt", "a", encoding="UTF-8")
+            for i in range(len(lista)):
+                catalogo.write(lista[i])
+            break
+    catalogo.close()
 
+window.mainloop()

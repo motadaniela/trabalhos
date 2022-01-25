@@ -743,6 +743,25 @@ def add_favoritos(nome_selecao):
                     favoritos.write(all_users[i])  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
 
+def avaliar(spin,nome_selecao):
+    catalogo = open("catalogo.txt","r", encoding="UTF-8")
+    lista = catalogo.readlines()
+    for line in lista:
+        campos = line.split(";")
+        if campos[0] == nome_selecao:
+            campos[4][0] = int(campos[4][0]*campos[4][1]) + int(spin)  #soma anterior + nova pontuacao
+            campos[4][1] += 1
+            campos[4] = str(campos[4][0]/campos[4][1]) + str(campos[4][1])
+            new_line = campos[0] + ";" + campos[1] + ";" + campos[2] + ";" + campos[3] + ";" + campos[4] + ";" + campos[5] + ";" + campos[6] + ";" + campos[7] + ";" + campos[8] + ";" + campos[9]
+            lista[lista.index(line)] = str(new_line)
+            catalogo = open("catalogo.txt", "w")
+            catalogo.write("")
+            catalogo = open("catalogo.txt", "a", encoding="UTF-8")
+            for i in range(len(lista)):
+                catalogo.write(lista[i])
+            break
+    catalogo.close()
+
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     window6=Toplevel()   
     window6.title("Informações") 
@@ -763,6 +782,8 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
 
     lbl_pontuacao=Label(window6, text="Pontuação:", font=("Helvetica",13))
     lbl_pontuacao.place(x=300,y=150)
+    lbl_numero=Label(window6, text="numero", font=("Helvetica",13))
+    lbl_numero.place(x=350,y=150)
 
     lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
     lbl_avaliar.place(x=300,y=240)
@@ -771,7 +792,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao):
     spin=Spinbox(window6, width=10, values=lista_num)
     spin.place(x=315,y=270)
 
-    btn_avaliar=Button(window6, text="Avaliar", height=2)
+    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao))
     btn_avaliar.place(x=450,y=250)
 
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
