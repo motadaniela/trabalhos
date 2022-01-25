@@ -126,7 +126,7 @@ def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2
         else:
             data=open("userdata.txt", "a")
             now = datetime.now()
-            hora=now.strftime("%Y%m/%d%H%M%S")
+            hora=now.strftime("%Y%m%d%H%M%S")
             data.write(Email.get()+";"+Password.get()+";"+Username.get())
             if acc==2:
                 data.write(";admin;")
@@ -196,8 +196,8 @@ def login_registar(acc):
     btn_registar.place(x=180, y=220)
 
 def logout(acc):
+    username=""
     acc=0
-    username = ""
     barraMenu()
     return acc
 
@@ -205,20 +205,19 @@ def logout(acc):
 def sair():
     res = messagebox.askquestion("Sair","Deseja sair?")
     if res=="yes":
-        userdata = open("userdata.txt", "r")     #abre o ficheiro para leitura
-        olaa = userdata.readlines()
-        userdata.close()
-        for line in olaa:
-            user_info = line.split(";")
-            if username==user_info[2]:
-                userdata = open("userdata.txt", "a")     #abre o ficheiro para leitura
-                hora=now.strftime("%Y%m/%d%H%M%S")
-                data=userdata[4].replace("line","")
-                userdata.close()
-                now = datetime.now()
-                
-
-        window.destroy()
+        with open("userdata.txt", "r", encoding="UTF-8") as f:
+            new_text = ""
+            for line in f:
+                user = line.split(";")
+                if username == user[2]:
+                    now = datetime.now()
+                    user[4] = now.strftime("%Y%m%d%H%M%S")+"\n"
+                    new_text = new_text + ";".join(user)
+                else:
+                    new_text = new_text + line
+        with open("userdata.txt", "w", encoding="UTF-8") as f:      # re-write the data
+            f.write(new_text)
+        exit() 
 
 #barra para o admin
 def barra_admin(barra_menu: Menu):
@@ -401,14 +400,7 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
                 if cb_gen.get() == "" or cb_gen.get() == (campos[3] + "\n"):
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
-#funcao que demonstra todo o catalogo na treeview em ordem dos adicionados mais recentemente
-#def treeview_inicio():
- #   catalogo = open("catalogo.txt", "r", encoding="utf-8")
-  #  lista = catalogo.readlines()
-   # catalogo.close()
-    #for i in range(len(lista)-1, 0, -1):
-     #   campos = lista[i].split(";")
-      #  tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+
 
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
@@ -490,7 +482,7 @@ def mostrar():
 def adicionar_linha():
     f = open(ficheiro, "a", encoding="utf-8")
     now = datetime.now()
-    hora=now.strftime("%Y%m/%d%H%M%S")
+    hora=now.strftime("%Y%m%d%H%M%S")
     nome2 = nome.get()
     ano2 = str(ano.get())
     tipologia2 = tipologia.get()
@@ -823,7 +815,7 @@ def notificacoes(window7):
         if username==user_info[2]:
             data=user_info[4].replace("\n","")
             break
-    filmes = open("catalogo.csv", "r") 
+    filmes = open("catalogo.txt", "r") 
     linha = filmes.readlines()
     filmes.close()
     lista=[]
@@ -835,12 +827,15 @@ def notificacoes(window7):
     lulu(lista,window7)
 
 def lulu(lista,window7):
-    yy=60        
-    for i in range(len(lista)):
-        msg=Button(window7, text=lista[i]+"foi adicionado ao catalogo", height=2)
-        msg.place(x=20, y=yy)
-        yy+=40
-    if len(lista)==0:   
+    yy=60    
+    cont=0    
+    if len(lista)!=0:
+        for i in range(len(lista)):
+            msg=Button(window7, text=lista[i]+" foi adicionado ao catalogo", height=2)
+            msg.place(x=20, y=yy)
+            yy+=40
+            cont+=1
+    elif len(lista)==0:   
         msg=Label(window7, text="Não tem notificações!", font=("Helvetica",11))
         msg.place(x=20, y=60)
 
