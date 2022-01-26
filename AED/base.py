@@ -687,16 +687,16 @@ def selecionar(tree2):
             else:
                 new_text=new_text+line
 
-def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
+def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox,window6,imagem_selecao,link_selecao,sinopse_selecao,selecao):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     comentarios.close()
     lbox_comentarios.delete(0,END)
-    all_comments = []
+    all_lista = []
     for line in all_comments:
         campos = line.split(";")
-        all_comments.append(campos[0])
-    if nome_selecao not in all_comments:
+        all_lista.append(campos[0])
+    if (nome_selecao not in all_lista)==True:
         lbox_comentarios.insert(END,"Ainda não existem comentários!")
     else:
         for line in all_comments:
@@ -704,6 +704,8 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
             if campos[0] == nome_selecao:
                 for i in range(len(campos)-1,0,-1):
                     lbox_comentarios.insert(END,campos[i])
+    window6.destroy()
+    mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,selecao)
 
 def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
@@ -767,7 +769,8 @@ def add_favoritos():
                 msg = messagebox("Sessão não iniciada", "Por favor faça login!")
                 
 
-def avaliar(spin,nome_selecao):
+def avaliar(spin,nome_selecao,window6):
+    number=0
     catalogo = open("catalogo.txt","r", encoding="UTF-8")
     lista = catalogo.readlines()
     if username == "":
@@ -789,7 +792,10 @@ def avaliar(spin,nome_selecao):
                 catalogo = open("catalogo.txt", "a", encoding="UTF-8")
                 for i in range(len(lista)):
                     catalogo.write(lista[i])
-                break
+                
+        lbl_pont = Label(window6, text=number,font=("Helvetica",13) )
+        lbl_pont.place(x=400, y=150)           
+    
     catalogo.close()
 
 #def mostrar_avaliar(lbl_numero: Label)
@@ -800,6 +806,9 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
     window6.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
     window6.focus_force()     
     window6.grab_set()
+
+    lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
+    lbl_avaliar.place(x=300,y=240)
 
     lbl_poster=Label(window6, text=nome_selecao, font=("Helvetica",20))
     lbl_poster.place(x=10,y=10)
@@ -818,14 +827,11 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
     #msg_numero=Message(window6, text="numero", font=("Helvetica",13), bg="white", width=10)
     #msg_numero.place(x=350,y=150)
 
-    lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
-    lbl_avaliar.place(x=300,y=240)
-
     lista_num=[0,1,2,3,4,5]
     spin=Spinbox(window6, width=10, values=lista_num)
     spin.place(x=315,y=270)
 
-    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao))
+    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao,window6))
     btn_avaliar.place(x=450,y=250)
 
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
@@ -854,7 +860,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
 
     lbox_comentarios=Listbox(window6,height=7, width=65, selectmode="single")
     lbox_comentarios.place(x=400, y=450)
-    mostrar_comentarios(nome_selecao,lbox_comentarios)
+    mostrar_comentarios(nome_selecao,lbox_comentarios,window6)
   
 def playVideo(link_selecao):
     url=link_selecao
@@ -905,6 +911,7 @@ def not_window():
     lbl_not=Label(window7, text="Notificações", font=("Helvetica",13))
     lbl_not.place(x=20, y=20)
 
+username=""
 
 barra_menu = barraMenu()
 
