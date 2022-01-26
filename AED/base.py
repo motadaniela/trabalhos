@@ -486,7 +486,7 @@ def add_favoritos(nome_selecao,selecao):
                 msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi adicinado à sua lista de favoritos!".format(nome_selecao))
                 break
 
-def remove_favoritos(nome_selecao):
+def remove_favoritos(nome_selecao, username):
     favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
     lista = favoritos.readlines()
     for line in lista:
@@ -496,8 +496,20 @@ def remove_favoritos(nome_selecao):
     for i in range(len(campos)):
         if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
             campos[i] = ""
-    for j in range(len(campos)):
-        line += campos[j]
+            new_line = ""
+#ISTO E A PARTE QUE E SUPOSTO TIRAR OS DUPLOS ;
+            for i in range(len(campos)):
+                new_line += campos[i] +";"
+            for i in range(new_line.count(";")):
+                new_line.replace(";;",";")
+            lista[lista.index(line)] = new_line[0:len(new_line)-2] + "\n"
+            favoritos = open("Favoritos.txt", "w")
+            favoritos.write("")
+            favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
+            for i in range(len(lista)):
+                favoritos.write(str(lista[i]))
+            msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi removido da sua lista de favoritos!".format(nome_selecao))
+            break
 
 def add_vistos(nome_selecao):
     with open("Vistos.txt", "r", encoding="UTF-8") as v:
