@@ -3,8 +3,10 @@ Sing! 2;Username: ola
 Euphoria;Username: oi
 The Addams Family;Username: uuu
 Fantastic Beasts and Where to Find Them;1: teste
-Outer Banks;1: test;1: test;1: test;1: test;1: teste
+Outer Banks;1: test;1: test;1: test;1: test;1: test;1: um
 Hannah Montana;1: test;1: test;1: teste
-Agent Carter;1: test;1: teste
-Stranger Things;1: my go;1: adore;1: incrive;1: o;1: oi
+Agent Carter;1: test;1: test;1: ;1: incrivel??
+Stranger Things;1: my go;1: adore;1: incrive;1: o;1: o;1:;1: ;1: wha;1: uau
+
+Hacksaw Ridge;1: u;1: ee
 

@@ -687,7 +687,7 @@ def selecionar(tree2):
             else:
                 new_text=new_text+line
 
-def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox,window6,imagem_selecao,link_selecao,sinopse_selecao,selecao):
+def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox,):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     comentarios.close()
@@ -704,10 +704,10 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox,window6,imagem_se
             if campos[0] == nome_selecao:
                 for i in range(len(campos)-1,0,-1):
                     lbox_comentarios.insert(END,campos[i])
-    window6.destroy()
-    mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,selecao)
+
 
 def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
+    lbox_comentarios.insert(END,username + ": " + txt_comentario)
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     all_names = []
@@ -732,17 +732,18 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 for i in range(len(all_comments)):
                     comentarios.write(str(all_comments[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
+        
    #para mostrar os comentarios(refresh)
-    comentarios = open("comentarios.txt", "r", encoding="UTF-8")
-    all_comments = comentarios.readlines()
-    comentarios.close()
-    lbox_comentarios.delete(0,END)
-    for line in all_comments:
-        campos = line.split(";")
-        if campos[0] == nome_selecao:
-            for i in range(len(campos)-1,0,-1):
-                lbox_comentarios.insert(END,campos[i])
-        break
+   # comentarios = open("comentarios.txt", "r", encoding="UTF-8")
+ #   all_comments = comentarios.readlines()
+  #  comentarios.close()
+   # lbox_comentarios.delete(0,END)
+    #for line in all_comments:
+     #  campos = line.split(";")
+      #  if campos[0] == nome_selecao:
+       #     for i in range(len(campos)-1,0,-1):
+        #        lbox_comentarios.insert(END,campos[i])
+        #break
                 
     comentarios.close()
 
@@ -833,7 +834,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
     spin=Spinbox(window6, width=10, values=lista_num)
     spin.place(x=315,y=270)
 
-    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao,window6))
+    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao))
     btn_avaliar.place(x=450,y=250)
 
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
@@ -862,7 +863,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
 
     lbox_comentarios=Listbox(window6,height=7, width=65, selectmode="single")
     lbox_comentarios.place(x=400, y=450)
-    mostrar_comentarios(nome_selecao,lbox_comentarios,window6)
+    mostrar_comentarios(nome_selecao,lbox_comentarios)
   
 def playVideo(link_selecao):
     url=link_selecao
