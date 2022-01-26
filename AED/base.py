@@ -454,14 +454,14 @@ def favoritos(acc):
     tree3.place(x=1, y=1)
 
     #botoes
-    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3, )
+    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3, command=lambda: remove_favoritos(nome_selecao))
     bttn_remover.place(x=750, y=100)
-    bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
+    bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3, command=lambda: add_vistos(nome_selecao))
     bttn_visto.place(x=750, y=250)
-    bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
+    bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3, command=lambda: remove_vistos(nome_selecao))
     bttn_nvisto.place(x=750, y=400)
 
-def add_favoritos(nome_selecao,selecao):
+def add_favoritos(nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
         lista = f.readlines()
         all_users = []
@@ -486,7 +486,7 @@ def add_favoritos(nome_selecao,selecao):
                 msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi adicinado à sua lista de favoritos!".format(nome_selecao))
                 break
 
-def remove_favoritos(nome_selecao, username):
+def remove_favoritos(nome_selecao):
     favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
     lista = favoritos.readlines()
     for line in lista:
@@ -497,17 +497,16 @@ def remove_favoritos(nome_selecao, username):
         if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
             campos[i] = ""
             new_line = ""
-#ISTO E A PARTE QUE E SUPOSTO TIRAR OS DUPLOS ;
             for i in range(len(campos)):
                 new_line += campos[i] +";"
-            for i in range(new_line.count(";")):
-                new_line.replace(";;",";")
+            new_line = new_line.replace(";;",";")
             lista[lista.index(line)] = new_line[0:len(new_line)-2] + "\n"
             favoritos = open("Favoritos.txt", "w")
             favoritos.write("")
             favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
             for i in range(len(lista)):
                 favoritos.write(str(lista[i]))
+            favoritos.close()
             msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi removido da sua lista de favoritos!".format(nome_selecao))
             break
 
@@ -552,7 +551,29 @@ def add_vistos(nome_selecao):
                 msg = messagebox.showinfo("Visto!","{0} foi marcado como visto!".format(nome_selecao))
                 break
 
-#def remove_vistos(nome_selecao):
+def remove_vistos(nome_selecao):
+    vistos = open("Vistos.txt", "r", encoding="UTF-8")
+    lista = vistos.readlines()
+    for line in lista:
+        campos = line.split(";")
+        if username == campos[0]:
+            break
+    for i in range(len(campos)):
+        if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
+            campos[i] = ""
+            new_line = ""
+            for i in range(len(campos)):
+                new_line += campos[i] +";"
+            new_line = new_line.replace(";;",";")
+            lista[lista.index(line)] = new_line[0:len(new_line)-2] + "\n"
+            vistos = open("Vistos.txt", "w")
+            vistos.write("")
+            vistos = open("Vistos.txt", "a", encoding="UTF-8")
+            for i in range(len(lista)):
+                vistos.write(str(lista[i]))
+            vistos.close()
+            msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi removido da sua lista de favoritos!".format(nome_selecao))
+            break
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover

@@ -24,11 +24,9 @@ def remove_favoritos(nome_selecao, username):
         if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
             campos[i] = ""
             new_line = ""
-#ISTO E A PARTE QUE E SUPOSTO TIRAR OS DUPLOS ;
             for i in range(len(campos)):
                 new_line += campos[i] +";"
-            for i in range(new_line.count(";")):
-                new_line.replace(";;",";")
+            new_line = new_line.replace(";;",";")
             lista[lista.index(line)] = new_line[0:len(new_line)-2] + "\n"
             favoritos = open("Favoritos.txt", "w")
             favoritos.write("")
