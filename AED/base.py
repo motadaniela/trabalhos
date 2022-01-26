@@ -12,7 +12,7 @@ from tokenize import String
 from turtle import width
 from PIL import ImageTk,Image
 from tkinter import messagebox
-from tkinter.ttk import Combobox
+from tkinter.ttk import Combobox, Treeview
 import tkinter as tk
 import webbrowser
 from datetime import datetime, timedelta
@@ -412,8 +412,6 @@ def dados_treeview():  # Remove TODAS as linhas da Treeview
                 if cb_gen.get() == "" or cb_gen.get() == (campos[3] + "\n"):
                     tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
 
-
-
 def sort_alf():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
     linhas.sort()
@@ -432,7 +430,34 @@ def sort_pont():
     for index, (values, item) in enumerate(linhas):
         tree2.move(item,'',index)        
 
-#n esta a mostrar n sei pq
+def tree_favoritos(tree3: Treeview, username):
+    tree3.delete(*tree3.get_children())
+    catalogo = open("Catalogo.txt", "r", encoding ="UTF-8")
+    lista_c = catalogo.readlines()
+    favoritos = open("Favoritos.txt", "r", encoding ="UTF-8")
+    lista_f = favoritos.readlines()
+    vistos = open("Vistos.txt", "r", encoding="UTF-8")
+    lista_v = vistos.readlines()
+    for line in lista_f:
+        campos = line.split(";")
+        if campos[0] == username:
+            for i in range(1,len(campos)):
+                filme = campos[i]
+                for linha in lista_c:
+                    campos_c = linha.split(";")
+                    if campos_c[0] == filme or campos_c[0]+"\n" == filme:
+                        tipo = campos_c[2]
+                        break
+                for linha in lista_v:
+                    campos_v = linha.split(";")
+                    if campos_v[0] == username and (filme in campos_v or (filme+"\n") in campos_v):
+                        estado = "Visto"
+                        break
+                    else:
+                        estado = "Não visto"
+                        break
+                tree3.insert("", "end", values = (filme,tipo,estado))
+
 #página de favoritos + visto ou nao visto
 def favoritos(acc):
     wFavoritos=Toplevel()
@@ -452,18 +477,17 @@ def favoritos(acc):
     tree3.heading("Tipo", text="Tipo")
     tree3.heading("Estado", text="Estado")
     tree3.place(x=1, y=1)
+    tree_favoritos(tree3,username)
 
     #botoes
-    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3, command=lambda: remove_favoritos(nome_selecao))
+    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3, command=lambda: remove_favoritos(tree3,nome_selecao))
     bttn_remover.place(x=750, y=100)
-    bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3, command=lambda: add_vistos(nome_selecao))
+    bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3, command=lambda: add_vistos(tree3,nome_selecao))
     bttn_visto.place(x=750, y=250)
-    bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3, command=lambda: remove_vistos(nome_selecao))
+    bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3, command=lambda: remove_vistos(tree3,nome_selecao))
     bttn_nvisto.place(x=750, y=400)
 
-#def tree_favoritos(nome_selecao):
-
-def add_favoritos(nome_selecao):
+def add_favoritos(tree3:Treeview,nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
         lista = f.readlines()
         all_users = []
@@ -487,8 +511,9 @@ def add_favoritos(nome_selecao):
                     favoritos.write(str(lista[i]))
                 msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi adicinado à sua lista de favoritos!".format(nome_selecao))
                 break
+        tree_favoritos(tree3,username)
 
-def remove_favoritos(nome_selecao):
+def remove_favoritos(tree3:Treeview,nome_selecao):
     favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
     lista = favoritos.readlines()
     favoritos.close()
@@ -514,8 +539,9 @@ def remove_favoritos(nome_selecao):
             favoritos.close()
             msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi removido da sua lista de favoritos!".format(nome_selecao))
             break
+    tree_favoritos(tree3,username)
 
-def add_vistos(nome_selecao):
+def add_vistos(tree3:Treeview,nome_selecao):
     with open("Vistos.txt", "r", encoding="UTF-8") as v:
         lista = v.readlines()
         all_users = []
@@ -555,8 +581,9 @@ def add_vistos(nome_selecao):
                 catalogo.close()
                 msg = messagebox.showinfo("Visto!","{0} foi marcado como visto!".format(nome_selecao))
                 break
+        tree_favoritos(tree3,username)
 
-def remove_vistos(nome_selecao):
+def remove_vistos(tree3:Treeview,nome_selecao):
     vistos = open("Vistos.txt", "r", encoding="UTF-8")
     lista = vistos.readlines()
     for line in lista:
@@ -579,6 +606,7 @@ def remove_vistos(nome_selecao):
             vistos.close()
             msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi removido da sua lista de favoritos!".format(nome_selecao))
             break
+    tree_favoritos(tree3,username)
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
@@ -864,7 +892,7 @@ def mostrar_avaliacao(nome_selecao,window6):
     lbl_pont = Label(window6, text=number,font=("Helvetica",13) )
     lbl_pont.place(x=400, y=150) 
 
-def avaliar(spin,nome_selecao,window6):
+def avaliar(spin,nome_selecao,window6,username):
     number=0
     catalogo = open("catalogo.txt","r", encoding="UTF-8")
     lista = catalogo.readlines()
@@ -922,13 +950,13 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
     spin=Spinbox(window6, width=10, values=lista_num)
     spin.place(x=315,y=270)
 
-    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao,window6))
+    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao,window6,username))
     btn_avaliar.place(x=450,y=250)
 
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
     btn_video.place(x=300,y=50)
 
-    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2, command=lambda: add_favoritos(nome_selecao,selecao))
+    btn_fav=Button(window6, text="Adicionar aos Favoritos", height=2, command=lambda: add_favoritos(nome_selecao))
     btn_fav.place(x=300,y=340)
 
     lbl_sinopse=Label(window6, text="Sinopse", font=("Helvetica",18))
