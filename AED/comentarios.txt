@@ -5,8 +5,18 @@ The Addams Family;Username: uuu
 Fantastic Beasts and Where to Find Them;1: teste
 Outer Banks;1: test;1: test;1: test;1: test;1: test;1: um
 Hannah Montana;1: test;1: test;1: teste
-Agent Carter;1: test;1: test;1: ;1: incrivel??
+Agent Carter;1: test;1: test;1: ;1: incrivel?;1: uau
 Stranger Things;1: my go;1: adore;1: incrive;1: o;1: o;1:;1: ;1: wha;1: uau
 Hacksaw Ridge;1: u;1: ee
 Shake It Up;2: amo
+
+It;1: nop
+
+Spider-Man: No Way Home;1: ok
+
+Dark;1: hm
+
+Me Before You;1: m
+
+Why Him;1: adoro
 
