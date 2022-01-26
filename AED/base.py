@@ -461,6 +461,8 @@ def favoritos(acc):
     bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3, command=lambda: remove_vistos(nome_selecao))
     bttn_nvisto.place(x=750, y=400)
 
+#def tree_favoritos(nome_selecao):
+
 def add_favoritos(nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
         lista = f.readlines()
@@ -489,7 +491,10 @@ def add_favoritos(nome_selecao):
 def remove_favoritos(nome_selecao):
     favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
     lista = favoritos.readlines()
+    favoritos.close()
+    i=0
     for line in lista:
+        i+=1
         campos = line.split(";")
         if username == campos[0]:
             break
@@ -808,13 +813,13 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
     all_comments = comentarios.readlines()
     comentarios.close()
     lbox_comentarios.delete(0,END)
-    all_comments = []
+    all_lista = []
     for line in all_comments:
         campos = line.split(";")
-        all_comments.append(campos[0])
-    if nome_selecao not in all_comments:
+        all_lista.append(campos[0])
+    if (nome_selecao not in all_lista)==True:
         lbox_comentarios.insert(END,"Ainda não existem comentários!")
-    else:
+    if (nome_selecao in all_lista)==True:
         for line in all_comments:
             campos = line.split(";")
             if campos[0] == nome_selecao:
@@ -847,22 +852,11 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 for i in range(len(all_comments)):
                     comentarios.write(str(all_comments[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
-        
-   #para mostrar os comentarios(refresh)
-   # comentarios = open("comentarios.txt", "r", encoding="UTF-8")
- #   all_comments = comentarios.readlines()
-  #  comentarios.close()
-   # lbox_comentarios.delete(0,END)
-    #for line in all_comments:
-     #  campos = line.split(";")
-      #  if campos[0] == nome_selecao:
-       #     for i in range(len(campos)-1,0,-1):
-        #        lbox_comentarios.insert(END,campos[i])
-        #break
                 
     comentarios.close()
 
-def avaliar(spin,nome_selecao):
+def avaliar(spin,nome_selecao,window6):
+    number=0
     catalogo = open("catalogo.txt","r", encoding="UTF-8")
     lista = catalogo.readlines()
     if username == "":
@@ -884,7 +878,10 @@ def avaliar(spin,nome_selecao):
                 catalogo = open("catalogo.txt", "a", encoding="UTF-8")
                 for i in range(len(lista)):
                     catalogo.write(lista[i])
-                break
+                
+        lbl_pont = Label(window6, text=number,font=("Helvetica",13) )
+        lbl_pont.place(x=400, y=150)           
+    
     catalogo.close()
 
 #def mostrar_avaliar(lbl_numero: Label)
@@ -920,7 +917,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
     spin=Spinbox(window6, width=10, values=lista_num)
     spin.place(x=315,y=270)
 
-    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao))
+    btn_avaliar=Button(window6, text="Avaliar", height=2, command=lambda: avaliar(spin.get(),nome_selecao,window6))
     btn_avaliar.place(x=450,y=250)
 
     btn_video=Button(window6, text="Ver trailer", height=2, command=lambda:playVideo(link_selecao), font=("Helvetica",15))
