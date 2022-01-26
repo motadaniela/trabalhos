@@ -512,7 +512,10 @@ def selecionar_fav(tree3: Treeview):
                     stripped_line = linha.strip()
                     line_list = stripped_line.split(";")
                     lista.append(line_list)
-        return nome_selecao
+                    global nome_fav
+                    nome_fav = StringVar()
+                    nome_fav=lista[0]
+                    break
 
 def add_favoritos(tree3:Treeview,nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
@@ -540,7 +543,8 @@ def add_favoritos(tree3:Treeview,nome_selecao):
                 break
         tree_favoritos(tree3,username)
 
-def remove_favoritos(tree3:Treeview,nome_selecao):
+def remove_favoritos(tree3:Treeview):
+    selecionar_fav(tree3)
     favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
     lista = favoritos.readlines()
     favoritos.close()
@@ -551,7 +555,7 @@ def remove_favoritos(tree3:Treeview,nome_selecao):
         if username == campos[0]:
             break
     for i in range(len(campos)):
-        if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
+        if campos[i] == nome_fav or campos[i] == nome_fav + "\n":
             campos[i] = ""
             new_line = ""
             for i in range(len(campos)):
