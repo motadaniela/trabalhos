@@ -422,13 +422,13 @@ def sort_alf():
 
 def sort_vis():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
-    linhas.sort(key=lambda linhas:linhas[0][5])
+    linhas.sort(key=lambda linhas:linhas[0][5], reverse=True)
     for index, (values, item) in enumerate(linhas):
         tree2.move(item,'',index)
 
 def sort_pont():
     linhas = [(tree2.item(item,"values"), item) for item in tree2.get_children('')]
-    linhas.sort(key=lambda linhas:linhas[0][4])
+    linhas.sort(key=lambda linhas:linhas[0][4], reverse=True)
     for index, (values, item) in enumerate(linhas):
         tree2.move(item,'',index)        
 
