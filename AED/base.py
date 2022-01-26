@@ -845,8 +845,6 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
     for line in all_comments:
         campos = line.split(";")
         all_lista.append(campos[0])
-    if (nome_selecao not in all_lista)==True:
-        lbox_comentarios.insert(END,"Ainda não existem comentários!")
     if (nome_selecao in all_lista)==True:
         for line in all_comments:
             campos = line.split(";")
@@ -866,7 +864,7 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
         msg = messagebox.showwarning("Sessão não iniciada","Por favor faça login para poder comentar!")
     elif nome_selecao not in all_names:
         comentarios = open("comentarios.txt", "a", encoding="UTF-8")
-        new_line = str(nome_selecao + ";" + username + ": " + txt_comentario +"\n")
+        new_line = str(nome_selecao + ";" + username + ": " + txt_comentario)
         comentarios.write(str(new_line))
     else:
         for line in all_comments:
@@ -1012,7 +1010,7 @@ def lulu(lista,window7):
     cont=0    
     if len(lista)!=0:
         for i in range(len(lista)):
-            msg=Button(window7, text=lista[i]+" foi adicionado ao catalogo", height=2)
+            msg=Label(window7, text=lista[i]+" foi adicionado ao catalogo",font=("Helvetica",11))
             msg.place(x=20, y=yy)
             yy+=40
             cont+=1
@@ -1031,6 +1029,7 @@ def not_window():
 
     lbl_not=Label(window7, text="Notificações", font=("Helvetica",13))
     lbl_not.place(x=20, y=20)
+
 
 
 barra_menu = barraMenu()
