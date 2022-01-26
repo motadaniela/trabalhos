@@ -494,14 +494,6 @@ def remove_favoritos(nome_selecao):
     for line in lista:
         i+=1
         campos = line.split(";")
-<<<<<<< HEAD
-        if nome_selecao==i:
-            print("removido")
-        else:
-                new_text=new_text+line
-    with open(ficheiro, "w", encoding="UTF-8") as f:
-        f.write(new_text)
-=======
         if username == campos[0]:
             break
     for i in range(len(campos)):
@@ -520,7 +512,6 @@ def remove_favoritos(nome_selecao):
             favoritos.close()
             msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi removido da sua lista de favoritos!".format(nome_selecao))
             break
->>>>>>> ccbaae057e75d8df6312d98adca5333314b1b915
 
 def add_vistos(nome_selecao):
     with open("Vistos.txt", "r", encoding="UTF-8") as v:
