@@ -489,7 +489,7 @@ def favoritos(acc):
     tree_favoritos(tree3,username)
 
     #botoes
-    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3, command=lambda: remove_favoritos(tree3,nome_selecao))
+    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3, command=lambda: remove_favoritos(tree3))
     bttn_remover.place(x=750, y=100)
     bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3, command=lambda: add_vistos(tree3,nome_selecao))
     bttn_visto.place(x=750, y=250)
@@ -512,10 +512,9 @@ def selecionar_fav(tree3: Treeview):
                     stripped_line = linha.strip()
                     line_list = stripped_line.split(";")
                     lista.append(line_list)
-                    global nome_fav
-                    nome_fav = StringVar()
                     nome_fav=lista[0]
                     break
+    return nome_fav
 
 def add_favoritos(tree3:Treeview,nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
@@ -544,7 +543,7 @@ def add_favoritos(tree3:Treeview,nome_selecao):
         tree_favoritos(tree3,username)
 
 def remove_favoritos(tree3:Treeview):
-    selecionar_fav(tree3)
+    nome_fav = selecionar_fav(tree3)
     favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
     lista = favoritos.readlines()
     favoritos.close()
