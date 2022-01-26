@@ -482,7 +482,7 @@ def add_favoritos(nome_selecao,selecao):
                 favoritos.write("")
                 favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
                 for i in range(len(lista)):
-                    favoritos.write(str(lista[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+                    favoritos.write(str(lista[i]))
                 msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi adicinado à sua lista de favoritos!".format(nome_selecao))
                 break
 
@@ -496,9 +496,8 @@ def remove_favoritos(nome_selecao):
     for i in range(len(campos)):
         if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
             campos[i] = ""
-            break
-    for j in range(len(line)):
-        
+    for j in range(len(campos)):
+        line += campos[j]
 
 def add_vistos(nome_selecao):
     with open("Vistos.txt", "r", encoding="UTF-8") as v:
@@ -519,7 +518,25 @@ def add_vistos(nome_selecao):
                 vistos.write("")
                 vistos = open("Vistos.txt", "a", encoding="UTF-8")
                 for i in range(len(lista)):
-                    favoritos.write(str(lista[i]))
+                    vistos.write(str(lista[i]))
+                vistos.close()
+                #adiciona +1 as vizualizacoes no catalogo
+                catalogo = open("catalogo.txt", "r", encoding="UTF-8")
+                l_catalogo = catalogo.readlines()
+                for linha in l_catalogo:
+                    campos = linha.split(";")
+                    if campos[0] == nome_selecao:
+                        number = int(campos[5]) +1
+                        new_line = str(campos[0] + ";" + campos[1] + ";" + campos[2] + ";" + campos[3] + ";" + campos[4] + ";" + str(number) + ";" + campos[6] + ";" + campos[7] + ";" + campos[8] + ";" + campos[9])
+                        pos = l_catalogo.index(linha)
+                        l_catalogo[pos] = str(new_line)
+                        catalogo = open("catalogo.txt", "w")
+                        catalogo.write("")
+                        catalogo = open("catalogo.txt", "a", encoding="UTF-8")
+                        for i in range(len(l_catalogo)):
+                            catalogo.write(l_catalogo[i])
+                        break
+                catalogo.close()
                 msg = messagebox.showinfo("Visto!","{0} foi marcado como visto!".format(nome_selecao))
                 break
 
