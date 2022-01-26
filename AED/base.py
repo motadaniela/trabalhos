@@ -62,10 +62,9 @@ def check_data(Email: Entry, Password: Entry, window2: Misc,acc):
             barra_user(barra_menu)
             userdata.close()
             break
-        else:
-            msg=Message(window2, text="Email ou password estão errados!", fg="red")
-            msg.place(x=100, y=200)
-            break
+    else:
+        msg=Message(window2, text="Email ou password estão errados!", fg="red")
+        msg.place(x=100, y=200)
     return(username,acc)
 
 #entrar na conta
