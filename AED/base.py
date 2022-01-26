@@ -752,6 +752,7 @@ def selecionar(tree2):
             else:
                 new_text=new_text+line
 
+
 def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
@@ -771,6 +772,7 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
                     lbox_comentarios.insert(END,campos[i])
 
 def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
+    lbox_comentarios.insert(END,username + ": " + txt_comentario)
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     all_names = []
@@ -795,17 +797,18 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 for i in range(len(all_comments)):
                     comentarios.write(str(all_comments[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
                 break
+        
    #para mostrar os comentarios(refresh)
-    comentarios = open("comentarios.txt", "r", encoding="UTF-8")
-    all_comments = comentarios.readlines()
-    comentarios.close()
-    lbox_comentarios.delete(0,END)
-    for line in all_comments:
-        campos = line.split(";")
-        if campos[0] == nome_selecao:
-            for i in range(len(campos)-1,0,-1):
-                lbox_comentarios.insert(END,campos[i])
-        break
+   # comentarios = open("comentarios.txt", "r", encoding="UTF-8")
+ #   all_comments = comentarios.readlines()
+  #  comentarios.close()
+   # lbox_comentarios.delete(0,END)
+    #for line in all_comments:
+     #  campos = line.split(";")
+      #  if campos[0] == nome_selecao:
+       #     for i in range(len(campos)-1,0,-1):
+        #        lbox_comentarios.insert(END,campos[i])
+        #break
                 
     comentarios.close()
 
