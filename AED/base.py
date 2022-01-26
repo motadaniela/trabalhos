@@ -515,7 +515,7 @@ def add_vistos(nome_selecao):
                 msg = messagebox.showinfo("Visto!","{0} foi marcado como visto!".format(nome_selecao))
                 break
 
-def remove_vistos(nome_selecao):
+#def remove_vistos(nome_selecao):
 
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
