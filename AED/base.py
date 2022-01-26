@@ -487,7 +487,24 @@ def favoritos(acc):
     bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3, command=lambda: remove_vistos(tree3,nome_selecao))
     bttn_nvisto.place(x=750, y=400)
 
-#para estas 4 funcoes a seguir preciso que o nome_selecao seja o q esta selecionado na treeview
+def selecionar_fav(tree3: Treeview):
+    selecao=tree2.focus()
+    selecao=int(selecao[1:],16)
+    lista=[]
+    i=0
+    with open(ficheiro, "r", encoding="UTF-8") as f:
+        new_text=""
+        for line in f:
+            i+=1
+            filme=line.split(";")
+            lista=filme
+            if selecao==i:
+                for linha in f:
+                    stripped_line = linha.strip()
+                    line_list = stripped_line.split(";")
+                    lista.append(line_list)
+        return nome_selecao
+
 def add_favoritos(tree3:Treeview,nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
         lista = f.readlines()
