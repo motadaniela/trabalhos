@@ -491,6 +491,14 @@ def remove_favoritos(nome_selecao):
     lista = favoritos.readlines()
     for line in lista:
         campos = line.split(";")
+        if username == campos[0]:
+            break
+    for i in range(len(campos)):
+        if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
+            campos[i] = ""
+            break
+    for j in range(len(line)):
+        
 
 def add_vistos(nome_selecao):
     with open("Vistos.txt", "r", encoding="UTF-8") as v:
