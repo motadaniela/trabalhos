@@ -1,12 +1,16 @@
-Nome do filme;username: comentario; username: comentario mais recente(...)
-Sing! 2;Username: ola
-Euphoria;Username: oi
-The Addams Family;Username: uuu
-<<<<<<< HEAD
-Fantastic Beasts and Where to Find Them;1: teste
-Outer Banks;1: test;1: test;1: test;1: test;1: teste
-Hannah Montana;1: test;1: test;1: teste
-Agent Carter;1: test;1: teste
-
-=======
->>>>>>> ad06a42f8e1667e88f2f60c1bae1338a5f5cde08
+Username;Filme favorito
+1;
+123;
+321;
+1233;
+user;
+2;
+2;
+ni;
+user1;
+1;
+hello;
+nini1;Hacksaw Ridge
+1234;
+vbn;
+pleek;
