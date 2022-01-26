@@ -461,6 +461,8 @@ def favoritos(acc):
     bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3, command=lambda: remove_vistos(nome_selecao))
     bttn_nvisto.place(x=750, y=400)
 
+#def tree_favoritos(nome_selecao):
+
 def add_favoritos(nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
         lista = f.readlines()
@@ -851,6 +853,17 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 
     comentarios.close()
 
+def mostrar_avaliacao(nome_selecao,window6):
+    catalogo = open("catalogo.txt","r", encoding="UTF-8")
+    lista = catalogo.readlines()
+    for line in lista:
+        campos = line.split(";")
+        if campos[0] == nome_selecao:
+            number = campos[4][0]
+
+    lbl_pont = Label(window6, text=number,font=("Helvetica",13) )
+    lbl_pont.place(x=400, y=150) 
+
 def avaliar(spin,nome_selecao,window6):
     number=0
     catalogo = open("catalogo.txt","r", encoding="UTF-8")
@@ -876,11 +889,9 @@ def avaliar(spin,nome_selecao,window6):
                     catalogo.write(lista[i])
                 
         lbl_pont = Label(window6, text=number,font=("Helvetica",13) )
-        lbl_pont.place(x=400, y=150)           
+        lbl_pont.place(x=400, y=150)         
     
     catalogo.close()
-
-#def mostrar_avaliar(lbl_numero: Label)
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,selecao):
     window6=Toplevel()   
@@ -902,9 +913,7 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
 
     lbl_pontuacao=Label(window6, text="Pontuação:", font=("Helvetica",13))
     lbl_pontuacao.place(x=300,y=150)
-
-    #msg_numero=Message(window6, text="numero", font=("Helvetica",13), bg="white", width=10)
-    #msg_numero.place(x=350,y=150)
+    mostrar_avaliacao(nome_selecao,window6)
 
     lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
     lbl_avaliar.place(x=300,y=240)
