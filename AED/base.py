@@ -277,6 +277,14 @@ def barraMenu():
     window.configure(menu=barra)
     return barra
 
+def mostrar_catalogo(tree2:Treeview):
+    f = open(ficheiro, "r", encoding="utf-8")
+    lista = f.readlines()
+    f.close()
+    for linha in lista:
+        campos = linha.split(";")
+        tree2.insert("", "end", values = (campos[0], campos[1], campos[2], campos[3],campos[4], campos[5]))
+
 #catalogo de filmes e series 
 #temos de adicionar masi filtros e mudar a aparencia para ficar mais bonito
 def catalogo():
@@ -307,6 +315,7 @@ def catalogo():
     tree2.heading("Pontuação", text="Pontuação")
     tree2.heading("Visualizações", text="Visualizações")
     tree2.place(x=1, y=1)
+    mostrar_catalogo(tree2)
 
     #treeview_inicio() #chama a funcao que mostra o catalogo na treeview
 
@@ -383,7 +392,7 @@ def catalogo():
     btn_fav = Button(panel2, width = 24, height=2, text= "Adicionar aos Favoritos", relief = "raised")
     btn_fav.place(x=18, y=520)
 
-#isto é para filtar os dados da tree 
+#filtra os dados da tree 
 def dados_treeview():  # Remove TODAS as linhas da Treeview
     tree2.delete(*tree2.get_children())
     tipo = ""
@@ -871,7 +880,7 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
                     lbox_comentarios.insert(END,campos[i])
 
 def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
-    lbox_comentarios.insert(END,username + ": " + txt_comentario)
+    lbox_comentarios.insert(END,str(username + ": " + txt_comentario))
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     all_names = []
