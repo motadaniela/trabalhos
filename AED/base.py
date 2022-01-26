@@ -102,7 +102,7 @@ def login_entrar(acc):
     btn_entrar.place(x=140, y=150)
 
 #funcao que verifica os dados de um novo utilizador para se registar
-def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2,acc):
+def newuser(window3: Misc,Email: Entry,Username: Entry,Password: Entry,Password2: Entry,acc):
     if str(Password.get())!=str(Password2.get()):
         msg=Message(window3, text="Por favor confirme que a password coincide!", fg="red")
         msg.place(x=300, y=250)
@@ -431,7 +431,7 @@ def sort_pont():
     linhas.sort(key=lambda linhas:linhas[0][4])
     for index, (values, item) in enumerate(linhas):
         tree2.move(item,'',index)        
-        
+
 #n esta a mostrar n sei pq
 #página de favoritos + visto ou nao visto
 def favoritos(acc):
@@ -454,12 +454,69 @@ def favoritos(acc):
     tree3.place(x=1, y=1)
 
     #botoes
-    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3)
+    bttn_remover=Button(wFavoritos, text="Remover", width=30, height=3, )
     bttn_remover.place(x=750, y=100)
     bttn_visto=Button(wFavoritos, text="Visto", width=30, height=3)
     bttn_visto.place(x=750, y=250)
     bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3)
     bttn_nvisto.place(x=750, y=400)
+
+def add_favoritos(nome_selecao,selecao):
+    with open("Favoritos.txt", "r", encoding="UTF-8") as f:
+        lista = f.readlines()
+        all_users = []
+        for line in lista:
+            campos = line.split(";")
+            all_users.append(campos[0])
+            if username == campos[0]:
+                break
+        if (username not in all_users)==True:
+            msg = messagebox.showwarning("Sessão não iniciada", "Por favor faça login!")
+        for i in range(1,len(campos)):
+            if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
+                msg = messagebox.showwarning("Já adicionado!", "Já foi adicionado à sua lista!")
+                break
+            else:
+                lista[lista.index(line)] = line[0:len(line)-1] + ";" + nome_selecao +"\n"
+                favoritos = open("Favoritos.txt", "w")
+                favoritos.write("")
+                favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
+                for i in range(len(lista)):
+                    favoritos.write(str(lista[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+                msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi adicinado à sua lista de favoritos!".format(nome_selecao))
+                break
+
+def remove_favoritos(nome_selecao):
+    favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
+    lista = favoritos.readlines()
+    for line in lista:
+        campos = line.split(";")
+
+def add_vistos(nome_selecao):
+    with open("Vistos.txt", "r", encoding="UTF-8") as v:
+        lista = v.readlines()
+        all_users = []
+        for line in lista:
+            campos = line.split(";")
+            all_users.append(campos[0])
+            if username == campos[0]:
+                break
+        for i in range(1,len(campos)):
+            if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
+                msg = messagebox.showwarning("Já adicionado!", "Já foi adicionado como visto!")
+                break
+            else:
+                lista[lista.index(line)] = line[0:len(line)-1] + ";" + nome_selecao +"\n"
+                vistos = open("Vistos.txt", "w")
+                vistos.write("")
+                vistos = open("Vistos.txt", "a", encoding="UTF-8")
+                for i in range(len(lista)):
+                    favoritos.write(str(lista[i]))
+                msg = messagebox.showinfo("Visto!","{0} foi marcado como visto!".format(nome_selecao))
+                break
+
+#def remove_vistos(nome_selecao):
+
 #remove linha
 #selecionas uma linha no catalogo do admin e carregas em remover
 def remover(window5):
@@ -687,16 +744,17 @@ def selecionar(tree2):
             else:
                 new_text=new_text+line
 
-def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox,):
+
+def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox):
     comentarios = open("comentarios.txt", "r", encoding="UTF-8")
     all_comments = comentarios.readlines()
     comentarios.close()
     lbox_comentarios.delete(0,END)
-    all_lista = []
+    all_comments = []
     for line in all_comments:
         campos = line.split(";")
-        all_lista.append(campos[0])
-    if (nome_selecao not in all_lista)==True:
+        all_comments.append(campos[0])
+    if nome_selecao not in all_comments:
         lbox_comentarios.insert(END,"Ainda não existem comentários!")
     else:
         for line in all_comments:
@@ -704,7 +762,6 @@ def mostrar_comentarios(nome_selecao,lbox_comentarios: Listbox,):
             if campos[0] == nome_selecao:
                 for i in range(len(campos)-1,0,-1):
                     lbox_comentarios.insert(END,campos[i])
-
 
 def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
     lbox_comentarios.insert(END,username + ": " + txt_comentario)
@@ -747,33 +804,7 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 
     comentarios.close()
 
-def add_favoritos(nome_selecao,selecao):
-    with open("favoritos.txt", "r", encoding="UTF-8") as f:
-        lista = f.readlines()
-        all_users = []
-        for line in lista:
-            campos = line.split(";")
-            all_users.append(campos[0])
-            if username == campos[0]:
-                break
-        if (username not in all_users)==True:
-            msg = messagebox.showwarning("Sessão não iniciada", "Por favor faça login!")
-        for i in range(1,len(campos)):
-            if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
-                msg = messagebox.showwarning("Já adicionado!", "Já foi adicionado à sua lista!")
-                break
-            else:
-                lista[lista.index(line)] = line[0:len(line)-1] + ";" + nome_selecao +"\n"
-                favoritos = open("Favoritos.txt", "w")
-                favoritos.write("")
-                favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
-                for i in range(len(lista)):
-                    favoritos.write(str(lista[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
-                msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi adicinado à sua lista de favoritos!".format(nome_selecao))
-                break
-
-def avaliar(spin,nome_selecao,window6):
-    number=0
+def avaliar(spin,nome_selecao):
     catalogo = open("catalogo.txt","r", encoding="UTF-8")
     lista = catalogo.readlines()
     if username == "":
@@ -795,10 +826,7 @@ def avaliar(spin,nome_selecao,window6):
                 catalogo = open("catalogo.txt", "a", encoding="UTF-8")
                 for i in range(len(lista)):
                     catalogo.write(lista[i])
-                
-        lbl_pont = Label(window6, text=number,font=("Helvetica",13) )
-        lbl_pont.place(x=400, y=150)           
-    
+                break
     catalogo.close()
 
 #def mostrar_avaliar(lbl_numero: Label)
@@ -809,9 +837,6 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
     window6.geometry("{:.0f}x{:.0f}+{:.0f}+{:.0f}" .format(app_width, app_height, int(x), int(y)))
     window6.focus_force()     
     window6.grab_set()
-
-    lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
-    lbl_avaliar.place(x=300,y=240)
 
     lbl_poster=Label(window6, text=nome_selecao, font=("Helvetica",20))
     lbl_poster.place(x=10,y=10)
@@ -829,6 +854,9 @@ def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,se
 
     #msg_numero=Message(window6, text="numero", font=("Helvetica",13), bg="white", width=10)
     #msg_numero.place(x=350,y=150)
+
+    lbl_avaliar=Label(window6, text="Avalie de 0 a 5:", font=("Helvetica",11))
+    lbl_avaliar.place(x=300,y=240)
 
     lista_num=[0,1,2,3,4,5]
     spin=Spinbox(window6, width=10, values=lista_num)
@@ -914,7 +942,6 @@ def not_window():
     lbl_not=Label(window7, text="Notificações", font=("Helvetica",13))
     lbl_not.place(x=20, y=20)
 
-username=""
 
 barra_menu = barraMenu()
 
