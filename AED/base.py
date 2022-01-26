@@ -461,6 +461,8 @@ def favoritos(acc):
     bttn_nvisto=Button(wFavoritos, text="Não Visto", width=30, height=3, command=lambda: remove_vistos(nome_selecao))
     bttn_nvisto.place(x=750, y=400)
 
+#def tree_favoritos(nome_selecao):
+
 def add_favoritos(nome_selecao):
     with open("Favoritos.txt", "r", encoding="UTF-8") as f:
         lista = f.readlines()
