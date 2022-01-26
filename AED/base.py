@@ -880,11 +880,9 @@ def avaliar(spin,nome_selecao,window6):
                     catalogo.write(lista[i])
                 
         lbl_pont = Label(window6, text=number,font=("Helvetica",13) )
-        lbl_pont.place(x=400, y=150)           
+        lbl_pont.place(x=400, y=150)         
     
     catalogo.close()
-
-#def mostrar_avaliar(lbl_numero: Label)
 
 def mais_informacoes(nome_selecao,imagem_selecao,link_selecao,sinopse_selecao,selecao):
     window6=Toplevel()   
