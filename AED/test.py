@@ -5,37 +5,36 @@ window = Tk()
 window.geometry("500x500")
 window.title("Test")
 
-nome_selecao = "Nome(0)"
+nome_selecao = "Nome"
 #txt_comentario = "text text text"
-username = "user123"
+username = "123"
 spin = 6
 
-button = Button(window,height=3, width=10, text=">", command = lambda: avaliar(spin,nome_selecao))
+button = Button(window,height=3, width=10, text=">", command = lambda: remove_favoritos(nome_selecao, username))
 button.place(x=20, y=20)
 
-def avaliar(spin,nome_selecao):
-    catalogo = open("catalogo.txt","r", encoding="UTF-8")
-    lista = catalogo.readlines()
-    if username == "":
-        msg = messagebox("Sessão não iniciada", "Por favor faça login!")
-    else:
-        for line in lista:
-            campos = line.split(";")
-            if campos[0] == nome_selecao:
-                numerador = float(campos[4][0])
-                divisor = float(campos[4][1])
-                numerador = numerador*divisor + float(spin)  #soma anterior + nova pontuacao
-                divisor += 1
-                number = round(numerador/divisor)   #pontuacao é igual à media
-                campos[4] = str(number) + str(round(divisor))
-                new_line = campos[0] + ";" + campos[1] + ";" + campos[2] + ";" + campos[3] + ";" + campos[4] + ";" + campos[5] + ";" + campos[6] + ";" + campos[7] + ";" + campos[8] + ";" + campos[9]
-                lista[lista.index(line)] = str(new_line)
-                catalogo = open("catalogo.txt", "w")
-                catalogo.write("")
-                catalogo = open("catalogo.txt", "a", encoding="UTF-8")
-                for i in range(len(lista)):
-                    catalogo.write(lista[i])
-                break
-    catalogo.close()
+def remove_favoritos(nome_selecao, username):
+    favoritos = open("Favoritos.txt", "r", encoding="UTF-8")
+    lista = favoritos.readlines()
+    for line in lista:
+        campos = line.split(";")
+        if username == campos[0]:
+            break
+    for i in range(len(campos)):
+        if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
+            campos[i] = ""
+            new_line = ""
+            for i in range(len(campos)):
+                new_line += campos[i] +";"
+            new_line = new_line.replace(";;",";")
+            lista[lista.index(line)] = new_line[0:len(new_line)-2] + "\n"
+            favoritos = open("Favoritos.txt", "w")
+            favoritos.write("")
+            favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
+            for i in range(len(lista)):
+                favoritos.write(str(lista[i]))
+            msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi removido da sua lista de favoritos!".format(nome_selecao))
+            break
+
 
 window.mainloop()
