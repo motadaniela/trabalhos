@@ -746,28 +746,30 @@ def comentar(nome_selecao,lbox_comentarios: Listbox, txt_comentario):
                 
     comentarios.close()
 
-    
-
-def add_favoritos():
+def add_favoritos(nome_selecao,selecao):
     with open("favoritos.txt", "r", encoding="UTF-8") as f:
         lista = f.readlines()
         all_users = []
         for line in lista:
             campos = line.split(";")
             all_users.append(campos[0])
-            if username==campos[0]:
-                filme=nome_selecao
-                lista2=campos[1]
-                for line in lista2:
-                    seccao=lista2.split("+")
-                    if (filme not in seccao)==True:
-                        with open("sample.txt", "a") as objeto:
-                            objeto.write(filme+"+")
-                    else:
-                       msg = messagebox("Já adicionado!", "Já foi adicionado à sua lista!") 
-            elif (username not in all_users)==True:
-                msg = messagebox("Sessão não iniciada", "Por favor faça login!")
-                
+            if username == campos[0]:
+                break
+        if (username not in all_users)==True:
+            msg = messagebox.showwarning("Sessão não iniciada", "Por favor faça login!")
+        for i in range(1,len(campos)):
+            if campos[i] == nome_selecao or campos[i] == nome_selecao + "\n":
+                msg = messagebox.showwarning("Já adicionado!", "Já foi adicionado à sua lista!")
+                break
+            else:
+                lista[lista.index(line)] = line[0:len(line)-1] + ";" + nome_selecao +"\n"
+                favoritos = open("Favoritos.txt", "w")
+                favoritos.write("")
+                favoritos = open("Favoritos.txt", "a", encoding="UTF-8")
+                for i in range(len(lista)):
+                    favoritos.write(str(lista[i]))  #volta a colocar toda a informacao no ficheiro com a adicao do novo comentario
+                msg = messagebox.showinfo("Adicionado aos favoritos!","{0} foi adicinado à sua lista de favoritos!".format(nome_selecao))
+                break
 
 def avaliar(spin,nome_selecao,window6):
     number=0
