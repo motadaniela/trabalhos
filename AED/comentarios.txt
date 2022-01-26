@@ -1,9 +1,9 @@
 Nome do filme;username: comentario; username: comentario mais recente(...)
 Sing! 2;Username: ola
 Euphoria;Username: oi
-The Addams Family;Username: uuuFantastic Beasts and Where to Find Them;1: teste
+The Addams Family;Username: uuu
+Fantastic Beasts and Where to Find Them;1: teste
 Outer Banks;1: test;1: test;1: test;1: test;1: teste
 Hannah Montana;1: test;1: test;1: teste
-
 Agent Carter;1: test;1: teste
 
