@@ -1,16 +1,17 @@
 email;password;username;admin/user;data;categoria favorita(most engaged)
-1;2;3;user
-nini;123;Daniela;admin
-admin1@email.com;123;admin1;user
-i@;123;123;user
-o@;123;321;user
-bea@;123;bea;admin
-132@;123;1233;user
-teste@;123;user;user
+1;2;3;user;20220126000038
+nini;123;Daniela;admin;20220126000038
+admin1@email.com;123;admin1;user;20220126000038
+i@;123;123;user;20220126000038
+o@;123;321;user;20220126000038
+bea@;123;bea;admin;20220126000038
+132@;123;1233;user;20220126000038
+teste@;123;user;user;20220126000038
 2@;2;2;user;20220126001302
 email@email.com;123;user1;user
-1@;1;1;user;20220126094850
+1@;1;1;user;20220127215043
 hello@;123;hello;user;20220123155450
 nini@aed;123;nini1;user;20220123155450
 12@34;123;1234;user;20220125183630
 pleek@;1;pleek;user;20220126000038
+ola@email.com;123;ola;user;20220127215934
